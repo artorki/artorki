@@ -68,8 +68,9 @@
                 <div class="hidden md:flex space-x-6 space-x-reverse text-base">
                     <a href="#hero" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">خانه</a>
                     <a href="#about" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">درباره من</a>
+                    <a href="#writings" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">نوشته‌ها</a>
                     <a href="#portfolio" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">نمونه‌کارها</a>
-                    <a href="#full-resume" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">رزومه جامع</a>
+                    <a href="#full-resume" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">رزومه</a>
                     <a href="#socials" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">صفحات مجازی</a>
                 </div>
                 <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
@@ -83,8 +84,9 @@
         <div id="mobile-menu" class="hidden md:hidden bg-[#31363F]">
             <a href="#hero" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">خانه</a>
             <a href="#about" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">درباره من</a>
+            <a href="#writings" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">نوشته‌ها</a>
             <a href="#portfolio" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">نمونه‌کارها</a>
-            <a href="#full-resume" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">رزومه جامع</a>
+            <a href="#full-resume" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">رزومه</a>
             <a href="#socials" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">صفحات مجازی</a>
         </div>
     </header>
@@ -117,45 +119,69 @@
             </div>
         </section>
 
+        <!-- Writings Section -->
+        <section id="writings" class="py-20 bg-[#222831]">
+            <div class="container mx-auto px-6">
+                <h2 class="text-2xl font-bold text-center text-white mb-16">آخرین نوشته‌ها</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- Writing Card 1 -->
+                    <div class="writing-card bg-[#31363F] p-6 rounded-xl flex flex-col text-center">
+                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش مصنوعی: مدل‌ها، چالش‌ها و آینده</h3>
+                        <a href="https://vrgl.ir/HA8Dy" target="_blank" class="mt-auto bg-[#76ABAE] hover:bg-[#66999B] text-[#222831] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
+                    </div>
+                    <!-- Writing Card 2 -->
+                    <div class="writing-card bg-[#31363F] p-6 rounded-xl flex flex-col text-center">
+                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی: مهندسی ناخودآگاه</h3>
+                        <a href="https://vrgl.ir/s9jtX" target="_blank" class="mt-auto bg-[#76ABAE] hover:bg-[#66999B] text-[#222831] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
+                    </div>
+                    <!-- Writing Card 3 -->
+                    <div class="writing-card bg-[#31363F] p-6 rounded-xl flex flex-col text-center">
+                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی، در دستان نابینا!</h3>
+                        <a href="https://vrgl.ir/J4eiT" target="_blank" class="mt-auto bg-[#76ABAE] hover:bg-[#66999B] text-[#222831] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Portfolio Section with Sliders -->
-        <section id="portfolio" class="py-20 bg-[#222831]">
+        <section id="portfolio" class="py-20 bg-[#31363F]">
             <div class="container mx-auto px-6">
                 <h2 class="text-2xl font-bold text-center text-white mb-16">نمونه‌کارها</h2>
                 <div class="space-y-12">
                     <!-- Slider Group 1 -->
                     <div>
                         <div class="slider-container flex overflow-x-auto space-x-6 space-x-reverse snap-x snap-mandatory py-4 overscroll-x-contain">
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/chRBY74R/IMG-20231022-104807-848.jpg" alt="نمونه کار ۱" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/TDVZL94Q/Tashdid-Profile-White.jpg" alt="نمونه کار ۲" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/TDzDPDqH/IMG-20240429-233959-003.jpg" alt="نمونه کار ۳" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/6J0dK5f9/Havel-Halena.jpg" alt="نمونه کار ۴" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/chRBY74R/IMG-20231022-104807-848.jpg" alt="نمونه کار ۱" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/TDVZL94Q/Tashdid-Profile-White.jpg" alt="نمونه کار ۲" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/TDzDPDqH/IMG-20240429-233959-003.jpg" alt="نمونه کار ۳" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/6J0dK5f9/Havel-Halena.jpg" alt="نمونه کار ۴" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
                         </div>
                     </div>
                     <!-- Slider Group 2 -->
                     <div>
                         <div class="slider-container flex overflow-x-auto space-x-6 space-x-reverse snap-x snap-mandatory py-4 overscroll-x-contain">
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/gLzzYDZ4/Bahar1.jpg" alt="نمونه کار ۵" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/SwW0hV7n/Gaza2.jpg" alt="نمونه کار ۶" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/Z6GnP1nB/Hekmat1.jpg" alt="نمونه کار ۷" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/nNFkFvxz/SH2.jpg" alt="نمونه کار ۸" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/gLzzYDZ4/Bahar1.jpg" alt="نمونه کار ۵" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/SwW0hV7n/Gaza2.jpg" alt="نمونه کار ۶" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/Z6GnP1nB/Hekmat1.jpg" alt="نمونه کار ۷" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/nNFkFvxz/SH2.jpg" alt="نمونه کار ۸" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
                         </div>
                     </div>
                     <!-- Slider Group 3 -->
                     <div>
                         <div class="slider-container flex overflow-x-auto space-x-6 space-x-reverse snap-x snap-mandatory py-4 overscroll-x-contain">
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/nsBgz5MK/FP-4.jpg" alt="نمونه کار ۹" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/jk7WLVZY/Olympics-Doll.jpg" alt="نمونه کار ۱۰" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/HD4PQqSL/Imam1.jpg" alt="نمونه کار ۱۱" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/8n01Wkfw/Untitled-11.jpg" alt="نمونه کار ۱۲" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/nsBgz5MK/FP-4.jpg" alt="نمونه کار ۹" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/jk7WLVZY/Olympics-Doll.jpg" alt="نمونه کار ۱۰" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/HD4PQqSL/Imam1.jpg" alt="نمونه کار ۱۱" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/8n01Wkfw/Untitled-11.jpg" alt="نمونه کار ۱۲" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
                         </div>
                     </div>
                     <!-- Slider Group 4 -->
                     <div>
                         <div class="slider-container flex overflow-x-auto space-x-6 space-x-reverse snap-x snap-mandatory py-4 overscroll-x-contain">
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/gbXNnmMt/Wave-Maker1.jpg" alt="نمونه کار ۱۳" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/fdJfNvdN/IMG-20250713-125830-351.jpg" alt="نمونه کار ۱۴" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/WWX5kMY8/IMG-20250406-231518-334.jpg" alt="نمونه کار ۱۵" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/5dvGqwQ/Untitled-33331.jpg" alt="نمونه کار ۱۶" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-lg shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/gbXNnmMt/Wave-Maker1.jpg" alt="نمونه کار ۱۳" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/fdJfNvdN/IMG-20250713-125830-351.jpg" alt="نمونه کار ۱۴" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/WWX5kMY8/IMG-20250406-231518-334.jpg" alt="نمونه کار ۱۵" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
+                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/5dvGqwQ/Untitled-33331.jpg" alt="نمونه کار ۱۶" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
                         </div>
                     </div>
                 </div>
@@ -163,10 +189,10 @@
         </section>
 
         <!-- Full Resume Section -->
-        <section id="full-resume" class="py-20 bg-[#31363F]">
+        <section id="full-resume" class="py-20 bg-[#222831]">
             <div class="container mx-auto px-6 text-right">
                 <h2 class="text-2xl font-bold text-center text-white mb-12">رزومه</h2>
-                <div class="bg-[#222831] p-8 rounded-lg shadow-lg max-w-4xl mx-auto text-base">
+                <div class="bg-[#31363F] p-8 rounded-xl shadow-lg max-w-4xl mx-auto text-base">
                     <div class="space-y-8">
                         <div><h3 class="text-lg font-bold text-[#76ABAE] mb-4 border-b border-[#76ABAE]/20 pb-2">هنر و طراحی</h3><ul class="list-disc list-inside space-y-2 text-[#EEEEEE]/90">
                             <li>تسلط نیمه‌حرفه‌ای بر نرم‌افزارهای Marmoset Hexels, Adobe Photoshop</li>
@@ -227,7 +253,7 @@
         </section>
 
         <!-- Socials Section -->
-        <section id="socials" class="py-20 bg-[#222831]">
+        <section id="socials" class="py-20 bg-[#31363F]">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-2xl font-bold text-white mb-12">صفحات مجازی</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-lg">
@@ -246,7 +272,7 @@
     <footer id="contact" class="bg-[#222831] border-t border-[#31363F]">
         <div class="container mx-auto px-6 py-12 text-center text-base">
             <p class="mb-8 text-[#EEEEEE]/80">آماده همکاری در پروژه‌های خلاقانه و چالش‌برانگیز هستم.</p>
-            <p class="text-[#EEEEEE]/50 mt-12">&copy; 2024 - artorki_creative. تمام حقوق محفوظ است.</p>
+            <p class="text-[#EEEEEE]/50 mt-12">&copy; 2025 - artorki_creative. تمام حقوق محفوظ است.</p>
         </div>
     </footer>
 
@@ -319,3 +345,4 @@
 
 </body>
 </html>
+
