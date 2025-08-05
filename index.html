@@ -17,10 +17,11 @@
     
     <style>
         :root {
-            --bg-dark: #222831;
-            --bg-light: #31363F;
-            --accent: #76ABAE;
-            --text: #EEEEEE;
+            --bg-dark: #000000;
+            --bg-light: #111111;
+            --accent: #A2D5C6;
+            --highlight: #CFFFE2;
+            --text: #F6F6F6;
         }
         body {
             font-family: 'Vazirmatn', sans-serif;
@@ -56,22 +57,29 @@
             background-color: var(--accent);
             transform: scale(1.25);
         }
+        .writing-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .writing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgba(162, 213, 198, 0.1), 0 4px 6px -2px rgba(162, 213, 198, 0.05);
+        }
     </style>
 </head>
-<body class="bg-[#222831] text-[#EEEEEE]">
+<body class="bg-[#000000] text-[#F6F6F6]">
 
     <!-- Header & Navigation -->
-    <header id="header" class="bg-[#222831]/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md shadow-black/20">
+    <header id="header" class="bg-[#000000]/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md shadow-black/20">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <!-- Right Side: Menu for Desktop, Hamburger for Mobile -->
             <div>
                 <div class="hidden md:flex space-x-6 space-x-reverse text-base">
-                    <a href="#hero" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">خانه</a>
-                    <a href="#about" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">درباره من</a>
-                    <a href="#writings" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">نوشته‌ها</a>
-                    <a href="#portfolio" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">نمونه‌کارها</a>
-                    <a href="#full-resume" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">رزومه</a>
-                    <a href="#socials" class="nav-link hover:text-[#76ABAE] transition-colors duration-300">صفحات مجازی</a>
+                    <a href="#hero" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">خانه</a>
+                    <a href="#about" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">درباره من</a>
+                    <a href="#writings" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">نوشته‌ها</a>
+                    <a href="#portfolio" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">نمونه‌کارها</a>
+                    <a href="#full-resume" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">رزومه</a>
+                    <a href="#socials" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">صفحات مجازی</a>
                 </div>
                 <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
@@ -81,70 +89,70 @@
             <!-- Left Side: Brand Name -->
             <a href="#hero" class="text-2xl font-bold text-white">artorki_creative</a>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-[#31363F]">
-            <a href="#hero" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">خانه</a>
-            <a href="#about" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">درباره من</a>
-            <a href="#writings" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">نوشته‌ها</a>
-            <a href="#portfolio" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">نمونه‌کارها</a>
-            <a href="#full-resume" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">رزومه</a>
-            <a href="#socials" class="block text-center py-2 px-4 text-base hover:bg-[#222831]">صفحات مجازی</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#111111]">
+            <a href="#hero" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">خانه</a>
+            <a href="#about" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">درباره من</a>
+            <a href="#writings" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">نوشته‌ها</a>
+            <a href="#portfolio" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">نمونه‌کارها</a>
+            <a href="#full-resume" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">رزومه</a>
+            <a href="#socials" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">صفحات مجازی</a>
         </div>
     </header>
 
     <main>
         <!-- Hero Section -->
-        <section id="hero" class="min-h-screen flex items-center bg-[#222831]">
+        <section id="hero" class="min-h-screen flex items-center bg-[#000000]">
             <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl font-bold text-white mb-8 leading-tight">
+                <h1 class="text-4xl font-bold text-[#CFFFE2] mb-8 leading-tight">
                     درحال یادگیری، ایده‌پردازی، و ترسیم تراوشات ذهنی...!
                 </h1>
-                <a href="#full-resume" class="bg-[#76ABAE] hover:bg-[#66999B] text-[#222831] font-bold py-3 px-8 rounded-full transition-all duration-300 inline-block transform hover:scale-105">مشاهده رزومه</a>
+                <a href="#full-resume" class="bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-bold py-3 px-8 rounded-full transition-all duration-300 inline-block transform hover:scale-105">مشاهده رزومه</a>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="py-20 bg-[#31363F]">
+        <section id="about" class="py-20 bg-[#111111]">
             <div class="container mx-auto px-6">
                 <h2 class="text-2xl font-bold text-center text-white mb-12">درباره من</h2>
                 <div class="flex flex-col md:flex-row items-center gap-10">
                     <div class="md:w-1/3 text-center">
-                        <img src="https://i.ibb.co/yF2yj2xm/IMG-20250330-141458-602.jpg" alt="عکس پروفایل امین‌رضا ترکی" width="256" height="256" loading="lazy" class="rounded-full w-64 h-64 mx-auto shadow-lg border-4 border-[#76ABAE]/50 object-cover">
+                        <img src="https://i.ibb.co/yF2yj2xm/IMG-20250330-141458-602.jpg" alt="عکس پروفایل امین‌رضا ترکی" width="256" height="256" loading="lazy" class="rounded-full w-64 h-64 mx-auto shadow-lg border-4 border-[#A2D5C6]/50 object-cover">
                     </div>
                     <div class="md:w-2/3 text-center md:text-right text-base">
-                        <p class="mb-4 text-[#EEEEEE]/90">امین‌رضا ترکی هستم.</p>
-                        <p class="mb-4 text-[#EEEEEE]/90">سال ۱۳۸۶ در شیراز متولد شدم.</p>
-                        <p class="mb-4 text-[#EEEEEE]/90">دبیرستان ریاضی خوندم. به صورت خودآموز علایقم رو دنبال کردم، و همواره مشتاق یادگیری و ساختن چیزهای جدید هستم...</p>
+                        <p class="mb-4 text-[#F6F6F6]/90">امین‌رضا ترکی هستم.</p>
+                        <p class="mb-4 text-[#F6F6F6]/90">سال ۱۳۸۶ در شیراز متولد شدم.</p>
+                        <p class="mb-4 text-[#F6F6F6]/90">دبیرستان ریاضی خوندم. به صورت خودآموز علایقم رو دنبال کردم، و همواره مشتاق یادگیری و ساختن چیزهای جدید هستم...</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Writings Section -->
-        <section id="writings" class="py-20 bg-[#222831]">
+        <section id="writings" class="py-20 bg-[#000000]">
             <div class="container mx-auto px-6">
                 <h2 class="text-2xl font-bold text-center text-white mb-16">آخرین نوشته‌ها</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     <!-- Writing Card 1 -->
-                    <div class="writing-card bg-[#31363F] p-6 rounded-xl flex flex-col text-center">
+                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center">
                         <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش مصنوعی: مدل‌ها، چالش‌ها و آینده</h3>
-                        <a href="https://vrgl.ir/HA8Dy" target="_blank" class="mt-auto bg-[#76ABAE] hover:bg-[#66999B] text-[#222831] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
+                        <a href="https://vrgl.ir/HA8Dy" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
                     </div>
                     <!-- Writing Card 2 -->
-                    <div class="writing-card bg-[#31363F] p-6 rounded-xl flex flex-col text-center">
+                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center">
                         <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی: مهندسی ناخودآگاه</h3>
-                        <a href="https://vrgl.ir/s9jtX" target="_blank" class="mt-auto bg-[#76ABAE] hover:bg-[#66999B] text-[#222831] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
+                        <a href="https://vrgl.ir/s9jtX" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
                     </div>
                     <!-- Writing Card 3 -->
-                    <div class="writing-card bg-[#31363F] p-6 rounded-xl flex flex-col text-center">
+                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center">
                         <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی، در دستان نابینا!</h3>
-                        <a href="https://vrgl.ir/J4eiT" target="_blank" class="mt-auto bg-[#76ABAE] hover:bg-[#66999B] text-[#222831] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
+                        <a href="https://vrgl.ir/J4eiT" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Portfolio Section with Sliders -->
-        <section id="portfolio" class="py-20 bg-[#31363F]">
+        <section id="portfolio" class="py-20 bg-[#111111]">
             <div class="container mx-auto px-6">
                 <h2 class="text-2xl font-bold text-center text-white mb-16">نمونه‌کارها</h2>
                 <div class="space-y-12">
@@ -189,12 +197,12 @@
         </section>
 
         <!-- Full Resume Section -->
-        <section id="full-resume" class="py-20 bg-[#222831]">
+        <section id="full-resume" class="py-20 bg-[#000000]">
             <div class="container mx-auto px-6 text-right">
                 <h2 class="text-2xl font-bold text-center text-white mb-12">رزومه</h2>
-                <div class="bg-[#31363F] p-8 rounded-xl shadow-lg max-w-4xl mx-auto text-base">
+                <div class="bg-[#111111] p-8 rounded-xl shadow-lg max-w-4xl mx-auto text-base">
                     <div class="space-y-8">
-                        <div><h3 class="text-lg font-bold text-[#76ABAE] mb-4 border-b border-[#76ABAE]/20 pb-2">هنر و طراحی</h3><ul class="list-disc list-inside space-y-2 text-[#EEEEEE]/90">
+                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">هنر و طراحی</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
                             <li>تسلط نیمه‌حرفه‌ای بر نرم‌افزارهای Marmoset Hexels, Adobe Photoshop</li>
                             <li>تسلط مقدماتی بر نرم‌افزارهای Figma, Adobe XD, Adobe Illustrator</li>
                             <li>تسلط نیمه‌حرفه‌ای بر طراحی تایپوگرافی، لوگوتایپ و پوستر</li>
@@ -207,14 +215,14 @@
                             <li>تجربه طراحی در نماهنگ تلوزیونی "کاکوی امام رضا (ع)"</li>
                             <li>توانمندی تولید تصاویر هنری و رئال با استفاده از مدل‌های هوش‌مصنوعی</li>
                         </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#76ABAE] mb-4 border-b border-[#76ABAE]/20 pb-2">ویدئو</h3><ul class="list-disc list-inside space-y-2 text-[#EEEEEE]/90">
+                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">ویدئو</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
                             <li>تسلط نیمه‌حرفه‌ای بر نرم‌افزار Adobe Premiere و دیگر نرم‌افزارهای تدوین ویدئو</li>
                             <li>تدوین نماهنگ تلوزیونی "واژگونی"</li>
                             <li>تولید کلیپ‌های متعدد جهت حوزه هنری، مجتمع شاکرین و غیره</li>
                             <li>توانمندی تولید ویدئو با استفاده از مدل‌های هوش‌مصنوعی</li>
                             <li>کسب رتبه اول بخش تدوین در مسابقه دانش‌آموزی "تفنگ پدری"</li>
                         </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#76ABAE] mb-4 border-b border-[#76ABAE]/20 pb-2">صوت</h3><ul class="list-disc list-inside space-y-2 text-[#EEEEEE]/90">
+                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">صوت</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
                             <li>تسلط نیمه‌حرفه‌ای بر نرم‌افزار Adobe Audition و دیگر نرم افزارهای ویرایش صوت</li>
                             <li>تولید پادکست‌های متعدد در موضوعات فرهنگی، اجتماعی و مذهبی</li>
                             <li>تجربه صدابرداری در مجموعه تلوزیونی "بی‌جرم و بی‌جنایت"</li>
@@ -222,13 +230,13 @@
                             <li>توانمندی تولید موسیقی و ویرایش صوت با استفاده از مدل‌های هوش‌مصنوعی</li>
                             <li>کسب رتبه اول بخش پادکست در پویش کشوری "معجزه انقلاب"</li>
                         </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#76ABAE] mb-4 border-b border-[#76ABAE]/20 pb-2">عکاسی و فیلم‌برداری</h3><ul class="list-disc list-inside space-y-2 text-[#EEEEEE]/90">
+                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">عکاسی و فیلم‌برداری</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
                             <li>تسلط مقدماتی بر فیلم‌برداری و عکاسی</li>
                             <li>تجربه عکاسی و فیلم‌برداری در رویدادهای حوزه هنری، مجتمع شاکرین و غیره</li>
                             <li>توانمندی تولید ویدئو با استفاده از مدل‌های هوش‌مصنوعی</li>
                             <li>کسب رتبه سوم مسابقه عکاسی ناحیه</li>
                         </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#76ABAE] mb-4 border-b border-[#76ABAE]/20 pb-2">برنامه‌نویسی و تکنولوژی</h3><ul class="list-disc list-inside space-y-2 text-[#EEEEEE]/90">
+                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">برنامه‌نویسی و تکنولوژی</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
                             <li>تسلط نیمه‌حرفه‌ای بر زبان Python</li>
                             <li>تسلط مقدماتی بر زبان‌های HTML, CSS, PHP, Javascript و غیره</li>
                             <li>مطالعات مقدماتی در حوزه شبکه</li>
@@ -240,7 +248,7 @@
                             <li>توانمندی برنامه‌نویسی اپلیکیشن، سایت و غیره با استفاده از مدل‌های هوش‌مصنوعی</li>
                             <li>کسب مقام چهارم کشوری و تنها گروه برگزیده جنوب کشور در مسابقه دانش‌آموزی بازی‌سازی کیبورد، آکادمی همراه‌اول</li>
                         </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#76ABAE] mb-4 border-b border-[#76ABAE]/20 pb-2">مطالعات میان‌رشته‌ای و توسعه فردی</h3><ul class="list-disc list-inside space-y-2 text-[#EEEEEE]/90">
+                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">مطالعات میان‌رشته‌ای و توسعه فردی</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
                             <li>مطالعه در زمینه‌های روانشناسی، فلسفه و جامعه‌شناسی جهت درک عمیق‌تر رفتار انسان و کاربر</li>
                             <li>تسلط بر اصول و تکنیک‌های تولید محتوا در رسانه‌های دیجیتال</li>
                             <li>تحقیق و نوشتن تحلیل در حوزه‌های مفهومی مانند هوش‌مصنوعی و ماهیت زمان</li>
@@ -253,26 +261,26 @@
         </section>
 
         <!-- Socials Section -->
-        <section id="socials" class="py-20 bg-[#31363F]">
+        <section id="socials" class="py-20 bg-[#111111]">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-2xl font-bold text-white mb-12">صفحات مجازی</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-lg">
-                    <a href="https://Instagram.com/artorki_creative" target="_blank" class="font-semibold text-[#76ABAE] hover:text-[#EEEEEE] transition-colors duration-300">اینستاگرام</a>
-                    <a href="https://Pinterest.com/artorki_creative" target="_blank" class="font-semibold text-[#76ABAE] hover:text-[#EEEEEE] transition-colors duration-300">پینترست</a>
-                    <a href="https://Behance.net/artorkii" target="_blank" class="font-semibold text-[#76ABAE] hover:text-[#EEEEEE] transition-colors duration-300">بیهنس</a>
-                    <a href="https://Github.com/artorki" target="_blank" class="font-semibold text-[#76ABAE] hover:text-[#EEEEEE] transition-colors duration-300">گیت‌هاب</a>
-                    <a href="https://Medium.com/@artorki_self" target="_blank" class="font-semibold text-[#76ABAE] hover:text-[#EEEEEE] transition-colors duration-300">مدیوم</a>
-                    <a href="https://Virgool.io/@artorkiiii" target="_blank" class="font-semibold text-[#76ABAE] hover:text-[#EEEEEE] transition-colors duration-300">ویرگول</a>
+                    <a href="https://Instagram.com/artorki_creative" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">اینستاگرام</a>
+                    <a href="https://Pinterest.com/artorki_creative" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">پینترست</a>
+                    <a href="https://Behance.net/artorkii" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">بیهنس</a>
+                    <a href="https://Github.com/artorki" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">گیت‌هاب</a>
+                    <a href="https://Medium.com/@artorki_self" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">مدیوم</a>
+                    <a href="https://Virgool.io/@artorkiiii" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">ویرگول</a>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer & Contact -->
-    <footer id="contact" class="bg-[#222831] border-t border-[#31363F]">
+    <footer id="contact" class="bg-[#000000] border-t border-[#111111]">
         <div class="container mx-auto px-6 py-12 text-center text-base">
-            <p class="mb-8 text-[#EEEEEE]/80">آماده همکاری در پروژه‌های خلاقانه و چالش‌برانگیز هستم.</p>
-            <p class="text-[#EEEEEE]/50 mt-12">&copy; 2025 - artorki_creative. تمام حقوق محفوظ است.</p>
+            <p class="mb-8 text-[#F6F6F6]/80">آماده همکاری در پروژه‌های خلاقانه و چالش‌برانگیز هستم.</p>
+            <p class="text-[#F6F6F6]/50 mt-12">&copy; 2025 - artorki_creative. تمام حقوق محفوظ است.</p>
         </div>
     </footer>
 
@@ -345,4 +353,3 @@
 
 </body>
 </html>
-
