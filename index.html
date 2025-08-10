@@ -64,12 +64,17 @@
             transform: translateY(-8px);
             box-shadow: 0 10px 15px -3px rgba(162, 213, 198, 0.1), 0 4px 6px -2px rgba(162, 213, 198, 0.05);
         }
+        #hero {
+            background-image: url('https://i.ibb.co/kgFhBL4V/gradient-background-web-optimized.jpg');
+            background-size: cover;
+            background-position: center;
+        }
     </style>
 </head>
 <body class="bg-[#000000] text-[#F6F6F6]">
 
     <!-- Header & Navigation -->
-    <header id="header" class="bg-[#000000]/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-md shadow-black/20">
+    <header id="header" class="bg-[#111111]/70 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-white/10">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <!-- Right Side: Menu for Desktop, Hamburger for Mobile -->
             <div>
@@ -89,20 +94,21 @@
             <!-- Left Side: Brand Name -->
             <a href="#hero" class="text-2xl font-bold text-white">artorki_creative</a>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-[#111111]">
-            <a href="#hero" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">خانه</a>
-            <a href="#about" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">درباره‌من</a>
-            <a href="#writings" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">نوشته‌ها</a>
-            <a href="#portfolio" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">نمونه‌کارها</a>
-            <a href="#full-resume" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">رزومه</a>
-            <a href="#socials" class="block text-center py-2 px-4 text-base hover:bg-[#000000]">صفحات‌مجازی</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#111111]/90 backdrop-blur-md">
+            <a href="#hero" class="block text-center py-2 px-4 text-base hover:bg-black/20">خانه</a>
+            <a href="#about" class="block text-center py-2 px-4 text-base hover:bg-black/20">درباره‌من</a>
+            <a href="#writings" class="block text-center py-2 px-4 text-base hover:bg-black/20">نوشته‌ها</a>
+            <a href="#portfolio" class="block text-center py-2 px-4 text-base hover:bg-black/20">نمونه‌کارها</a>
+            <a href="#full-resume" class="block text-center py-2 px-4 text-base hover:bg-black/20">رزومه</a>
+            <a href="#socials" class="block text-center py-2 px-4 text-base hover:bg-black/20">صفحات‌مجازی</a>
         </div>
     </header>
 
     <main>
         <!-- Hero Section -->
-        <section id="hero" class="min-h-screen flex items-center bg-[#000000]">
-            <div class="container mx-auto px-6 text-center">
+        <section id="hero" class="h-[85vh] flex items-center relative">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="container mx-auto px-6 text-center relative z-10">
                 <h1 class="text-4xl font-bold text-[#CFFFE2] mb-8 leading-tight">
                     درحال یادگیری، ایده‌پردازی، و ترسیم تراوشات ذهنی...!
                 </h1>
@@ -116,7 +122,7 @@
                 <h2 class="text-2xl font-bold text-center text-white mb-12">درباره‌من</h2>
                 <div class="flex flex-col md:flex-row items-center gap-10">
                     <div class="md:w-1/3 text-center">
-                        <img src="https://i.ibb.co/yF2yj2xm/IMG-20250330-141458-602.jpg" alt="عکس پروفایل" width="256" height="256" loading="lazy" class="rounded-full w-64 h-64 mx-auto shadow-lg border-4 border-[#A2D5C6]/50 object-cover">
+                        <img src="https://i.ibb.co/yF2yj2xm/IMG-20250330-141458-602.jpg" alt="عکس پروفایل امین‌رضا ترکی" width="256" height="256" loading="lazy" class="rounded-full w-64 h-64 mx-auto shadow-lg border-4 border-[#A2D5C6]/50 object-cover">
                     </div>
                     <div class="md:w-2/3 text-center md:text-right text-base">
                         <p class="mb-4 text-[#F6F6F6]/90">امین‌رضا ترکی هستم.</p>
