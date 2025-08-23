@@ -357,6 +357,46 @@
         });
     </script>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const lastVisit = localStorage.getItem('last_visit');
+        const oneHour = 60 * 60 * 1000;
+        const now = new Date().getTime();
+
+        if (!lastVisit || (now - lastVisit > oneHour)) {
+            // Fetch IP address first
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(ipData => {
+                    const ip = ipData.ip;
+                    const data = {
+                        userAgent: navigator.userAgent,
+                        screen: `${window.screen.width}x${window.screen.height}`
+                    };
+
+                    // Append IP to the script URL as a parameter
+                    const scriptUrl = `https://script.google.com/macros/s/AKfycbz84Lp22ESxi3fBgFSWrpBlCFw2YP6iQtaw5EhBNOv-Nfy7bgOd9OwvDjc93QNqvaCZ/exec`;
+
+                    fetch(scriptUrl, {
+                        method: 'POST',
+                        // Important: Change mode to 'cors' and handle the response properly if needed,
+                        // but for a simple fire-and-forget notification, 'no-cors' is fine.
+                        // However, to avoid potential issues, we'll remove it and let it default.
+                        // mode: 'no-cors', 
+                        headers: { 
+                            // This header is not needed for a simple POST request to Apps Script
+                            // 'Content-Type': 'application/json' 
+                        },
+                        body: JSON.stringify(data)
+                    }).catch(error => console.error('Error sending notification:', error));
+
+                    localStorage.setItem('last_visit', now);
+                })
+                .catch(error => console.error('Error fetching IP:', error));
+        }
+    });
+</script>
+
 </body>
 </html>
 
