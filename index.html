@@ -357,7 +357,7 @@
         });
     </script>
 
-    <script>
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         const lastVisit = localStorage.getItem('last_visit');
         const oneHour = 60 * 60 * 1000;
@@ -377,16 +377,10 @@
                     // Append IP to the script URL as a parameter
                     const scriptUrl = `https://script.google.com/macros/s/AKfycbz84Lp22ESxi3fBgFSWrpBlCFw2YP6iQtaw5EhBNOv-Nfy7bgOd9OwvDjc93QNqvaCZ/exec`;
 
+                    // --- FIX: Added 'mode: no-cors' which is crucial for this to work ---
                     fetch(scriptUrl, {
                         method: 'POST',
-                        // Important: Change mode to 'cors' and handle the response properly if needed,
-                        // but for a simple fire-and-forget notification, 'no-cors' is fine.
-                        // However, to avoid potential issues, we'll remove it and let it default.
-                        // mode: 'no-cors', 
-                        headers: { 
-                            // This header is not needed for a simple POST request to Apps Script
-                            // 'Content-Type': 'application/json' 
-                        },
+                        mode: 'no-cors', 
                         body: JSON.stringify(data)
                     }).catch(error => console.error('Error sending notification:', error));
 
@@ -396,6 +390,7 @@
         }
     });
 </script>
+
 
 </body>
 </html>
