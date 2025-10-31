@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پورتفولیو | artorki_creative</title>
+    <title>پورتفولیو | artorki</title>
+    
+    <!-- Preload the background image for faster loading -->
+    <link rel="preload" as="image" href="https://i.ibb.co/kgFhBL4V/gradient-background-web-optimized.jpg">
     
     <!-- Font Optimization: Preconnect to Google Fonts servers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,31 +35,6 @@
             color: var(--accent);
             font-weight: 700;
         }
-        .slider-item {
-            transition: transform 0.3s ease, filter 0.3s ease;
-            filter: brightness(0.9);
-            /* CSS for ensuring snap stop works */
-            scroll-snap-stop: always;
-        }
-        .slider-item:hover {
-            transform: scale(1.03);
-            filter: brightness(1);
-        }
-        /* Hide scrollbar for slider container */
-        .slider-container::-webkit-scrollbar {
-            display: none;
-        }
-        .slider-container {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
-        .pagination-dot {
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .pagination-dot.active {
-            background-color: var(--accent);
-            transform: scale(1.25);
-        }
         .writing-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -69,24 +47,63 @@
             background-size: cover;
             background-position: center;
         }
+        .masonry-item {
+            break-inside: avoid;
+        }
+        .masonry-item img {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .masonry-item:hover img {
+            transform: scale(1.03);
+            filter: brightness(1.1);
+        }
+        
+        /* New Hero Navigation Button Style */
+        .hero-nav-link {
+            color: rgba(246, 246, 246, 0.7); /* --text with 70% opacity */
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 999px; /* pill shape */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            font-size: 0.875rem; /* text-sm */
+        }
+        .hero-nav-link:hover {
+            color: rgba(246, 246, 246, 1);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Scrolled Header Style */
+        #header.scrolled {
+            opacity: 1;
+            pointer-events: auto;
+            background-color: rgba(17, 17, 17, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom-width: 1px;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body class="bg-[#000000] text-[#F6F6F6]">
 
-    <!-- Header & Navigation -->
-    <header id="header" class="bg-[#111111]/70 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-white/10">
+    <!-- Header & Navigation (Initially Hidden) -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 opacity-0 pointer-events-none transition-all duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Right Side: Menu for Desktop, Hamburger for Mobile -->
+            <!-- Right Side: Menu Logic -->
             <div>
+                <!-- Full Menu for Desktop -->
                 <div class="hidden md:flex space-x-6 space-x-reverse text-base">
                     <a href="#hero" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">خانه</a>
                     <a href="#about" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">درباره‌من</a>
+                    <a href="#full-resume" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">رزومه</a>
                     <a href="#writings" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">نوشته‌ها</a>
                     <a href="#portfolio" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">نمونه‌کارها</a>
-                    <a href="#full-resume" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">رزومه</a>
                     <a href="#socials" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">صفحات‌مجازی</a>
                 </div>
-                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <!-- Hamburger Button for Mobile -->
+                <button id="mobile-menu-button" class="block md:hidden text-white focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                 </button>
             </div>
@@ -94,12 +111,13 @@
             <!-- Left Side: Brand Name -->
             <a href="#hero" class="text-2xl font-bold text-white">artorki_creative</a>
         </nav>
+        <!-- Mobile Dropdown Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-[#111111]/90 backdrop-blur-md">
             <a href="#hero" class="block text-center py-2 px-4 text-base hover:bg-black/20">خانه</a>
             <a href="#about" class="block text-center py-2 px-4 text-base hover:bg-black/20">درباره‌من</a>
+            <a href="#full-resume" class="block text-center py-2 px-4 text-base hover:bg-black/20">رزومه</a>
             <a href="#writings" class="block text-center py-2 px-4 text-base hover:bg-black/20">نوشته‌ها</a>
             <a href="#portfolio" class="block text-center py-2 px-4 text-base hover:bg-black/20">نمونه‌کارها</a>
-            <a href="#full-resume" class="block text-center py-2 px-4 text-base hover:bg-black/20">رزومه</a>
             <a href="#socials" class="block text-center py-2 px-4 text-base hover:bg-black/20">صفحات‌مجازی</a>
         </div>
     </header>
@@ -108,11 +126,19 @@
         <!-- Hero Section -->
         <section id="hero" class="h-[85vh] flex items-center relative">
             <div class="absolute inset-0 bg-black/50"></div>
-            <div class="container mx-auto px-6 text-center relative z-10">
-                <h1 class="text-4xl font-bold text-[#CFFFE2] mb-8 leading-tight">
+            <div class="container mx-auto px-6 text-center relative z-10 flex flex-col items-center">
+                <h1 class="text-4xl font-bold text-[#CFFFE2] mb-12 leading-tight">
                     درحال یادگیری، ایده‌پردازی، و ترسیم تراوشات ذهنی...!
                 </h1>
-                <a href="#full-resume" class="bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-bold py-3 px-8 rounded-full transition-all duration-300 inline-block transform hover:scale-105">مشاهده رزومه</a>
+                
+                <!-- Hero Navigation Buttons -->
+                <nav id="hero-nav" class="flex flex-wrap justify-center gap-3 md:gap-4">
+                    <a href="#about" class="hero-nav-link">درباره‌من</a>
+                    <a href="#full-resume" class="hero-nav-link">رزومه</a>
+                    <a href="#writings" class="hero-nav-link">نوشته‌ها</a>
+                    <a href="#portfolio" class="hero-nav-link">نمونه‌کارها</a>
+                    <a href="#socials" class="hero-nav-link">صفحات‌مجازی</a>
+                </nav>
             </div>
         </section>
 
@@ -122,81 +148,12 @@
                 <h2 class="text-2xl font-bold text-center text-white mb-12">درباره‌من</h2>
                 <div class="flex flex-col md:flex-row items-center gap-10">
                     <div class="md:w-1/3 text-center">
-                        <img src="https://i.ibb.co/yF2yj2xm/IMG-20250330-141458-602.jpg" alt="عکس پروفایل امین‌رضا ترکی" width="256" height="256" loading="lazy" class="rounded-full w-64 h-64 mx-auto shadow-lg border-4 border-[#A2D5C6]/50 object-cover">
+                        <img src="https://i.ibb.co/yF2yj2xm/IMG-20250330-141458-602.jpg" alt="عکس پروفایل" width="256" height="256" loading="lazy" class="rounded-full w-64 h-64 mx-auto shadow-lg border-4 border-[#A2D5C6]/50 object-cover">
                     </div>
                     <div class="md:w-2/3 text-center md:text-right text-base">
                         <p class="mb-4 text-[#F6F6F6]/90">امین‌رضا ترکی هستم.</p>
                         <p class="mb-4 text-[#F6F6F6]/90">سال ۱۳۸۶ در شیراز متولد شدم.</p>
                         <p class="mb-4 text-[#F6F6F6]/90">دبیرستان ریاضی خوندم. به صورت خودآموز علایقم رو دنبال کردم، و همواره مشتاق یادگیری و ساختن چیزهای جدید هستم...</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Writings Section -->
-        <section id="writings" class="py-20 bg-[#000000]">
-            <div class="container mx-auto px-6">
-                <h2 class="text-2xl font-bold text-center text-white mb-16">آخرین نوشته‌ها</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    <!-- Writing Card 1 -->
-                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center">
-                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش مصنوعی: مدل‌ها، چالش‌ها و آینده</h3>
-                        <a href="https://vrgl.ir/HA8Dy" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
-                    </div>
-                    <!-- Writing Card 2 -->
-                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center">
-                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی: مهندسی ناخودآگاه</h3>
-                        <a href="https://vrgl.ir/s9jtX" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
-                    </div>
-                    <!-- Writing Card 3 -->
-                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center">
-                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی، در دستان نابینا!</h3>
-                        <a href="https://vrgl.ir/J4eiT" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Portfolio Section with Sliders -->
-        <section id="portfolio" class="py-20 bg-[#111111]">
-            <div class="container mx-auto px-6">
-                <h2 class="text-2xl font-bold text-center text-white mb-16">نمونه‌کارها</h2>
-                <div class="space-y-12">
-                    <!-- Slider Group 1 -->
-                    <div>
-                        <div class="slider-container flex overflow-x-auto space-x-6 space-x-reverse snap-x snap-mandatory py-4 overscroll-x-contain">
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/chRBY74R/IMG-20231022-104807-848.jpg" alt="نمونه کار ۱" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/TDVZL94Q/Tashdid-Profile-White.jpg" alt="نمونه کار ۲" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/TDzDPDqH/IMG-20240429-233959-003.jpg" alt="نمونه کار ۳" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/6J0dK5f9/Havel-Halena.jpg" alt="نمونه کار ۴" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                        </div>
-                    </div>
-                    <!-- Slider Group 2 -->
-                    <div>
-                        <div class="slider-container flex overflow-x-auto space-x-6 space-x-reverse snap-x snap-mandatory py-4 overscroll-x-contain">
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/gLzzYDZ4/Bahar1.jpg" alt="نمونه کار ۵" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/SwW0hV7n/Gaza2.jpg" alt="نمونه کار ۶" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/Z6GnP1nB/Hekmat1.jpg" alt="نمونه کار ۷" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/nNFkFvxz/SH2.jpg" alt="نمونه کار ۸" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                        </div>
-                    </div>
-                    <!-- Slider Group 3 -->
-                    <div>
-                        <div class="slider-container flex overflow-x-auto space-x-6 space-x-reverse snap-x snap-mandatory py-4 overscroll-x-contain">
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/nsBgz5MK/FP-4.jpg" alt="نمونه کار ۹" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/jk7WLVZY/Olympics-Doll.jpg" alt="نمونه کار ۱۰" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/HD4PQqSL/Imam1.jpg" alt="نمونه کار ۱۱" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/8n01Wkfw/Untitled-11.jpg" alt="نمونه کار ۱۲" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                        </div>
-                    </div>
-                    <!-- Slider Group 4 -->
-                    <div>
-                        <div class="slider-container flex overflow-x-auto space-x-6 space-x-reverse snap-x snap-mandatory py-4 overscroll-x-contain">
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/gbXNnmMt/Wave-Maker1.jpg" alt="نمونه کار ۱۳" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/fdJfNvdN/IMG-20250713-125830-351.jpg" alt="نمونه کار ۱۴" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/WWX5kMY8/IMG-20250406-231518-334.jpg" alt="نمونه کار ۱۵" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                            <div class="slider-item snap-center shrink-0 w-80 h-80"><img src="https://i.ibb.co/5dvGqwQ/Untitled-33331.jpg" alt="نمونه کار ۱۶" width="600" height="600" loading="lazy" class="w-full h-full object-cover rounded-xl shadow-lg"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -245,23 +202,77 @@
                         <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">کدنویسی</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
                             <li>تسلط نیمه‌حرفه‌ای بر زبان Python</li>
                             <li>تسلط مقدماتی بر زبان‌های HTML, CSS, PHP, Javascript و غیره</li>
+                            <li>تسلط متوسط بر Django</li>
+                            <li>تسلط متوسط بر DataBase</li>
                             <li>مطالعات مقدماتی در حوزه شبکه</li>
+                            <li>تسلط متوسط بر DataBase</li>
                             <li>مطالعات و تمرینات مقدماتی در حوزه تست‌نفوذ تلفن‌های هوشمند</li>
-                            <li>تجربه ساخت بدافزارهای مختلف (مثل شل‌معکوس، باج‌افزار، کی‌لاگر و غیره) برای سیستم‌های Windows و Unix بدون تشخیص آنتی‌ویروس‌ها</li>
+                            <li>تجربه ساخت بدافزارهای مختلف (مانند شل‌معکوس، باج‌افزار، کی‌لاگر و غیره) برای سیستم‌های Windows و Unix بدون تشخیص آنتی‌ویروس‌ها</li>
                             <li>تجربه استخراج داده، تست‌نفوذ و حملات (مثل داس، دیکشنری، بروت‌بروت‌فورس و غیره) در سایت‌های آزمایشگاهی و آموزشی</li>
                             <li>درحال ساخت یک سیستم زمانی مشابه انسان برای کامپیوترها، که می‌تواند منجر به درک برخی احساسات (مانند بی‌حوصلگی، عجله و غیره)، تصمیم‌گیری و اولویت‌بندی در انجام کارها، و بهینه‌تر شدن پردازش‌ها شود</li>
-                            <li>نوشتن تحلیل‌های مختلف درباره هوش‌مصنوعی</li>
+                            <li>درحال ساخت یک بازی چالش ورزشی شهری گسترش قلمرو</li>
+                            <li>نوشتن تحلیل‌های مختلف درباره هوش‌مصنوعی و آینده هوشمند...</li>
                             <li>توانمندی برنامه‌نویسی اپلیکیشن، سایت و غیره با استفاده از مدل‌های هوش‌مصنوعی</li>
                             <li>کسب مقام چهارم کشوری و تنها گروه برگزیده جنوب کشور در مسابقه دانش‌آموزی بازی‌سازی کیبورد، آکادمی همراه‌اول</li>
                         </ul></div>
                         <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">مطالعات آزاد</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
-                            <li>مطالعه ابتدایی در زمینه‌های روانشناسی، فلسفه، جامعه‌شناسی و...</li>
                             <li>تسلط بر اصول و تکنیک‌های تولید محتوا در رسانه‌های دیجیتال</li>
                             <li>تحقیق و نوشتن تحلیل در حوزه‌های مفهومی مانند هوش‌مصنوعی و ماهیت زمان</li>
-                            <li>تجربیات ابتدایی در نویسندگی و شعر</li>
                             <li>علاقه‌مند به مطالعه در حوزه‌های علمی مانند کیهان‌شناسی، ژنتیک، رباتیک و...</li>
+                            <li>علاقه‌مند به مطالعه در حوزه‌های روانشناسی، فلسفه، جامعه‌شناسی و...</li>
+                            <li>تجربیات ابتدایی در نویسندگی و شعر</li>
+                            <li>علاقه‌مند به علوم‌غریبه</li>
                         </ul></div>
                     </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Writings Section -->
+        <section id="writings" class="py-20 bg-[#111111]">
+            <div class="container mx-auto px-6">
+                <h2 class="text-2xl font-bold text-center text-white mb-16">آخرین نوشته‌ها</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- Writing Card 1 -->
+                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center border border-white/10">
+                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش مصنوعی: مدل‌ها، چالش‌ها و آینده</h3>
+                        <a href="https://vrgl.ir/HA8Dy" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
+                    </div>
+                    <!-- Writing Card 2 -->
+                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center border border-white/10">
+                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی: مهندسی ناخودآگاه</h3>
+                        <a href="https://vrgl.ir/s9jtX" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
+                    </div>
+                    <!-- Writing Card 3 -->
+                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center border border-white/10">
+                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی، در دستان نابینا!</h3>
+                        <a href="https://vrgl.ir/J4eiT" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section with Masonry Layout -->
+        <section id="portfolio" class="py-20 bg-[#000000]">
+            <div class="container mx-auto px-6">
+                <h2 class="text-2xl font-bold text-center text-white mb-16">نمونه‌کارها</h2>
+                <div class="columns-3 md:columns-4 gap-4 md:gap-8">
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/chRBY74R/IMG-20231022-104807-848.jpg" alt="نمونه کار ۱" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/TDVZL94Q/Tashdid-Profile-White.jpg" alt="نمونه کار ۲" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/TDzDPDqH/IMG-20240429-233959-003.jpg" alt="نمونه کار ۳" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/6J0dK5f9/Havel-Halena.jpg" alt="نمونه کار ۴" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/gLzzYDZ4/Bahar1.jpg" alt="نمونه کار ۵" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/SwW0hV7n/Gaza2.jpg" alt="نمونه کار ۶" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/Z6GnP1nB/Hekmat1.jpg" alt="نمونه کار ۷" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/nNFkFvxz/SH2.jpg" alt="نمونه کار ۸" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/nsBgz5MK/FP-4.jpg" alt="نمونه کار ۹" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/jk7WLVZY/Olympics-Doll.jpg" alt="نمونه کار ۱۰" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/HD4PQqSL/Imam1.jpg" alt="نمونه کار ۱۱" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/8n01Wkfw/Untitled-11.jpg" alt="نمونه کار ۱۲" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/gbXNnmMt/Wave-Maker1.jpg" alt="نمونه کار ۱۳" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/fdJfNvdN/IMG-20250713-125830-351.jpg" alt="نمونه کار ۱۴" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/WWX5kMY8/IMG-20250406-231518-334.jpg" alt="نمونه کار ۱۵" class="rounded-xl"></div>
+                    <div class="masonry-item mb-4 md:mb-8"><img src="https://i.ibb.co/5dvGqwQ/Untitled-33331.jpg" alt="نمونه کار ۱۶" class="rounded-xl"></div>
                 </div>
             </div>
         </section>
@@ -282,7 +293,7 @@
         </section>
     </main>
 
-    <!-- Footer & Contact -->
+    <!-- Footer -->
     <footer id="contact" class="bg-[#000000] border-t border-[#111111]">
         <div class="container mx-auto px-6 py-12 text-center text-base">
             <p class="mb-8 text-[#F6F6F6]/80">آماده همکاری در پروژه‌های خلاقانه و چالش‌برانگیز هستم.</p>
@@ -292,23 +303,48 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // --- Mobile Menu Logic ---
+            const header = document.getElementById('header');
+            const heroSection = document.getElementById('hero');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+            // --- Header Visibility on Scroll ---
+            const heroHeight = heroSection.offsetHeight;
+            const showHeaderAt = heroHeight * 0.8; // Show header after 80% scroll of hero
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > showHeaderAt) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                    mobileMenu.classList.add('hidden'); // Close mobile menu when scrolling back to top
+                }
+            });
+
+            // --- Mobile Menu Toggle ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- Close mobile menu on link click ---
             mobileMenu.addEventListener('click', (e) => {
-                if(e.target.tagName === 'A') mobileMenu.classList.add('hidden');
+                if (e.target.tagName === 'A') {
+                    mobileMenu.classList.add('hidden');
+                }
             });
 
             // --- Active Nav Link on Scroll ---
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('.nav-link');
+            const heroNavLinks = document.querySelectorAll('.hero-nav-link');
+            const allNavLinks = [...navLinks, ...heroNavLinks];
+
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.getAttribute('id');
-                        navLinks.forEach(link => {
+                        allNavLinks.forEach(link => {
                             link.classList.remove('active');
                             const linkHref = link.getAttribute('href');
                             if (linkHref === `#${id}`) {
@@ -319,79 +355,7 @@
                 });
             }, observerOptions);
             sections.forEach(section => observer.observe(section));
-
-            // --- Sliders with Pagination Dots ---
-            const sliderGroups = document.querySelectorAll('.slider-container');
-            sliderGroups.forEach(slider => {
-                const sliderItems = Array.from(slider.children);
-                const dotsContainer = document.createElement('div');
-                dotsContainer.className = 'flex justify-center items-center space-x-2 space-x-reverse mt-4';
-                
-                sliderItems.forEach((item, index) => {
-                    const dot = document.createElement('button');
-                    dot.className = 'pagination-dot w-2 h-2 rounded-full bg-gray-600 cursor-pointer';
-                    dot.setAttribute('aria-label', `رفتن به اسلاید ${index + 1}`);
-                    dotsContainer.appendChild(dot);
-
-                    dot.addEventListener('click', () => {
-                        item.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                    });
-                });
-
-                slider.parentElement.appendChild(dotsContainer);
-                const dots = Array.from(dotsContainer.children);
-                
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const itemIndex = sliderItems.indexOf(entry.target);
-                            dots.forEach((dot, index) => {
-                                dot.classList.toggle('active', index === itemIndex);
-                            });
-                        }
-                    });
-                }, { root: slider, threshold: 0.5 });
-
-                sliderItems.forEach(item => observer.observe(item));
-            });
         });
     </script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const lastVisit = localStorage.getItem('last_visit');
-        const oneHour = 60 * 60 * 1000;
-        const now = new Date().getTime();
-
-        if (!lastVisit || (now - lastVisit > oneHour)) {
-            // Fetch IP address first
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(ipData => {
-                    const ip = ipData.ip;
-                    const data = {
-                        userAgent: navigator.userAgent,
-                        screen: `${window.screen.width}x${window.screen.height}`
-                    };
-
-                    // Append IP to the script URL as a parameter
-                    const scriptUrl = `https://script.google.com/macros/s/AKfycbz84Lp22ESxi3fBgFSWrpBlCFw2YP6iQtaw5EhBNOv-Nfy7bgOd9OwvDjc93QNqvaCZ/exec`;
-
-                    // --- FIX: Added 'mode: no-cors' which is crucial for this to work ---
-                    fetch(scriptUrl, {
-                        method: 'POST',
-                        mode: 'no-cors', 
-                        body: JSON.stringify(data)
-                    }).catch(error => console.error('Error sending notification:', error));
-
-                    localStorage.setItem('last_visit', now);
-                })
-                .catch(error => console.error('Error fetching IP:', error));
-        }
-    });
-</script>
-
-
 </body>
 </html>
-
