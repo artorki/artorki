@@ -1,355 +1,523 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="scroll-smooth">
+<html lang="fa" dir="rtl" class="scroll-smooth selection:bg-[#A2D5C6] selection:text-black antialiased">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پورتفولیو | امین‌رضا ترکی</title>
-    <meta name="description" content="پورتفولیو شخصی امین‌رضا ترکی">
+    <title>ARTorki</title>
+    <meta name="description" content="امین‌رضا ترکی">
     
-    <!-- Preload the background image for faster loading -->
     <link rel="preload" as="image" href="https://i.ibb.co/kgFhBL4V/gradient-background-web-optimized.jpg">
     
-    <!-- Font Optimization: Preconnect to Google Fonts servers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;700;900&display=swap">
     
-    <!-- Font Optimization: Load CSS asynchronously -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap">
-    
-    <!-- Tailwind CSS for rapid UI development -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
         :root {
-            --bg-dark: #000000;
-            --bg-light: #111111;
+            --bg-dark: #030303;
+            --bg-surface: #0a0a0a;
             --accent: #A2D5C6;
-            --highlight: #CFFFE2;
-            --text: #F6F6F6;
+            --text-main: #f5f5f5;
+            --text-muted: #a3a3a3;
         }
         body {
             font-family: 'Vazirmatn', sans-serif;
             background-color: var(--bg-dark);
-            color: var(--text);
+            color: var(--text-main);
+        }
+        
+        /* Modern Floating Header */
+        #header-nav {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #header.scrolled #header-nav {
+            background-color: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 100px;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
         }
         .nav-link.active {
-            color: var(--accent);
+            color: #ffffff;
             font-weight: 700;
         }
+
+        /* Hero Background - fixed only on desktop to avoid iOS bug */
+        #hero {
+            background-image: 
+                linear-gradient(to bottom, rgba(3,3,3,0.3) 0%, rgba(3,3,3,1) 100%),
+                url('https://i.ibb.co/kgFhBL4V/gradient-background-web-optimized.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+        @media (min-width: 769px) {
+            #hero {
+                background-attachment: fixed;
+            }
+        }
+
+        /* Sleek Hero Buttons */
+        .hero-nav-link {
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: 700;
+            background-color: rgba(255, 255, 255, 0.02);
+            padding: 10px 24px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        .hero-nav-link:hover {
+            color: #ffffff;
+            background-color: rgba(162, 213, 198, 0.1);
+            border-color: rgba(162, 213, 198, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(162, 213, 198, 0.2);
+        }
+        .hero-nav-link.active {
+            color: #ffffff;
+            background-color: rgba(162, 213, 198, 0.12);
+            border-color: rgba(162, 213, 198, 0.35);
+        }
+
+        /* ===== Liquid Glass Shared ===== */
+        .liquid-glass-menu {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.09) 0%,
+                rgba(255, 255, 255, 0.03) 50%,
+                rgba(162, 213, 198, 0.04) 100%
+            );
+            backdrop-filter: blur(28px) saturate(180%);
+            -webkit-backdrop-filter: blur(28px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow:
+                0 8px 40px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+        }
+        .liquid-glass-menu a {
+            border-color: rgba(255, 255, 255, 0.06) !important;
+        }
+        .liquid-glass-menu a:hover {
+            background: rgba(255, 255, 255, 0.07) !important;
+        }
+
+        /* Liquid Glass – Writing Cards */
         .writing-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(
+                145deg,
+                rgba(255, 255, 255, 0.06) 0%,
+                rgba(255, 255, 255, 0.02) 50%,
+                rgba(162, 213, 198, 0.03) 100%
+            );
+            backdrop-filter: blur(18px) saturate(160%);
+            -webkit-backdrop-filter: blur(18px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow:
+                0 4px 24px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .writing-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 15px -3px rgba(162, 213, 198, 0.1), 0 4px 6px -2px rgba(162, 213, 198, 0.05);
-        }
-        #hero {
-            background-image: url('https://i.ibb.co/kgFhBL4V/gradient-background-web-optimized.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        .masonry-item {
-            break-inside: avoid;
-        }
-        .masonry-item img {
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-        .masonry-item:hover img {
-            transform: scale(1.03);
-            filter: brightness(1.1);
-        }
-        
-        /* New Hero Navigation Button Style */
-        .hero-nav-link {
-            color: rgba(246, 246, 246, 0.7); /* --text with 70% opacity */
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 8px 16px;
-            border-radius: 999px; /* pill shape */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            font-size: 0.875rem; /* text-sm */
-        }
-        .hero-nav-link:hover {
-            color: rgba(246, 246, 246, 1);
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(162, 213, 198, 0.25);
+            background: linear-gradient(
+                145deg,
+                rgba(255, 255, 255, 0.09) 0%,
+                rgba(255, 255, 255, 0.03) 50%,
+                rgba(162, 213, 198, 0.05) 100%
+            );
+            box-shadow:
+                0 20px 50px -10px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(162, 213, 198, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.04);
         }
 
-        /* Scrolled Header Style */
-        #header.scrolled {
+        /* Liquid Glass – Social / Messenger Buttons */
+        .liquid-glass-btn {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.06) 0%,
+                rgba(255, 255, 255, 0.02) 100%
+            );
+            backdrop-filter: blur(14px) saturate(150%);
+            -webkit-backdrop-filter: blur(14px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow:
+                0 4px 16px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.07);
+            transition: all 0.3s ease;
+        }
+        .liquid-glass-btn:hover {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(162, 213, 198, 0.06) 100%
+            );
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow:
+                0 8px 28px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        /* Masonry Portfolio */
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            transform: translateZ(0);
+            cursor: pointer;
+        }
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s ease, opacity 0.5s ease;
+            filter: grayscale(20%) brightness(0.9);
+            opacity: 0;
+        }
+        .masonry-item img.loaded {
             opacity: 1;
+        }
+        .masonry-item:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%) brightness(1.1);
+        }
+        .masonry-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+            border-radius: 0.75rem;
+            pointer-events: none;
+        }
+
+        /* Resume Timeline Dot – aligned to border-r center */
+        .timeline-dot {
+            position: absolute;
+            right: -1.5rem;
+            transform: translateX(50%);
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--bg-dark);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 10px rgba(162, 213, 198, 0.4);
+            z-index: 1;
+        }
+        @media (min-width: 768px) {
+            .timeline-dot {
+                right: -2.5rem;
+            }
+        }
+
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #mobile-menu.open {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
             pointer-events: auto;
-            background-color: rgba(17, 17, 17, 0.7);
-            backdrop-filter: blur(16px);
-            border-bottom-width: 1px;
-            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Lightbox */
+        #lightbox {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        #lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        #lightbox-img {
+            transition: opacity 0.25s ease, transform 0.3s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
         }
     </style>
 </head>
-<body class="bg-[#000000] text-[#F6F6F6]">
+<body class="bg-[#030303] text-[#f5f5f5]">
 
-    <!-- Header & Navigation (Initially Hidden) -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 opacity-0 pointer-events-none transition-all duration-300">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 md:px-0">
+        <nav id="header-nav" class="container mx-auto px-6 py-4 flex justify-between items-center max-w-5xl mt-4 md:mt-6 transition-all">
             <!-- Right Side: Menu Logic -->
             <div>
                 <!-- Full Menu for Desktop -->
-                <div class="hidden md:flex space-x-6 space-x-reverse text-base">
-                    <a href="#hero" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">خانه</a>
-                    <a href="#about" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">درباره‌من</a>
-                    <a href="#full-resume" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">رزومه</a>
-                    <a href="#writings" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">نوشته‌ها</a>
-                    <a href="#portfolio" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">نمونه‌کارها</a>
-                    <a href="#socials" class="nav-link hover:text-[#A2D5C6] transition-colors duration-300">صفحات‌مجازی</a>
+                <div class="hidden md:flex space-x-8 space-x-reverse">
+                    <a href="#hero" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">خانه</a>
+                    <a href="#about" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">درباره</a>
+                    <a href="#full-resume" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">رزومه</a>
+                    <a href="#writings" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">نوشته‌ها</a>
+                    <a href="#portfolio" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">نمونه‌کارها</a>
+                    <a href="#socials" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">صفحات‌مجازی</a>
                 </div>
-                <!-- Hamburger Button for Mobile -->
-                <button id="mobile-menu-button" class="block md:hidden text-white focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                <!-- Hamburger / Close Button for Mobile -->
+                <button id="mobile-menu-button" class="block md:hidden text-white focus:outline-none" aria-label="Toggle menu">
+                    <svg id="menu-icon-hamburger" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                    <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-80 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </div>
 
             <!-- Left Side: Brand Name -->
-            <a href="#hero" class="text-2xl font-bold text-white">artorki</a>
+            <a href="#hero" class="text-1x md:text-x font-bold tracking-wider">
+                artorki
+            </a>
         </nav>
-        <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[#111111]/90 backdrop-blur-md">
-            <a href="#hero" class="block text-center py-2 px-4 text-base hover:bg-black/20">خانه</a>
-            <a href="#about" class="block text-center py-2 px-4 text-base hover:bg-black/20">درباره‌من</a>
-            <a href="#full-resume" class="block text-center py-2 px-4 text-base hover:bg-black/20">رزومه</a>
-            <a href="#writings" class="block text-center py-2 px-4 text-base hover:bg-black/20">نوشته‌ها</a>
-            <a href="#portfolio" class="block text-center py-2 px-4 text-base hover:bg-black/20">نمونه‌کارها</a>
-            <a href="#socials" class="block text-center py-2 px-4 text-base hover:bg-black/20">صفحات‌مجازی</a>
+        
+        <!-- Mobile Dropdown Menu – Liquid Glass -->
+        <div id="mobile-menu" class="md:hidden absolute top-full left-4 right-4 mt-2 rounded-2xl overflow-hidden liquid-glass-menu">
+            <a href="#hero" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">خانه</a>
+            <a href="#about" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">درباره</a>
+            <a href="#full-resume" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">رزومه</a>
+            <a href="#writings" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">نوشته‌ها</a>
+            <a href="#portfolio" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">نمونه‌کارها</a>
+            <a href="#socials" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors">صفحات‌مجازی</a>
         </div>
     </header>
 
     <main>
         <!-- Hero Section -->
-        <section id="hero" class="h-[85vh] flex items-center relative">
-            <div class="absolute inset-0 bg-black/50"></div>
-            <div class="container mx-auto px-6 text-center relative z-10 flex flex-col items-center">
-                <h1 class="text-4xl font-bold text-[#CFFFE2] mb-12 leading-tight">
-                    پورتفولیو شخصی امین‌رضا ترکی
+        <section id="hero" class="min-h-screen flex items-center relative pt-20">
+            <div class="container mx-auto px-6 text-center relative z-10 flex flex-col items-center justify-center">
+                
+                <h1 class="text-[18px] font-bold text-white/75 mb-6 leading-tight tracking-tight drop-shadow-2xl">
+                    <br class="md:hidden"> امین‌رضا ترکی
                 </h1>
-                <h2>
-                    درحال یادگیری، ایده‌پردازی، و ترسیم تراوشات ذهنی...!
-                </h2>
-                <h2>
-                    ‌‌‌
+                <h2 class="text-[15px] font-medium text-white/50 mb-16 max-w-2xl mx-auto leading-relaxed">
+                    پورتفولیو شخصی
                 </h2>
                 
                 <!-- Hero Navigation Buttons -->
-                <nav id="hero-nav" class="flex flex-wrap justify-center gap-3 md:gap-4">
-                    <a href="#about" class="hero-nav-link">درباره‌من</a>
+                <nav id="hero-nav" class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+                    <a href="#about" class="hero-nav-link">درباره</a>
                     <a href="#full-resume" class="hero-nav-link">رزومه</a>
                     <a href="#writings" class="hero-nav-link">نوشته‌ها</a>
                     <a href="#portfolio" class="hero-nav-link">نمونه‌کارها</a>
                     <a href="#socials" class="hero-nav-link">صفحات‌مجازی</a>
                 </nav>
             </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="py-20 bg-[#111111]">
-            <div class="container mx-auto px-6">
-                <h2 class="text-2xl font-bold text-center text-white mb-12">درباره‌من</h2>
-                <div class="flex flex-col md:flex-row items-center gap-10">
-                    <div class="md:w-1/3 text-center">
-                        <img src="https://i.ibb.co/yF2yj2xm/IMG-20250330-141458-602.jpg" alt="عکس پروفایل" width="256" height="256" loading="lazy" class="rounded-full w-64 h-64 mx-auto shadow-lg border-4 border-[#A2D5C6]/50 object-cover">
+        <section id="about" class="py-32 bg-[#030303] relative border-b border-white/5">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <div class="flex flex-col md:flex-row items-center gap-16 md:gap-20">
+                    <div class="md:w-5/12 text-center relative group">
+                        <div class="absolute inset-0 bg-[#A2D5C6] rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-700"></div>
+                        <img src="https://i.ibb.co/JWvR6jQ4/IMG-20260403-172401-635.jpg" alt="پروفایل" width="320" height="320" loading="lazy" class="relative z-10 rounded-full w-64 h-64 md:w-80 md:h-80 mx-auto object-cover ring-1 ring-white/10 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] filter grayscale-[20%] group-hover:grayscale-0">
                     </div>
-                    <div class="md:w-2/3 text-center md:text-right text-base">
-                        <p class="mb-4 text-[#F6F6F6]/90">امین‌رضا ترکی هستم.</p>
-                        <p class="mb-4 text-[#F6F6F6]/90">سال ۱۳۸۶ در شیراز متولد شدم.</p>
-                        <p class="mb-4 text-[#F6F6F6]/90">دبیرستان ریاضی خوندم. به صورت خودآموز علایقم رو دنبال کردم، و همواره مشتاق یادگیری و ساختن چیزهای جدید هستم...</p>
+                    <div class="md:w-7/12 text-center md:text-right">
+                        <h3 class="text-[18px] font-bold text-white/75">درباره</h3>
+                        <div class="space-y-6 text-[15px] font-medium text-white/50 leading-relaxed mt-4">
+                            <p>
+                                متولد فروردین 1386 در شهر شیراز<br>
+                                دانشجوی کارشناسی مهندسی کامپیوتر<br>
+                                علاقه‌مند به تکنولوژی و هنر<br>
+                                مشتاق یادگیری و ساختن<br>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Full Resume Section -->
-        <section id="full-resume" class="py-20 bg-[#000000]">
-            <div class="container mx-auto px-6 text-right">
-                <h2 class="text-2xl font-bold text-center text-white mb-12">رزومه</h2>
-                <div class="bg-[#111111] p-8 rounded-xl shadow-lg max-w-4xl mx-auto text-base">
-                    <div class="space-y-8">
-                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">هنرهای تجسمی</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
-                            <li>تسلط نیمه‌حرفه‌ای بر نرم‌افزارهای Marmoset Hexels, Adobe Photoshop</li>
-                            <li>تسلط مقدماتی بر نرم‌افزارهای Figma, Adobe XD, Adobe Illustrator</li>
-                            <li>تسلط نیمه‌حرفه‌ای بر طراحی تایپوگرافی، لوگوتایپ و پوستر</li>
-                            <li>تسلط نیمه‌حرفه‌ای بر تصویرسازی</li>
-                            <li>تسلط نیمه‌حرفه‌ای بر فتومنیپیولیشن و فتومونتاژ</li>
-                            <li>تسلط مقدماتی بر خطوط کوفی و نستعلیق</li>
-                            <li>تسلط ابتدایی بر خطوط نسخ و ثلث</li>
-                            <li>تسلط مقدماتی بر طراحی رابط‌کاربری</li>
-                            <li>تجربه طراحی و اجرای کتیبه و دیوارنویسی</li>
-                            <li>تجربه طراحی در نماهنگ تلوزیونی "کاکوی امام رضا (ع)"</li>
-                            <li>تجربه تدریس درس هنر متوسطه اول"</li>
-                            <li>توانمندی تولید تصاویر هنری و رئال با استفاده از مدل‌های هوش‌مصنوعی</li>
-                        </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">تدوین</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
-                            <li>تسلط نیمه‌حرفه‌ای بر نرم‌افزار Adobe Premiere و دیگر نرم‌افزارهای تدوین ویدئو</li>
-                            <li>تدوین نماهنگ تلوزیونی "واژگونی"</li>
-                            <li>تولید کلیپ‌های متعدد جهت حوزه هنری، مجتمع شاکرین و غیره</li>
-                            <li>توانمندی تولید ویدئو با استفاده از مدل‌های هوش‌مصنوعی</li>
-                            <li>کسب رتبه اول بخش تدوین در مسابقه دانش‌آموزی "تفنگ پدری"</li>
-                        </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">صوت</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
-                            <li>تسلط نیمه‌حرفه‌ای بر نرم‌افزار Adobe Audition و دیگر نرم افزارهای ویرایش صوت</li>
-                            <li>تولید پادکست‌های متعدد در موضوعات فرهنگی، اجتماعی و مذهبی</li>
-                            <li>تجربه صدابرداری در مجموعه تلوزیونی "بی‌جرم و بی‌جنایت"</li>
-                            <li>مطالعه ابتدایی درباره نت‌های موسیقی و برخی سازها</li>
-                            <li>توانمندی تولید موسیقی و ویرایش صوت با استفاده از مدل‌های هوش‌مصنوعی</li>
-                            <li>کسب رتبه اول بخش پادکست در پویش کشوری "معجزه انقلاب"</li>
-                        </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">عکاسی و فیلم‌برداری</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
-                            <li>تسلط مقدماتی بر فیلم‌برداری و عکاسی</li>
-                            <li>تجربه عکاسی و فیلم‌برداری در رویدادهای حوزه هنری، مجتمع شاکرین و غیره</li>
-                            <li>توانمندی تولید ویدئو با استفاده از مدل‌های هوش‌مصنوعی</li>
-                            <li>کسب رتبه سوم مسابقه عکاسی ناحیه</li>
-                        </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">کدنویسی</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
-                            <li>تسلط نیمه‌حرفه‌ای بر زبان Python</li>
-                            <li>تسلط مقدماتی بر زبان‌های HTML, CSS, PHP, Javascript, C++</li>
-                            <li>تسلط متوسط بر Django</li>
-                            <li>تسلط متوسط بر DataBase</li>
-                            <li>مطالعات مقدماتی در حوزه شبکه</li>
-                            <li>مطالعات و تمرینات مقدماتی در حوزه تست‌نفوذ تلفن‌های هوشمند</li>
-                            <li>تجربه ساخت بدافزارهای مختلف (مانند شل‌معکوس، باج‌افزار، کی‌لاگر و غیره) برای سیستم‌های Windows و Unix بدون تشخیص آنتی‌ویروس‌ها</li>
-                            <li>تجربه استخراج داده، تست‌نفوذ و حملات (مثل داس، دیکشنری، بروت‌بروت‌فورس و غیره) در سایت‌های آزمایشگاهی و آموزشی</li>
-                            <li>درحال ساخت یک سیستم زمانی مشابه انسان برای کامپیوترها، که می‌تواند منجر به درک برخی احساسات (مانند بی‌حوصلگی، عجله و غیره)، تصمیم‌گیری و اولویت‌بندی در انجام کارها، و بهینه‌تر شدن پردازش‌ها شود</li>
-                            <li>درحال ساخت یک بازی چالش ورزشی شهری گسترش قلمرو</li>
-                            <li>نوشتن تحلیل‌های مختلف درباره هوش‌مصنوعی و آینده هوشمند...</li>
-                            <li>توانمندی برنامه‌نویسی اپلیکیشن، سایت و غیره با استفاده از مدل‌های هوش‌مصنوعی</li>
-                            <li>کسب مقام چهارم کشوری و تنها گروه برگزیده جنوب کشور در مسابقه دانش‌آموزی بازی‌سازی کیبورد، آکادمی همراه‌اول</li>
-                        </ul></div>
-                        <div><h3 class="text-lg font-bold text-[#A2D5C6] mb-4 border-b border-[#A2D5C6]/20 pb-2">مطالعات آزاد</h3><ul class="list-disc list-inside space-y-2 text-[#F6F6F6]/90">
-                            <li>تسلط بر اصول و تکنیک‌های تولید محتوا در رسانه‌های دیجیتال</li>
-                            <li>تحقیق و نوشتن تحلیل در حوزه‌های مفهومی مانند هوش‌مصنوعی و ماهیت زمان</li>
-                            <li>علاقه‌مند به مطالعه در حوزه‌های علمی مانند کیهان‌شناسی، ژنتیک، رباتیک و...</li>
-                            <li>علاقه‌مند به مطالعه در حوزه‌های روانشناسی، فلسفه، جامعه‌شناسی و...</li>
-                            <li>تجربیات ابتدایی در نویسندگی و شعر</li>
-                            <li>علاقه‌مند به علوم‌غریبه</li>
-                        </ul></div>
-                    </div>
+        <section id="full-resume" class="py-32 bg-[#050505] relative border-b border-white/5">
+            <div class="container mx-auto px-6 max-w-4xl text-right">
+                <div class="text-center mb-20">
+                    <h3 class="text-[18px] font-bold text-white/75">رزومه</h3>
+                </div>
+                
+                <!-- Dynamic Resume Container -->
+                <div id="resume-container" class="relative border-r border-white/10 pr-6 md:pr-10 space-y-16">
+                    <!-- Loading State -->
+                    <div class="text-center text-[15px] font-medium text-white/50 py-10 animate-pulse">در حال بارگذاری اطلاعات رزومه...</div>
                 </div>
             </div>
         </section>
         
         <!-- Writings Section -->
-        <section id="writings" class="py-20 bg-[#111111]">
-            <div class="container mx-auto px-6">
-                <h2 class="text-2xl font-bold text-center text-white mb-16">آخرین نوشته‌ها</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    <!-- Writing Card 1 -->
-                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center border border-white/10">
-                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی: مهندسی ناخودآگاه</h3>
-                        <a href="https://vrgl.ir/s9jtX" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
-                    </div>
-                    <!-- Writing Card 2 -->
-                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center border border-white/10">
-                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی، در دستان نابینا!</h3>
-                        <a href="https://vrgl.ir/J4eiT" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
-                    </div>
-                    <!-- Writing Card 3 -->
-                    <div class="writing-card bg-[#111111] p-6 rounded-xl flex flex-col text-center border border-white/10">
-                        <h3 class="text-lg font-bold text-white mb-4 flex-grow">هوش‌مصنوعی: سونامی</h3>
-                        <a href="https://vrgl.ir/kO4iU" target="_blank" class="mt-auto bg-[#A2D5C6] hover:bg-[#8bb8ac] text-[#000000] font-semibold py-2 px-4 rounded-full transition-colors duration-300">مطالعه در ویرگول</a>
-                    </div>
+        <section id="writings" class="py-32 bg-[#030303] border-b border-white/5">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <div class="text-center mb-20">
+                    <h3 class="text-[18px] font-bold text-white/75">نوشته‌ها</h3>
+                </div>
+                
+                <!-- Dynamic Writings Container -->
+                <div id="writings-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                    <!-- Loading State -->
+                    <div class="col-span-full text-center text-[15px] font-medium text-white/50 py-10 animate-pulse">در حال بارگذاری مقالات...</div>
                 </div>
             </div>
         </section>
 
-        <!-- Portfolio Section with Masonry Layout -->
-        <section id="portfolio" class="py-20 bg-[#000000]">
-            <div class="container mx-auto px-6">
-                <h2 class="text-2xl font-bold text-center text-white mb-16">نمونه‌کارها</h2>
-                <div class="columns-3 md:columns-4 gap-4 md:gap-8">
-                              <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/mw162Ch"><img src="https://i.ibb.co/kfkQwgq/1.jpg" alt="1" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/pr0MC3N8"><img src="https://i.ibb.co/9381RqBL/Mother-1.jpg" alt="تصویرسازی روز مادر امین‌رضا ترکی" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/qMR4vC8F"><img src="https://i.ibb.co/Z6hw0Sr1/Mr-Moini2.jpg" alt="3" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/jZQWzRsW"><img src="https://i.ibb.co/R4sBNydB/2.jpg" alt="4" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/hw67J1V"><img src="https://i.ibb.co/ntGgN8j/3.jpg" alt="5" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/mV702L5y"><img src="https://i.ibb.co/0R3K6gy9/4.jpg" alt="6" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/67z4wF94"><img src="https://i.ibb.co/yct8Pqv8/5.jpg" alt="7" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/v4XfQM8Y"><img src="https://i.ibb.co/d4mXLHyg/6.jpg" alt="8" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/R4ygfDrJ"><img src="https://i.ibb.co/x8H2W79r/7.jpg" alt="9" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/cKC5k3kR"><img src="https://i.ibb.co/6c1hrwrG/8.jpg" alt="10" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/v4h3g1Mw"><img src="https://i.ibb.co/8gbrTMQK/9.jpg" alt="11" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/FL7q3YLN"><img src="https://i.ibb.co/gLgF9WLH/10.jpg" alt="12" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/Xx7L85qq"><img src="https://i.ibb.co/7tnC4pqq/11.jpg" alt="13" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/My7ZdphJ"><img src="https://i.ibb.co/bjXQtL3G/12.jpg" alt="14" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/YBZgf4Wr"><img src="https://i.ibb.co/xqHZzKs4/13.jpg" alt="15" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/Qv35CCmV"><img src="https://i.ibb.co/s9dB6634/14.jpg" alt="16" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/d4P19z4x"><img src="https://i.ibb.co/zVXjc0VD/15.jpg" alt="17" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/CKYj5xmL"><img src="https://i.ibb.co/0y60jPm5/16.jpg" alt="18" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/84XC4CXh"><img src="https://i.ibb.co/PztLzLtS/18.jpg" alt="20" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/gM8pTJzt"><img src="https://i.ibb.co/BVJxZBqT/19.jpg" alt="21" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/7dtQm03p"><img src="https://i.ibb.co/DHfY2jBM/20.jpg" alt="22" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/Y7hG1bTx"><img src="https://i.ibb.co/27dBC5YT/21.jpg" alt="23" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/Pyz2FZH"><img src="https://i.ibb.co/rhfBFGr/22.jpg" alt="24" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/SDqqc2Qs"><img src="https://i.ibb.co/TDzz1ZKv/23.jpg" alt="25" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/TqPrZT5R"><img src="https://i.ibb.co/84PXJBV2/24.jpg" alt="26" class="rounded-xl"></a></div>
-                             <div class="masonry-item mb-4 md:mb-8"><a href="https://ibb.co/ZRDzqg20"><img src="https://i.ibb.co/JWJjDp39/25.jpg" alt="27" class="rounded-xl"></a></div>
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-32 bg-[#050505] border-b border-white/5">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-20">
+                    <h3 class="text-[18px] font-bold text-white/75">نمونه‌کارها</h3>
+                </div>
+                
+                <!-- Dynamic Portfolio Container -->
+                <div id="portfolio-container" class="columns-2 md:columns-3 lg:columns-4 gap-4 md:gap-6">
+                    <!-- Loading State -->
+                    <div class="col-span-full text-center text-[15px] font-medium text-white/50 py-10 animate-pulse">در حال بارگذاری نمونه‌کارها...</div>
                 </div>
             </div>
         </section>
 
         <!-- Socials Section -->
-        <section id="socials" class="py-20 bg-[#111111]">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-2xl font-bold text-white mb-12">صفحات‌مجازی</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-lg">
-                    <a href="https://www.linkedin.com/in/artorki" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">لینکدین</a>
-                    <a href="https://Instagram.com/artorki_creative" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">اینستاگرام</a>
-                    <a href="https://Pinterest.com/artorki_creative" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">پینترست</a>
-                    <a href="https://Behance.net/artorki_creative" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">بیهنس</a>
-                    <a href="https://Github.com/artorki" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">گیت‌هاب</a>
-                    <a href="https://Medium.com/@artorki_self" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">مدیوم</a>
-                    <a href="https://Virgool.io/@artorkiiii" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">ویرگول</a>
-                    <a href="https://T.me/artorki_daily" target="_blank" class="font-semibold text-[#A2D5C6] hover:text-[#F6F6F6] transition-colors duration-300">تلگرام</a>
+        <section id="socials" class="py-24 bg-[#030303]">
+            <div class="container mx-auto px-6 text-center max-w-4xl">
+                <h2 class="text-[18px] font-bold text-white/75 mb-12">صفحات‌مجازی</h2>
+                
+                <!-- Dynamic Socials Container -->
+                <div id="socials-container" class="flex flex-wrap justify-center gap-6 md:gap-8">
+                    <!-- Loading State -->
+                    <div class="text-center text-[15px] font-medium text-white/50 animate-pulse w-full">در حال بارگذاری اطلاعات ارتباطی...</div>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-[#000000] border-t border-[#111111]">
-        <div class="container mx-auto px-6 py-12 text-center text-base">
-            <p class="mb-8 text-[#F6F6F6]/80">آماده همکاری در پروژه‌های خلاقانه و چالش‌برانگیز هستم.</p>
-            <p class="text-[#F6F6F6]/50 mt-12">&copy; 2025 - artorki. تمام حقوق محفوظ است.</p>
+    <footer id="contact" class="bg-[#000000] border-t border-white/5">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <p class="mb-4 text-[15px] font-medium text-white/50">آماده همکاری در پروژه‌های خلاقانه و چالش‌برانگیز هستم...</p>
+            <p class="text-[15px] font-medium text-white/50">last update: 15 Farvardin 1405</p>
         </div>
     </footer>
 
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[100] flex items-center justify-center" dir="ltr">
+        <!-- Close Button -->
+        <button id="lb-close" class="absolute top-5 right-5 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <!-- Prev Button -->
+        <button id="lb-prev" class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer" aria-label="Previous">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <!-- Next Button -->
+        <button id="lb-next" class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer" aria-label="Next">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+        <!-- Background Overlay -->
+        <div id="lb-overlay" class="absolute inset-0 bg-black/95 backdrop-blur-sm"></div>
+        <!-- Image -->
+        <img id="lb-img" class="relative z-10 max-h-[88vh] max-w-[92vw] md:max-w-[85vw] object-contain rounded-lg select-none" alt="Portfolio image" draggable="false">
+        <!-- Counter -->
+        <div id="lb-counter" class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 text-white/50 text-sm font-light tracking-wider"></div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // --- UI Elements ---
             const header = document.getElementById('header');
             const heroSection = document.getElementById('hero');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const iconHamburger = document.getElementById('menu-icon-hamburger');
+            const iconClose = document.getElementById('menu-icon-close');
+            let mobileMenuOpen = false;
 
             // --- Header Visibility on Scroll ---
             const heroHeight = heroSection.offsetHeight;
-            const showHeaderAt = heroHeight * 0.8; // Show header after 80% scroll of hero
+            const showHeaderAt = heroHeight * 0.1;
 
             window.addEventListener('scroll', () => {
                 if (window.scrollY > showHeaderAt) {
                     header.classList.add('scrolled');
                 } else {
                     header.classList.remove('scrolled');
-                    mobileMenu.classList.add('hidden'); // Close mobile menu when scrolling back to top
+                    closeMobileMenu();
                 }
             });
 
             // --- Mobile Menu Toggle ---
+            function openMobileMenu() {
+                mobileMenuOpen = true;
+                mobileMenu.classList.add('open');
+                iconHamburger.classList.add('hidden');
+                iconClose.classList.remove('hidden');
+            }
+            function closeMobileMenu() {
+                mobileMenuOpen = false;
+                mobileMenu.classList.remove('open');
+                iconHamburger.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            }
+
             mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+                if (mobileMenuOpen) closeMobileMenu();
+                else openMobileMenu();
             });
 
-            // --- Close mobile menu on link click ---
             mobileMenu.addEventListener('click', (e) => {
-                if (e.target.tagName === 'A') {
-                    mobileMenu.classList.add('hidden');
-                }
+                if (e.target.tagName === 'A') closeMobileMenu();
             });
 
             // --- Active Nav Link on Scroll ---
@@ -358,15 +526,14 @@
             const heroNavLinks = document.querySelectorAll('.hero-nav-link');
             const allNavLinks = [...navLinks, ...heroNavLinks];
 
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
+            const observerOptions = { root: null, rootMargin: '-20% 0px -60% 0px', threshold: 0 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.getAttribute('id');
                         allNavLinks.forEach(link => {
                             link.classList.remove('active');
-                            const linkHref = link.getAttribute('href');
-                            if (linkHref === `#${id}`) {
+                            if (link.getAttribute('href') === '#' + id) {
                                 link.classList.add('active');
                             }
                         });
@@ -374,7 +541,172 @@
                 });
             }, observerOptions);
             sections.forEach(section => observer.observe(section));
+
+            // --- Lightbox Variables & Functions ---
+            const lightbox = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lb-img');
+            const lbCounter = document.getElementById('lb-counter');
+            const lbOverlay = document.getElementById('lb-overlay');
+            const lbClose = document.getElementById('lb-close');
+            const lbPrev = document.getElementById('lb-prev');
+            const lbNext = document.getElementById('lb-next');
+            let portfolioImages = [];
+            let currentIndex = 0;
+
+            function openLightbox(index) {
+                currentIndex = index;
+                updateLightboxImage();
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function updateLightboxImage() {
+                if (portfolioImages.length === 0) return;
+                lbImg.style.opacity = '0';
+                lbImg.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    lbImg.src = portfolioImages[currentIndex].src;
+                    lbImg.onload = () => {
+                        lbImg.style.opacity = '1';
+                        lbImg.style.transform = 'scale(1)';
+                    };
+                }, 150);
+                lbCounter.textContent = (currentIndex + 1) + ' / ' + portfolioImages.length;
+            }
+
+            function nextImage() {
+                if (portfolioImages.length === 0) return;
+                currentIndex = (currentIndex + 1) % portfolioImages.length;
+                updateLightboxImage();
+            }
+
+            function prevImage() {
+                if (portfolioImages.length === 0) return;
+                currentIndex = (currentIndex - 1 + portfolioImages.length) % portfolioImages.length;
+                updateLightboxImage();
+            }
+
+            lbClose.addEventListener('click', closeLightbox);
+            lbOverlay.addEventListener('click', closeLightbox);
+            lbPrev.addEventListener('click', prevImage);
+            lbNext.addEventListener('click', nextImage);
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'ArrowRight') nextImage();
+            });
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            lightbox.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            lightbox.addEventListener('touchend', (e) => {
+                const diffX = touchStartX - e.changedTouches[0].screenX;
+                const diffY = touchStartY - e.changedTouches[0].screenY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    if (diffX > 0) nextImage();
+                    else prevImage();
+                }
+            }, { passive: true });
+
+
+            // ==========================================
+            // --- Fetch Data from External JSON Files ---
+            // ==========================================
+            async function loadData() {
+                // 1. Load Resume
+                try {
+                    const res = await fetch('resume.json');
+                    if (res.ok) {
+                        const data = await res.json();
+                        document.getElementById('resume-container').innerHTML = data.map(section => `
+                            <div class="relative group">
+                                <span class="timeline-dot"></span>
+                                <h3 class="text-[18px] font-bold text-white/75 mb-6 group-hover:text-[#A2D5C6] transition-colors">${section.category}</h3>
+                                <ul class="space-y-3 text-[15px] font-medium text-white/50 leading-relaxed">
+                                    ${section.items.map(item => {
+                                        let cls = "relative pr-4 before:content-[''] before:absolute before:right-0 before:top-2.5 before:w-1.5 before:h-1.5 before:bg-white/20 before:rounded-full";
+                                        if (item.highlight) cls += ' ' + item.highlight;
+                                        return `<li class="${cls}">${item.text}</li>`;
+                                    }).join('')}
+                                </ul>
+                            </div>
+                        `).join('');
+                    }
+                } catch (err) { console.error("Error loading resume:", err); }
+
+                // 2. Load Writings
+                try {
+                    const res = await fetch('writings.json');
+                    if (res.ok) {
+                        const data = await res.json();
+                        document.getElementById('writings-container').innerHTML = data.map(writing => `
+                            <div class="writing-card p-8 rounded-2xl flex flex-col group">
+                                <div class="mb-6 flex-grow">
+                                    <h3 class="text-[18px] font-bold text-white/75 mb-3 leading-tight group-hover:text-[#A2D5C6] transition-colors">${writing.title}</h3>
+                                    <p class="text-[15px] font-medium text-white/50">${writing.desc}</p>
+                                </div>
+                                <a href="${writing.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[15px] font-bold text-[#A2D5C6] group-hover:text-white transition-colors w-fit border-b border-transparent group-hover:border-[#A2D5C6] pb-1">
+                                    مطالعه
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                                </a>
+                            </div>
+                        `).join('');
+                    }
+                } catch (err) { console.error("Error loading writings:", err); }
+
+                // 3. Load Portfolio Images
+                try {
+                    const res = await fetch('portfolio.json');
+                    if (res.ok) {
+                        const data = await res.json();
+                        document.getElementById('portfolio-container').innerHTML = data.map(item => `
+                            <div class="masonry-item"><img src="${item.url}" alt="${item.alt}" loading="lazy"></div>
+                        `).join('');
+
+                        // Re-initialize lightbox events for dynamic images
+                        portfolioImages = Array.from(document.querySelectorAll('.masonry-item img'));
+                        portfolioImages.forEach((img, index) => {
+                            if (img.complete && img.naturalHeight !== 0) img.classList.add('loaded');
+                            else {
+                                img.addEventListener('load', () => img.classList.add('loaded'));
+                                img.addEventListener('error', () => img.classList.add('loaded'));
+                            }
+                            
+                            img.closest('.masonry-item').addEventListener('click', (e) => {
+                                e.preventDefault();
+                                openLightbox(index);
+                            });
+                        });
+                    }
+                } catch (err) { console.error("Error loading portfolio:", err); }
+
+                // 4. Load Socials
+                try {
+                    const res = await fetch('socials.json');
+                    if (res.ok) {
+                        const data = await res.json();
+                        document.getElementById('socials-container').innerHTML = data.map(social => `
+                            <a href="${social.url}" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn text-[#A2D5C6] font-bold text-[15px] px-4 py-2 rounded-full hover:text-white transition-colors">${social.name}</a>
+                        `).join('');
+                    }
+                } catch (err) { console.error("Error loading socials:", err); }
+            }
+
+            // Start fetching data
+            loadData();
         });
     </script>
 </body>
 </html>
+
