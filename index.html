@@ -624,9 +624,17 @@
             // --- Fetch Data from External JSON Files ---
             // ==========================================
             async function loadData() {
+                // تابع کمکی برای مدیریت خطا و حذف حالت لودینگ
+                const handleError = (containerId, errorMessage) => {
+                    const container = document.getElementById(containerId);
+                    if (container) {
+                        container.innerHTML = `<div class="col-span-full text-center text-[15px] font-medium text-red-400 py-10">${errorMessage}</div>`;
+                    }
+                };
+
                 // 1. Load Resume
                 try {
-                    const res = await fetch('resume.json');
+                    const res = await fetch('./resume.json');
                     if (res.ok) {
                         const data = await res.json();
                         document.getElementById('resume-container').innerHTML = data.map(section => `
@@ -642,12 +650,17 @@
                                 </ul>
                             </div>
                         `).join('');
+                    } else {
+                        handleError('resume-container', 'خطا در دریافت اطلاعات رزومه (فایل یافت نشد).');
                     }
-                } catch (err) { console.error("Error loading resume:", err); }
+                } catch (err) { 
+                    console.error("Error loading resume:", err);
+                    handleError('resume-container', 'خطا در برقراری ارتباط با سرور.');
+                }
 
                 // 2. Load Writings
                 try {
-                    const res = await fetch('writings.json');
+                    const res = await fetch('./writings.json');
                     if (res.ok) {
                         const data = await res.json();
                         document.getElementById('writings-container').innerHTML = data.map(writing => `
@@ -662,12 +675,17 @@
                                 </a>
                             </div>
                         `).join('');
+                    } else {
+                        handleError('writings-container', 'خطا در دریافت مقالات.');
                     }
-                } catch (err) { console.error("Error loading writings:", err); }
+                } catch (err) { 
+                    console.error("Error loading writings:", err);
+                    handleError('writings-container', 'خطا در برقراری ارتباط با سرور.');
+                }
 
                 // 3. Load Portfolio Images
                 try {
-                    const res = await fetch('portfolio.json');
+                    const res = await fetch('./portfolio.json');
                     if (res.ok) {
                         const data = await res.json();
                         document.getElementById('portfolio-container').innerHTML = data.map(item => `
@@ -688,19 +706,29 @@
                                 openLightbox(index);
                             });
                         });
+                    } else {
+                        handleError('portfolio-container', 'خطا در دریافت نمونه‌کارها.');
                     }
-                } catch (err) { console.error("Error loading portfolio:", err); }
+                } catch (err) { 
+                    console.error("Error loading portfolio:", err);
+                    handleError('portfolio-container', 'خطا در برقراری ارتباط با سرور.');
+                }
 
                 // 4. Load Socials
                 try {
-                    const res = await fetch('socials.json');
+                    const res = await fetch('./socials.json');
                     if (res.ok) {
                         const data = await res.json();
                         document.getElementById('socials-container').innerHTML = data.map(social => `
                             <a href="${social.url}" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn text-[#A2D5C6] font-bold text-[15px] px-4 py-2 rounded-full hover:text-white transition-colors">${social.name}</a>
                         `).join('');
+                    } else {
+                        handleError('socials-container', 'خطا در دریافت شبکه‌های اجتماعی.');
                     }
-                } catch (err) { console.error("Error loading socials:", err); }
+                } catch (err) { 
+                    console.error("Error loading socials:", err);
+                    handleError('socials-container', 'خطا در برقراری ارتباط با سرور.');
+                }
             }
 
             // Start fetching data
@@ -709,6 +737,3 @@
     </script>
 </body>
 </html>
-
-
-
