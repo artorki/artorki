@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARTorki | امین‌رضا ترکی</title>
-    <meta name="description" content="پورتفولیو شخصی امین‌رضا ترکی، دانشجوی مهندسی کامپیوتر، برنامه‌نویس و طراح گرافیک">
+    <meta name="description" content="پورتفولیو شخصی امین‌رضا ترکی؛ ترکیبی از برنامه‌نویسی، پژوهش امنیت، طراحی گرافیک و روایت بصری">
+    <meta name="theme-color" content="#030303">
+    <meta name="color-scheme" content="dark">
     
     <!-- Open Graph Tags -->
     <meta property="og:title" content="امین‌رضا ترکی | پورتفولیو شخصی">
@@ -370,9 +372,49 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #444;
         }
+
+        /* Accessibility, responsive rhythm, and resilient interactions */
+        html { scroll-padding-top: 6rem; }
+        section[id] { scroll-margin-top: 5.5rem; }
+        a, button { -webkit-tap-highlight-color: transparent; }
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+        button { touch-action: manipulation; }
+        .skip-link {
+            position: fixed; top: .75rem; right: .75rem; z-index: 200;
+            transform: translateY(-160%); padding: .75rem 1rem;
+            color: #030303; background: var(--accent); border-radius: .75rem;
+            font-weight: 700; transition: transform .2s ease;
+        }
+        .skip-link:focus { transform: translateY(0); }
+        #lightbox { z-index: 100; background: transparent; }
+        #lb-img { max-width: min(92vw, 1400px); }
+        .portfolio-item { break-inside: avoid; }
+        .portfolio-item img { min-height: 80px; }
+        .empty-state {
+            grid-column: 1 / -1; width: 100%; padding: 2.5rem 1rem;
+            text-align: center; color: rgba(255,255,255,.55);
+        }
+        @media (max-width: 640px) {
+            section.py-32 { padding-top: 5rem; padding-bottom: 5rem; }
+            #hero-nav { gap: .6rem; }
+            .hero-nav-link { padding: .7rem 1rem; }
+            #lb-prev, #lb-next { width: 2.5rem; height: 2.5rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+            #hero { background-attachment: scroll !important; }
+        }
     </style>
 </head>
-<body class="bg-[#030303] text-[#f5f5f5]">
+<body class="bg-[#030303] text-[#f5f5f5]">\n    <a class="skip-link" href="#main-content">رفتن به محتوای اصلی</a>
 
     <!-- Header & Navigation -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 md:px-0">
@@ -389,20 +431,20 @@
                     <a href="#socials" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">صفحات‌مجازی</a>
                 </div>
                 <!-- Hamburger / Close Button for Mobile -->
-                <button id="mobile-menu-button" class="block md:hidden text-white focus:outline-none" aria-label="Toggle menu">
+                <button id="mobile-menu-button" class="block md:hidden text-white focus:outline-none" aria-label="باز کردن منو" aria-controls="mobile-menu" aria-expanded="false" type="button">
                     <svg id="menu-icon-hamburger" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                     <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-80 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </div>
 
             <!-- Left Side: Brand Name -->
-            <a href="#hero" class="text-1x md:text-x font-bold tracking-wider">
+            <a href="#hero" class="text-base md:text-lg font-bold tracking-wider">
                 artorki
             </a>
         </nav>
         
         <!-- Mobile Dropdown Menu – Liquid Glass -->
-        <div id="mobile-menu" class="md:hidden absolute top-full left-4 right-4 mt-2 rounded-2xl overflow-hidden liquid-glass-menu">
+        <div id="mobile-menu" class="md:hidden absolute top-full left-4 right-4 mt-2 rounded-2xl overflow-hidden liquid-glass-menu" aria-label="منوی موبایل">
             <a href="#hero" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">خانه</a>
             <a href="#about" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">درباره</a>
             <a href="#full-resume" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">رزومه</a>
@@ -412,7 +454,7 @@
         </div>
     </header>
 
-    <main>
+    <main id="main-content">
         <!-- Hero Section -->
         <section id="hero" class="min-h-screen flex items-center relative pt-20">
             <div class="container mx-auto px-6 text-center relative z-10 flex flex-col items-center justify-center">
@@ -546,7 +588,7 @@
     </footer>
 
     <!-- Lightbox Modal -->
-    <div id="lightbox" class="fixed inset-0 z-[100] flex items-center justify-center" dir="ltr">
+    <div id="lightbox" class="fixed inset-0 z-[100] flex items-center justify-center" dir="ltr" role="dialog" aria-modal="true" aria-label="نمایش بزرگ نمونه‌کار" aria-hidden="true" tabindex="-1">
         <!-- Close Button -->
         <button id="lb-close" class="absolute top-5 right-5 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer" aria-label="Close">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -578,29 +620,30 @@
             const iconClose = document.getElementById('menu-icon-close');
             let mobileMenuOpen = false;
 
-            // --- Header Visibility on Scroll ---
-            const heroHeight = heroSection.offsetHeight;
-            const showHeaderAt = heroHeight * 0.1;
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > showHeaderAt) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                    closeMobileMenu();
-                }
-            });
+            // Use a live threshold so resizing/orientation changes do not stale the header state.
+            const updateHeader = () => {
+                const showHeaderAt = Math.max(48, heroSection.offsetHeight * 0.1);
+                header.classList.toggle('scrolled', window.scrollY > showHeaderAt);
+                if (window.scrollY <= showHeaderAt) closeMobileMenu();
+            };
+            window.addEventListener('scroll', updateHeader, { passive: true });
+            window.addEventListener('resize', updateHeader, { passive: true });
+            updateHeader();
 
             // --- Mobile Menu Toggle ---
             function openMobileMenu() {
                 mobileMenuOpen = true;
                 mobileMenu.classList.add('open');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+                mobileMenuButton.setAttribute('aria-label', 'بستن منو');
                 iconHamburger.classList.add('hidden');
                 iconClose.classList.remove('hidden');
             }
             function closeMobileMenu() {
                 mobileMenuOpen = false;
                 mobileMenu.classList.remove('open');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuButton.setAttribute('aria-label', 'باز کردن منو');
                 iconHamburger.classList.remove('hidden');
                 iconClose.classList.add('hidden');
             }
@@ -611,7 +654,18 @@
             });
 
             mobileMenu.addEventListener('click', (e) => {
-                if (e.target.tagName === 'A') closeMobileMenu();
+                if (e.target.closest('a')) closeMobileMenu();
+            });
+            document.addEventListener('click', (e) => {
+                if (mobileMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileMenuOpen) {
+                    closeMobileMenu();
+                    mobileMenuButton.focus();
+                }
             });
 
             // --- Active Nav Link on Scroll ---
@@ -646,31 +700,49 @@
             const lbNext = document.getElementById('lb-next');
             let portfolioImages = [];
             let currentIndex = 0;
+            let lastFocusedElement = null;
 
             function openLightbox(index) {
                 currentIndex = index;
+                lastFocusedElement = document.activeElement;
                 updateLightboxImage();
                 lightbox.classList.add('active');
+                lightbox.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
+                lbClose.focus();
             }
 
             function closeLightbox() {
                 lightbox.classList.remove('active');
+                lightbox.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
+                if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+                    lastFocusedElement.focus();
+                }
             }
 
             function updateLightboxImage() {
                 if (portfolioImages.length === 0) return;
                 lbImg.style.opacity = '0';
-                lbImg.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    lbImg.src = portfolioImages[currentIndex].src;
-                    lbImg.onload = () => {
-                        lbImg.style.opacity = '1';
-                        lbImg.style.transform = 'scale(1)';
-                    };
-                }, 150);
+                lbImg.style.transform = 'scale(0.98)';
+                const nextSrc = portfolioImages[currentIndex].currentSrc || portfolioImages[currentIndex].src;
+                lbImg.onload = () => {
+                    lbImg.style.opacity = '1';
+                    lbImg.style.transform = 'scale(1)';
+                };
+                lbImg.onerror = () => {
+                    lbImg.style.opacity = '1';
+                    lbImg.alt = 'بارگذاری تصویر ممکن نشد';
+                };
+                lbImg.alt = portfolioImages[currentIndex].alt || 'نمایش بزرگ نمونه‌کار';
+                lbImg.src = nextSrc;
+                if (lbImg.complete && lbImg.naturalWidth > 0) {
+                    lbImg.style.opacity = '1';
+                    lbImg.style.transform = 'scale(1)';
+                }
                 lbCounter.textContent = (currentIndex + 1) + ' / ' + portfolioImages.length;
+                lbPrev.disabled = portfolioImages.length < 2;
+                lbNext.disabled = portfolioImages.length < 2;
             }
 
             function nextImage() {
@@ -695,6 +767,18 @@
                 if (e.key === 'Escape') closeLightbox();
                 if (e.key === 'ArrowLeft') prevImage();
                 if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'Tab') {
+                    const focusable = Array.from(lightbox.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'))
+                        .filter(el => el.offsetParent !== null);
+                    if (!focusable.length) return;
+                    const first = focusable[0];
+                    const last = focusable[focusable.length - 1];
+                    if (e.shiftKey && document.activeElement === first) {
+                        e.preventDefault(); last.focus();
+                    } else if (!e.shiftKey && document.activeElement === last) {
+                        e.preventDefault(); first.focus();
+                    }
+                }
             });
 
             let touchStartX = 0;
@@ -717,8 +801,18 @@
             // ==========================================
             // --- Fetch Data from External JSON Files ---
             // ==========================================
+            const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[char]);
+            const safeURL = (value) => {
+                try {
+                    const url = new URL(String(value ?? ''), window.location.href);
+                    return ['http:', 'https:', 'mailto:'].includes(url.protocol) ? url.href : '#';
+                } catch (_) { return '#'; }
+            };
+
             async function loadData() {
-                // تابع کمکی برای مدیریت خطا و حذف حالت لودینگ
+                // Keep failures local to their section so one missing JSON file cannot break the rest.
                 const handleError = (containerId, errorMessage) => {
                     const container = document.getElementById(containerId);
                     if (container) {
@@ -737,11 +831,18 @@
                         tabsMenu.innerHTML = '';
                         contentContainer.innerHTML = '';
 
-                        data.forEach((section, index) => {
+                        if (!Array.isArray(data) || data.length === 0) {
+                            handleError('resume-content-container', 'هنوز اطلاعاتی برای نمایش رزومه ثبت نشده است.');
+                        }
+                        (Array.isArray(data) ? data : []).forEach((section, index) => {
                             // Create Tab Button
                             const btn = document.createElement('button');
                             btn.className = `resume-tab-btn ${index === 0 ? 'active' : ''}`;
-                            btn.textContent = section.category;
+                            btn.textContent = section.category ?? 'بدون عنوان';
+                            btn.type = 'button';
+                            btn.setAttribute('role', 'tab');
+                            btn.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+                            btn.setAttribute('aria-controls', `resume-pane-${index}`);
                             btn.setAttribute('data-tab-index', index);
                             tabsMenu.appendChild(btn);
 
@@ -749,16 +850,19 @@
                             const pane = document.createElement('div');
                             pane.className = `resume-tab-pane ${index === 0 ? 'block animate-fade-in' : 'hidden'}`;
                             pane.id = `resume-pane-${index}`;
+                            pane.setAttribute('role', 'tabpanel');
+                            pane.setAttribute('aria-labelledby', btn.id || `resume-tab-${index}`);
+                            btn.id = `resume-tab-${index}`;
                             pane.innerHTML = `
                                 <div class="relative border-r border-white/10 pr-6 md:pr-10 space-y-6">
                                     <div class="relative group">
                                         <span class="timeline-dot"></span>
-                                        <h4 class="text-[18px] font-bold text-white/75 mb-6 group-hover:text-[#A2D5C6] transition-colors">${section.category}</h4>
+                                        <h4 class="text-[18px] font-bold text-white/75 mb-6 group-hover:text-[#A2D5C6] transition-colors">${escapeHTML(section.category)}</h4>
                                         <ul class="space-y-3.5 text-[15px] font-medium text-white/50 leading-relaxed">
                                             ${section.items.map(item => {
                                                 let cls = "relative pr-4 before:content-[''] before:absolute before:right-0 before:top-2.5 before:w-1.5 before:h-1.5 before:bg-white/20 before:rounded-full";
                                                 if (item.highlight) cls += ' ' + item.highlight;
-                                                return `<li class="${cls}">${item.text}</li>`;
+                                                return `<li class="${cls}">${escapeHTML(item.text)}</li>`;
                                             }).join('')}
                                         </ul>
                                     </div>
@@ -768,8 +872,12 @@
 
                             // Switch Tab on Click
                             btn.addEventListener('click', () => {
-                                document.querySelectorAll('.resume-tab-btn').forEach(b => b.classList.remove('active'));
+                                document.querySelectorAll('.resume-tab-btn').forEach(b => {
+                                    b.classList.remove('active');
+                                    b.setAttribute('aria-selected', 'false');
+                                });
                                 btn.classList.add('active');
+                                btn.setAttribute('aria-selected', 'true');
 
                                 document.querySelectorAll('.resume-tab-pane').forEach(p => {
                                     p.classList.add('hidden');
@@ -793,18 +901,18 @@
                     const res = await fetch('./writings.json');
                     if (res.ok) {
                         const data = await res.json();
-                        document.getElementById('writings-container').innerHTML = data.map(writing => `
+                        document.getElementById('writings-container').innerHTML = (Array.isArray(data) && data.length ? data.map(writing => `
                             <div class="writing-card p-8 rounded-2xl flex flex-col group">
                                 <div class="mb-6 flex-grow">
-                                    <h3 class="text-[18px] font-bold text-white/75 mb-3 leading-tight group-hover:text-[#A2D5C6] transition-colors">${writing.title}</h3>
-                                    <p class="text-[15px] font-medium text-white/50">${writing.desc}</p>
+                                    <h3 class="text-[18px] font-bold text-white/75 mb-3 leading-tight group-hover:text-[#A2D5C6] transition-colors">${escapeHTML(writing.title)}</h3>
+                                    <p class="text-[15px] font-medium text-white/50">${escapeHTML(writing.desc)}</p>
                                 </div>
-                                <a href="${writing.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[15px] font-bold text-[#A2D5C6] group-hover:text-white transition-colors w-fit border-b border-transparent group-hover:border-[#A2D5C6] pb-1">
+                                <a href="${escapeHTML(safeURL(writing.link))}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[15px] font-bold text-[#A2D5C6] group-hover:text-white transition-colors w-fit border-b border-transparent group-hover:border-[#A2D5C6] pb-1">
                                     مطالعه
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                                 </a>
                             </div>
-                        `).join('');
+                        `).join('') : '<div class="empty-state">هنوز نوشته‌ای برای نمایش ثبت نشده است.</div>');
                     } else {
                         handleError('writings-container', 'خطا در دریافت مقالات.');
                     }
@@ -819,11 +927,11 @@
                     if (res.ok) {
                         const data = await res.json();
                         const portfolioContainer = document.getElementById('portfolio-container');
-                        portfolioContainer.innerHTML = data.map(item => `
-                            <div class="masonry-item portfolio-item" data-category="${item.category}">
-                                <img src="${item.url}" alt="${item.alt || 'نمونه‌کار'}" loading="lazy" data-category="${item.category}">
+                        portfolioContainer.innerHTML = (Array.isArray(data) && data.length ? data.map(item => `
+                            <div class="masonry-item portfolio-item" data-category="${escapeHTML(item.category)}" tabindex="0" role="button" aria-label="نمایش بزرگ نمونه‌کار">
+                                <img src="${escapeHTML(safeURL(item.url))}" alt="${escapeHTML(item.alt || 'نمونه‌کار')}" loading="lazy" decoding="async" data-category="${escapeHTML(item.category)}">
                             </div>
-                        `).join('');
+                        `).join('') : '<div class="empty-state">هنوز نمونه‌کاری برای نمایش ثبت نشده است.</div>');
 
                         // Setup image loading state and lightbox click handlers
                         const allImgs = Array.from(portfolioContainer.querySelectorAll('.portfolio-item img'));
@@ -832,10 +940,16 @@
                                 img.classList.add('loaded');
                             } else {
                                 img.addEventListener('load', () => img.classList.add('loaded'));
-                                img.addEventListener('error', () => img.classList.add('loaded'));
+                                img.addEventListener('error', () => {
+                                    img.classList.add('loaded');
+                                    img.alt = (img.alt || 'نمونه‌کار') + ' (بارگذاری تصویر ناموفق بود)';
+                                    img.style.minHeight = '120px';
+                                    img.style.background = 'rgba(255,255,255,.04)';
+                                });
                             }
                             
-                            img.closest('.portfolio-item').addEventListener('click', (e) => {
+                            const portfolioItem = img.closest('.portfolio-item');
+                            const activatePortfolioItem = (e) => {
                                 e.preventDefault();
                                 // Only include images that are currently visible (matching active filter)
                                 portfolioImages = Array.from(document.querySelectorAll('.portfolio-item:not(.hide-item) img'));
@@ -843,15 +957,25 @@
                                 if (visibleIndex !== -1) {
                                     openLightbox(visibleIndex);
                                 }
+                            };
+                            portfolioItem.addEventListener('click', activatePortfolioItem);
+                            portfolioItem.addEventListener('keydown', (e) => {
+                                if (e.key === 'Enter' || e.key === ' ') activatePortfolioItem(e);
                             });
                         });
 
                         // Filter Button Logic
                         const filterBtns = document.querySelectorAll('.filter-btn');
                         filterBtns.forEach(btn => {
+                            btn.type = 'button';
+                            btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
                             btn.addEventListener('click', () => {
-                                filterBtns.forEach(b => b.classList.remove('active'));
+                                filterBtns.forEach(b => {
+                                    b.classList.remove('active');
+                                    b.setAttribute('aria-pressed', 'false');
+                                });
                                 btn.classList.add('active');
+                                btn.setAttribute('aria-pressed', 'true');
 
                                 const selectedFilter = btn.getAttribute('data-filter');
                                 const items = document.querySelectorAll('.portfolio-item');
@@ -879,9 +1003,9 @@
                     const res = await fetch('./socials.json');
                     if (res.ok) {
                         const data = await res.json();
-                        document.getElementById('socials-container').innerHTML = data.map(social => `
-                            <a href="${social.url}" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn text-[#A2D5C6] font-bold text-[15px] px-4 py-2 rounded-full hover:text-white transition-colors">${social.name}</a>
-                        `).join('');
+                        document.getElementById('socials-container').innerHTML = (Array.isArray(data) && data.length ? data.map(social => `
+                            <a href="${escapeHTML(safeURL(social.url))}" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn text-[#A2D5C6] font-bold text-[15px] px-4 py-2 rounded-full hover:text-white transition-colors">${escapeHTML(social.name)}</a>
+                        `).join('') : '<div class="empty-state">هنوز راه ارتباطی ثبت نشده است.</div>');
                     } else {
                         handleError('socials-container', 'خطا در دریافت شبکه‌های اجتماعی.');
                     }
