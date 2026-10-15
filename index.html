@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دفترچه کار و تجربه‌ها | گرافیک، هوش مصنوعی و مطالعات آزاد</title>
+    <title id="page-doc-title">دفترچه کار و تجربه‌ها | گرافیک، کدنویسی و مطالعات آزاد</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -40,9 +40,9 @@
             --border-hairline: rgba(46, 78, 67, 0.16);
             --surface-subtle: rgba(46, 78, 67, 0.035);
             --surface-hover: rgba(115, 34, 41, 0.045);
+            --header-glass: rgba(217, 210, 194, 0.72);
         }
 
-        /* Perspective Mode: AI & Code (Calm Deep Botanical Notebook) */
         body[data-perspective="ai"] {
             --bg-primary: #2e4e43;
             --text-primary: #d9d2c2;
@@ -50,6 +50,7 @@
             --border-hairline: rgba(217, 210, 194, 0.16);
             --surface-subtle: rgba(217, 210, 194, 0.035);
             --surface-hover: rgba(115, 34, 41, 0.22);
+            --header-glass: rgba(46, 78, 67, 0.72);
         }
 
         * {
@@ -74,7 +75,8 @@
         }
 
         ::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
+            height: 5px;
         }
         ::-webkit-scrollbar-track {
             background: var(--bg-primary);
@@ -91,7 +93,14 @@
 
         .surface-subtle { background-color: var(--surface-subtle); }
 
-        /* Very Subtle Matte Paper Grain */
+        /* Enhanced Frosted Header Blur */
+        .frosted-header {
+            background-color: var(--header-glass);
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+
+        /* Subtle Matte Paper Grain */
         .paper-grain {
             position: fixed;
             inset: 0;
@@ -99,7 +108,7 @@
             height: 100vh;
             pointer-events: none;
             z-index: 90;
-            opacity: 0.24;
+            opacity: 0.22;
             mix-blend-mode: multiply;
         }
         body[data-perspective="ai"] .paper-grain {
@@ -130,19 +139,19 @@
         }
 
         .work-card {
-            transition: background-color 0.4s ease;
+            transition: background-color 0.35s ease, transform 0.35s ease;
         }
         .work-card:hover {
             background-color: var(--surface-hover);
         }
         .work-card .artwork-svg {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .work-card:hover .artwork-svg {
-            transform: scale(1.015);
+            transform: scale(1.02);
         }
 
-        /* Artwork Protection Shield (Disables Save/Drag/Right-Click) */
+        /* Artwork Protection Shield */
         .protected-artwork-wrap {
             position: relative;
             user-select: none;
@@ -170,7 +179,7 @@
         }
         .archive-row.active .archive-details,
         .archive-row:hover .archive-details {
-            max-height: 260px;
+            max-height: 280px;
             opacity: 1;
         }
 
@@ -201,6 +210,14 @@
             text-align: justify;
         }
 
+        /* Custom Internal Scrollbar for Large Image Galleries */
+        .gallery-scroll-viewport {
+            max-height: 76vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scroll-behavior: smooth;
+        }
+
         @media (pointer: coarse) {
             #cursor-follower { display: none; }
         }
@@ -221,191 +238,205 @@
     <!-- Minimal Cursor Follower -->
     <div id="cursor-follower" aria-hidden="true"></div>
 
-    <header class="sticky top-0 z-50 bg-[var(--bg-primary)]/95 backdrop-blur-[2px] hairline-b transition-colors duration-500">
-        <div class="max-w-[1380px] mx-auto px-6 sm:px-12 h-20 flex items-center justify-between gap-4">
+    <!-- TOP NAVIGATION BAR (Increased Blur & Exact 6-Section Order) -->
+    <header class="sticky top-0 z-50 frosted-header hairline-b transition-colors duration-500">
+        <div class="max-w-[1380px] mx-auto px-4 sm:px-10 h-20 flex items-center justify-between gap-3">
             
-            <a href="#top" class="interactive-link flex items-center gap-3 group">
+            <a href="#top" class="interactive-link flex items-center gap-2.5 group shrink-0">
                 <span class="w-2 h-2 bg-oxblood inline-block transition-transform duration-300 group-hover:rotate-45"></span>
-                <span class="font-bold text-sm sm:text-base tracking-tight">دفترچه کار و تجربه‌ها</span>
-                <span class="font-mono text-[11px] opacity-50 hidden md:inline">/ STUDIO NOTES</span>
+                <span id="txt-brand-title" class="font-bold text-sm sm:text-base tracking-tight">دفترچه کار و تجربه‌ها</span>
+                <span id="txt-brand-sub" class="font-mono text-[11px] opacity-50 hidden xl:inline">/ STUDIO NOTES</span>
             </a>
 
             <!-- Minimalist Perspective Switcher -->
-            <div class="flex items-center gap-1 sm:gap-2 hairline-all p-1" role="tablist" aria-label="تغییر زاویه دید">
-                <button onclick="setPerspective('omni')" id="persp-omni" class="interactive-link persp-btn px-3 py-1.5 text-xs font-medium bg-oxblood text-alabaster transition-colors">
+            <div class="flex items-center gap-1 hairline-all p-1 bg-[var(--bg-primary)]/40 shrink-0" role="tablist" aria-label="تغییر زاویه دید">
+                <button onclick="setPerspective('omni')" id="persp-omni" class="interactive-link persp-btn px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-medium bg-oxblood text-alabaster transition-colors">
                     همه ابعاد
                 </button>
-                <button onclick="setPerspective('art')" id="persp-art" class="interactive-link persp-btn px-3 py-1.5 text-xs opacity-75 hover:opacity-100 transition-colors">
+                <button onclick="setPerspective('art')" id="persp-art" class="interactive-link persp-btn px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs opacity-75 hover:opacity-100 transition-colors">
                     گرافیک و تصویر
                 </button>
-                <button onclick="setPerspective('ai')" id="persp-ai" class="interactive-link persp-btn px-3 py-1.5 text-xs opacity-75 hover:opacity-100 transition-colors">
+                <button onclick="setPerspective('ai')" id="persp-ai" class="interactive-link persp-btn px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs opacity-75 hover:opacity-100 transition-colors">
                     کد و هوش مصنوعی
                 </button>
             </div>
 
-            <!-- Quiet Section Links -->
-            <nav class="hidden lg:flex items-center gap-8 text-xs sm:text-sm opacity-85">
-                <a href="#works" class="interactive-link hover:text-oxblood transition-colors">گزیده آثار</a>
-                <a href="#mind-lab" class="interactive-link hover:text-oxblood transition-colors">علایق و پیوندها</a>
-                <a href="#notes" class="interactive-link hover:text-oxblood transition-colors">یادداشت‌ها</a>
-                <a href="#archive" class="interactive-link hover:text-oxblood transition-colors">مسیر من</a>
-                <a href="#contact" class="interactive-link text-oxblood font-medium">ارتباط</a>
+            <!-- Quiet Section Links (Ordered: خانه، رزومه، نمونه‌کارها، علایق و پیوندها، یادداشت‌ها، ارتباط) -->
+            <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-xs sm:text-sm opacity-90">
+                <a href="#top" id="nav-home" class="interactive-link hover:text-oxblood transition-colors">خانه</a>
+                <a href="#resume" id="nav-resume" class="interactive-link hover:text-oxblood transition-colors">رزومه</a>
+                <a href="#works" id="nav-works" class="interactive-link hover:text-oxblood transition-colors">نمونه‌کارها</a>
+                <a href="#mind-lab" id="nav-mind" class="interactive-link hover:text-oxblood transition-colors">علایق و پیوندها</a>
+                <a href="#notes" id="nav-notes" class="interactive-link hover:text-oxblood transition-colors">یادداشت‌ها</a>
+                <a href="#contact" id="nav-contact" class="interactive-link text-oxblood font-medium">ارتباط</a>
             </nav>
         </div>
     </header>
 
     <main id="top" class="max-w-[1380px] mx-auto hairline-r hairline-l">
         
-        <!-- HERO SECTION -->
-        <section class="grid grid-cols-12 hairline-b">
-            <div class="col-span-12 lg:col-span-8 p-8 sm:p-14 md:p-20 flex flex-col justify-between hairline-l">
+        <!-- 1. HOME / HERO SECTION (Left 4-Pillar Index Removed as Requested) -->
+        <section class="hairline-b py-16 sm:py-24 md:py-32 px-6 sm:px-14 md:px-24">
+            <div class="max-w-4xl">
                 <div class="flex items-center gap-3 font-mono text-[11px] opacity-60 mb-10">
-                    <span>00 / INTRODUCTION</span>
+                    <span id="txt-hero-tag">00 / HOME</span>
                     <span>—</span>
                     <span id="perspective-badge" class="font-persian">نگاه کلی</span>
                 </div>
 
-                <div class="my-auto max-w-2xl">
-                    <h1 id="hero-headline" class="text-3xl sm:text-5xl md:text-[3.25rem] font-bold leading-[1.25] tracking-tight mb-8">
-                        طراحی گرافیک، کنجکاوی در <span class="text-oxblood font-serif italic font-normal">هوش مصنوعی</span>، و لذتِ یادگیری پیوسته.
-                    </h1>
+                <h1 id="hero-headline" class="text-3xl sm:text-5xl md:text-[3.5rem] font-bold leading-[1.3] tracking-tight mb-8">
+                    طراحی گرافیک، کنجکاوی در <span class="text-oxblood font-serif italic font-normal">هوش مصنوعی</span>، و لذتِ یادگیری پیوسته.
+                </h1>
 
-                    <p id="hero-lead" class="text-base sm:text-lg leading-[1.95] opacity-85 font-light mb-10">
-                        اینجا آرشیو کوچکی از کارها و دغدغه‌های من است. بیشتر وقتم بین طراحی گرافیک (پوستر، تایپوگرافی، لوگو و تصویرسازی) و ساختن پروژه‌های هوش مصنوعی می‌گذرد؛ مهارت‌هایی که اغلبشان را از راهِ <strong>مهندسی معکوس</strong>، باز کردن ساختارها و آزمون‌وخطا یاد گرفته‌ام.
-                    </p>
+                <p id="hero-lead" class="text-base sm:text-lg md:text-xl leading-[2.05] opacity-85 font-light mb-12 max-w-3xl">
+                    اینجا آرشیو کوچکی از کارها و دغدغه‌های من است. بیشتر وقتم بین طراحی گرافیک (پوستر، تایپوگرافی، لوگو و تصویرسازی) و ساختن پروژه‌های هوش مصنوعی می‌گذرد؛ مهارت‌هایی که اغلبشان را از راهِ <strong>مهندسی معکوس</strong>، باز کردن ساختارها و آزمون‌وخطا یاد گرفته‌ام.
+                </p>
 
-                    <div class="flex flex-wrap items-center gap-4">
-                        <a href="#works" class="interactive-link px-7 py-3.5 bg-oxblood text-alabaster text-xs sm:text-sm font-medium hover:bg-botanical transition-colors">
-                            انتخاب حوزه و مشاهده آثار ↓
-                        </a>
-                        <a href="#mind-lab" class="interactive-link px-6 py-3.5 hairline-all text-xs sm:text-sm hover:border-oxblood hover:text-oxblood transition-colors">
-                            شبکه پیوندهای ذهنی من
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-span-12 lg:col-span-4 p-8 sm:p-12 flex flex-col justify-between surface-subtle">
-                <div class="font-mono text-[11px] opacity-60 mb-6">
-                    INDEX / چهار ضلع فعالیت و علاقه
-                </div>
-
-                <div class="space-y-6 my-auto text-xs sm:text-sm">
-                    <div class="pb-5 hairline-b">
-                        <span class="font-mono text-[10px] text-oxblood block mb-1">01 / VISUAL DESIGN</span>
-                        <div class="font-bold text-base">طراحی گرافیک، عکاسی و اتودهای دستی</div>
-                        <div class="opacity-75 mt-1 font-light leading-6">پوستر، تایپوگرافی، لوگو، تصویرسازی، عکاسی و اسکچ‌های روی کاغذ</div>
-                    </div>
-                    <div class="pb-5 hairline-b">
-                        <span class="font-mono text-[10px] text-oxblood block mb-1">02 / AI & SYSTEMS</span>
-                        <div class="font-bold text-base">کدنویسی و هوش مصنوعی</div>
-                        <div class="opacity-75 mt-1 font-light leading-6">یادگیری با مهندسی معکوس، ایده‌پردازی و ساخت پروژه‌های هوشمند</div>
-                    </div>
-                    <div class="pb-5 hairline-b">
-                        <span class="font-mono text-[10px] opacity-55 block mb-1">03 / PAST ROOTS</span>
-                        <div class="font-bold text-base">صدا و تصویر متحرک</div>
-                        <div class="opacity-75 mt-1 font-light leading-6">تجربه‌های گذشته در تدوین ویدیو و طراحی کلیپ‌های صوتی</div>
-                    </div>
-                    <div>
-                        <span class="font-mono text-[10px] opacity-55 block mb-1">04 / FREE STUDIES</span>
-                        <div class="font-bold text-base">مطالعات آزاد و تدریس</div>
-                        <div class="opacity-75 mt-1 font-light leading-6">شطرنج، زیست‌شناسی، نجوم، علوم انسانی، زبان و تدریس هنر</div>
-                    </div>
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="#works" id="txt-hero-btn-primary" class="interactive-link px-7 py-3.5 bg-oxblood text-alabaster text-xs sm:text-sm font-medium hover:bg-botanical transition-colors">
+                        مشاهده نمونه‌کارها ↓
+                    </a>
+                    <a href="#resume" id="txt-hero-btn-secondary" class="interactive-link px-6 py-3.5 hairline-all text-xs sm:text-sm hover:border-oxblood hover:text-oxblood transition-colors">
+                        مرور رزومه و مسیر من
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- WORKS SECTION: Dynamic Domain Cards + Collapsible Drawer -->
+        <!-- 2. RESUME SECTION (Moved right after Home as requested) -->
+        <section id="resume" class="hairline-b py-16 sm:py-24 px-6 sm:px-14 md:px-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <div class="lg:col-span-4">
+                    <div id="txt-resume-tag" class="font-mono text-xs text-oxblood mb-2">01 / RESUME</div>
+                    <h2 id="txt-resume-title" class="text-2xl sm:text-4xl font-bold tracking-tight mb-4">
+                        رزومه و مسیر تجربه‌ها
+                    </h2>
+                    <p id="txt-resume-desc" class="text-sm leading-8 opacity-80 font-light">
+                        خلاصه‌ای از کارهایی که در این سال‌ها انجام داده‌ام؛ از روزهایی که تدوین ویدیو و ساخت کلیپ‌های صوتی انجام می‌دادم تا تمرکز امروز بر کدنویسی، طراحی گرافیک و مطالعات آزاد.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-8 hairline-t" id="archive-list">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. WORKS SECTION (6 Ordered Domains + High-Capacity Scrollable Gallery UX) -->
         <section id="works" class="hairline-b py-16 sm:py-24 px-6 sm:px-14 md:px-20">
-            
             <div class="max-w-3xl mb-12">
-                <div class="font-mono text-xs text-oxblood mb-2">01 / SELECTED WORKS</div>
-                <h2 class="text-2xl sm:text-4xl font-bold tracking-tight mb-3">گزیده کارها (بر اساس حوزه مورد نظر شما)</h2>
-                <p class="text-sm sm:text-base opacity-80 font-light leading-8">
-                    برای اینکه صفحه شلوغ نشود و فقط کارهایی را ببینید که به دغدغه شما نزدیک‌تر است، نمونه‌کارها و تجربه‌هایم را در دسته‌های جداگانه قرار داده‌ام. روی هر حوزه کلیک کنید تا آثار همان بخش باز شود:
+                <div id="txt-works-tag" class="font-mono text-xs text-oxblood mb-2">02 / SELECTED WORKS</div>
+                <h2 id="txt-works-title" class="text-2xl sm:text-4xl font-bold tracking-tight mb-3">نمونه‌کارها</h2>
+                <p id="txt-works-desc" class="text-sm sm:text-base opacity-80 font-light leading-8">
+                    آثار و تجربه‌هایم در شش حوزه دسته‌بندی شده‌اند. روی هر حوزه کلیک کنید تا گالری قابل اسکرولِ همان بخش باز شود:
                 </p>
             </div>
 
-            <!-- Dynamic Domain Selector Cards (Auto-Rendered from workDomains & portfolioWorks) -->
-            <div class="grid grid-cols-12 gap-5" id="domain-selectors">
-                <!-- Populated dynamically by renderDomainSelectors() -->
+            <!-- 6 Domain Selector Cards (Ordered: کدنویسی، پوستر و فتومونتاژ، تایپوگرافی و لوگو، تصویرسازی، اسکچ‌ها، عکاسی) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="domain-selectors">
+                <!-- Populated dynamically -->
             </div>
 
-            <!-- Collapsible Works Container -->
-            <div id="works-drawer" class="hidden mt-10 pt-10 hairline-t">
-                <div class="flex items-center justify-between mb-8">
+            <!-- High-UX Collapsible & Scrollable Works Drawer for Large Image Collections -->
+            <div id="works-drawer" class="hidden mt-10 hairline-all surface-subtle">
+                
+                <!-- Sticky Gallery Control Bar (Quick Category Switch + Grid Density Toggle + Close) -->
+                <div class="sticky top-20 z-30 frosted-header hairline-b px-4 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
                     <div class="flex items-center gap-3">
                         <span class="w-2 h-2 bg-oxblood inline-block"></span>
-                        <h3 id="active-domain-title" class="text-base sm:text-lg font-bold">آثار انتخاب‌شده</h3>
+                        <h3 id="active-domain-title" class="text-sm sm:text-base font-bold">آثار انتخاب‌شده</h3>
+                        <span id="active-domain-count" class="font-mono text-xs px-2 py-0.5 hairline-all text-oxblood"></span>
                     </div>
-                    <button onclick="closeWorkDrawer()" class="interactive-link text-xs font-mono text-oxblood hover:underline px-3 py-1.5 hairline-all">
-                        بستن فهرست آثار [✕]
-                    </button>
+
+                    <!-- Quick Domain Pills for effortless switching while scrolling -->
+                    <div id="drawer-quick-pills" class="flex items-center gap-1.5 overflow-x-auto max-w-full py-1"></div>
+
+                    <div class="flex items-center gap-2">
+                        <!-- Grid Size / Density Toggle for browsing many images -->
+                        <button onclick="setGalleryDensity('compact')" id="density-compact" title="نمای فشرده (مناسب مرور سریع تعداد زیاد تصویر)" class="interactive-link px-2.5 py-1 text-xs font-mono hairline-all opacity-70 hover:opacity-100">
+                            [نمای فشرده ۴×]
+                        </button>
+                        <button onclick="setGalleryDensity('comfortable')" id="density-comfortable" title="نمای بزرگ (۲ ستونه)" class="interactive-link px-2.5 py-1 text-xs font-mono hairline-all bg-oxblood text-alabaster">
+                            [نمای بزرگ ۲×]
+                        </button>
+                        <button onclick="closeWorkDrawer()" class="interactive-link text-xs font-mono text-oxblood hover:underline px-3 py-1 hairline-all">
+                            بستن [✕]
+                        </button>
+                    </div>
                 </div>
 
-                <div id="works-grid" class="grid grid-cols-12 gap-8 sm:gap-10">
-                    <!-- Populated dynamically when user clicks a domain -->
+                <!-- Internal Scrollable Viewport so 50+ images can be scrolled effortlessly -->
+                <div id="works-scroll-viewport" class="gallery-scroll-viewport p-5 sm:p-8">
+                    <div id="works-grid" class="grid grid-cols-12 gap-6 sm:gap-8">
+                        <!-- Populated dynamically -->
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- MIND LAB SECTION -->
+        <!-- 4. INTERESTS & CONNECTIONS SECTION (Short Paragraph + Animated Core-Centered Graph) -->
         <section id="mind-lab" class="hairline-b py-16 sm:py-24 px-6 sm:px-14 md:px-20">
-            <div class="grid grid-cols-12 gap-8 sm:gap-12 mb-16 pb-12 hairline-b items-start">
-                <div class="col-span-12 lg:col-span-5">
-                    <div class="font-mono text-xs text-oxblood mb-2">02 / WORLDVIEW & GRAPH</div>
-                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight leading-snug">
-                        در ذهن من چطور این موضوعاتِ به‌ظاهر بی‌ربط به هم وصل می‌شوند؟
-                    </h2>
-                </div>
-
-                <div class="col-span-12 lg:col-span-7 p-6 sm:p-9 hairline-all surface-subtle">
-                    <p class="text-sm sm:text-base leading-[2.05] opacity-90 font-light">
-                        خیلی وقت‌ها از من می‌پرسند طراحی پوستر و لوگو چه ربطی به هوش مصنوعی، شطرنج، زیست‌شناسی یا نجوم دارد؟ در ذهن من، همه این‌ها شکل‌های مختلفی از یک کنجکاوی واحد هستند: <strong class="font-semibold text-oxblood">تلاش برای دیدنِ نظم و الگوی پنهان در پشتِ چیزها.</strong>
-                        وقتی یک سیستم هوش مصنوعی را مهندسی معکوس می‌کنم تا بفهمم چطور کار می‌کند، دقیقاً همان حسی را دارم که وقتِ تماشای تقارن رگبرگ‌های یک گیاه یا تحلیل حرکت بعدی در صفحه شطرنج دارم. نجوم به من یاد داده در طراحی گرافیک از «فضای خالی و سکوت» نترسم؛ یادگیری زبان و مطالعه علوم انسانی کمکم کرده‌اند فراموش نکنم هر طرح یا هر تکه کد قرار است با یک انسان ارتباط برقرار کند؛ و تدریس هنر به من آموخته چطور ایده‌های شلوغ را ساده و شفاف بیان کنم. گرافِ زیر، نقشه همین ارتباط‌های ذهنی من است:
-                    </p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-12 gap-8 sm:gap-12 items-center">
-                <div class="col-span-12 lg:col-span-6 flex flex-col justify-between space-y-6">
-                    <div class="text-xs opacity-75">
-                        روی هر کدام از گره‌های زیر (یا نقاط داخل گراف) کلیک کنید تا ببینید چطور در کارهای گرافیکی و کدنویسی من نقش بازی می‌کنند:
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+                
+                <!-- Right Column: Title & Single Short Paragraph -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <div id="txt-mind-tag" class="font-mono text-xs text-oxblood mb-2">03 / INTERESTS & CONNECTIONS</div>
+                        <h2 id="txt-mind-title" class="text-2xl sm:text-4xl font-bold tracking-tight leading-snug">
+                            علایق و پیوندها؛ همگرایی حوزه‌ها در یک هسته واحد
+                        </h2>
                     </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="mind-quick-tabs"></div>
-                    <div id="mindlab-dossier" class="p-8 sm:p-10 hairline-all surface-subtle min-h-[290px] flex flex-col justify-between"></div>
+
+                    <div class="p-6 sm:p-8 hairline-all surface-subtle">
+                        <p id="txt-mind-paragraph" class="text-sm sm:text-base leading-[2.1] opacity-90 font-light text-justify">
+                            برای من کدنویسی، طراحی پوستر، تایپوگرافی، تصویرسازی، عکاسی و مطالعات آزاد جزیره‌های جداگانه‌ای نیستند؛ همه آن‌ها شاخه‌هایی هستند که از یک هسته مرکزی (کنجکاوی من برای کشف الگوها و ساختن فرم) تغذیه می‌شوند و در سطح شناختی نیز—از هندسه و منطق تا روایت و نور—ریشه‌های مشترکی در ذهن دارند.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="col-span-12 lg:col-span-6 flex flex-col items-center">
-                    <div class="relative w-full max-w-[460px] aspect-square hairline-all p-4 surface-subtle">
+                <!-- Left Column: Animated Core-Centered & Cognitive-Root Graph -->
+                <div class="lg:col-span-7 flex flex-col items-center">
+                    <div class="relative w-full max-w-[560px] aspect-square hairline-all p-3 sm:p-6 surface-subtle overflow-hidden">
                         <svg id="mindlab-svg-overlay" viewBox="0 0 800 800" class="w-full h-full">
-                            <g stroke="currentColor" stroke-width="0.7" opacity="0.14" id="board-grid-lines"></g>
-                            <circle cx="400" cy="400" r="290" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 6" opacity="0.22" />
-                            <circle cx="400" cy="400" r="150" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.15" />
-                            <g id="base-graph-lines" stroke="currentColor" stroke-width="0.8" opacity="0.18" stroke-dasharray="3 3"></g>
-                            <g id="synapse-lines"></g>
+                            <!-- Subtle 8x8 Background Grid -->
+                            <g stroke="currentColor" stroke-width="0.6" opacity="0.11" id="board-grid-lines"></g>
+                            
+                            <!-- Subtle Breathing Celestial Orbits -->
+                            <circle id="orbit-outer" cx="400" cy="400" r="285" fill="none" stroke="currentColor" stroke-width="0.9" stroke-dasharray="4 6" opacity="0.22" />
+                            <circle id="orbit-inner" cx="400" cy="400" r="165" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.14" />
+
+                            <!-- Cognitive Shared-Root Cross Connections (Between related domains) -->
+                            <g id="shared-root-lines"></g>
+
+                            <!-- Primary Radial Connections to Central Core ("من") -->
+                            <g id="core-radial-lines"></g>
+
+                            <!-- Animated Traveling Pulses along Connections -->
+                            <g id="synapse-pulses"></g>
+
+                            <!-- Domain & Resume Nodes + Central Core Node -->
                             <g id="board-nodes"></g>
                         </svg>
                     </div>
-                    <div class="mt-3 font-mono text-[11px] opacity-55 text-center">
-                        گراف ارتباطی علایق و مهارت‌ها (برای کاوش روی گره‌ها کلیک کنید)
+                    <div id="txt-mind-caption" class="mt-3 font-mono text-[11px] opacity-60 text-center">
+                        شبکه زنده پیوند حوزه‌های نمونه‌کار و رزومه حول هسته مرکزی و ریشه‌های شناختی مشترک
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- NOTES & PHILOSOPHY SECTION -->
+        <!-- 5. NOTES & PHILOSOPHY SECTION -->
         <section id="notes" class="hairline-b py-16 sm:py-24 px-6 sm:px-14 md:px-20">
-            <div class="grid grid-cols-12 gap-8 sm:gap-12 mb-12 items-end">
-                <div class="col-span-12 lg:col-span-7">
-                    <div class="font-mono text-xs text-oxblood mb-2">03 / NOTES & PHILOSOPHY</div>
-                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight leading-snug">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 mb-12 items-end">
+                <div class="lg:col-span-7">
+                    <div id="txt-notes-tag" class="font-mono text-xs text-oxblood mb-2">04 / NOTES & PHILOSOPHY</div>
+                    <h2 id="txt-notes-title" class="text-2xl sm:text-4xl font-bold tracking-tight leading-snug">
                         یادداشت‌ها و تاملات؛ حاشیه‌نویسی‌هایی بر زمان، آفرینش و هوشمندی
                     </h2>
                 </div>
-                <div class="col-span-12 lg:col-span-5">
-                    <p class="text-xs sm:text-sm opacity-80 leading-7 font-light">
-                        اینجا وبلاگِ خبری یا آموزشی نیست؛ فهرستِ کوتاهی از تاملات شخصی من در فاصله‌ی بین طراحی یک پوستر و نوشتن یک تکه کد است. با نگه داشتن موس روی هر عنوان، عصاره‌ی آن یادداشت را می‌بینید و با کلیک روی آن، صفحه مطالعه باز می‌شود.
+                <div class="lg:col-span-5">
+                    <p id="txt-notes-desc" class="text-xs sm:text-sm opacity-80 leading-7 font-light">
+                        فهرستی از تاملات شخصی من در فاصله‌ی بین طراحی و کدنویسی. با نگه داشتن موس روی هر عنوان، خلاصه‌ی آن را می‌بینید و با کلیک روی آن، صفحه مطالعه باز می‌شود.
                     </p>
                 </div>
             </div>
@@ -420,73 +451,48 @@
             <div id="notes-index-list" class="hairline-t md:border-t-0"></div>
         </section>
 
-        <!-- ARCHIVE SECTION -->
-        <section id="archive" class="hairline-b py-16 sm:py-24 px-6 sm:px-14 md:px-20">
-            <div class="grid grid-cols-12 gap-10">
-                <div class="col-span-12 lg:col-span-4">
-                    <div class="font-mono text-xs text-oxblood mb-2">04 / BACKGROUND</div>
-                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight mb-4">
-                        مسیر یادگیری و تجربه‌های گذشته
-                    </h2>
-                    <p class="text-sm leading-7 opacity-80 font-light">
-                        خلاصه‌ای از کارهایی که در این سال‌ها انجام داده‌ام؛ از روزهایی که تدوین ویدیو و ساخت کلیپ‌های صوتی انجام می‌دادم تا تمرکز امروز بر طراحی گرافیک و پروژه‌های هوش مصنوعی.
-                    </p>
-                </div>
-
-                <div class="col-span-12 lg:col-span-8 hairline-t" id="archive-list"></div>
-            </div>
-        </section>
-
-        <!-- CONTACT FOOTER -->
-        <footer id="contact" class="py-16 sm:py-24 px-6 sm:px-14 md:px-20">
-            <div class="grid grid-cols-12 gap-12 items-start">
-                <div class="col-span-12 lg:col-span-6">
-                    <div class="font-mono text-xs text-oxblood mb-2">05 / SAY HELLO</div>
-                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight mb-4 leading-snug">
+        <!-- 6. CONTACT FOOTER (Fixed Mobile Form Dimensions, Removed Color Palette, Added Social Media IDs) -->
+        <footer id="contact" class="py-16 sm:py-24 px-5 sm:px-14 md:px-20 overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+                
+                <div class="lg:col-span-6 min-w-0">
+                    <div id="txt-contact-tag" class="font-mono text-xs text-oxblood mb-2">05 / CONTACT</div>
+                    <h2 id="txt-contact-title" class="text-2xl sm:text-4xl font-bold tracking-tight mb-4 leading-snug">
                         خوشحال می‌شوم با هم گپ بزنیم یا روی ایده تازه‌ای کار کنیم.
                     </h2>
-                    <p class="text-sm sm:text-base opacity-80 leading-8 font-light mb-8">
-                        چه برای طراحی پوستر، لوگو و هویت بصری، چه برای فکر کردن روی یک ایده و سیستم هوش مصنوعی، یا حتی یک گفتگوی دوستانه درباره هنر، شطرنج و کتاب؛ می‌توانید برایم پیام بفرستید.
+                    <p id="txt-contact-desc" class="text-sm sm:text-base opacity-80 leading-8 font-light mb-8">
+                        چه برای همکاری در طراحی گرافیک و کدنویسی پروژه‌های هوش مصنوعی، و چه برای یک گفتگوی دوستانه درباره هنر و کتاب؛ می‌توانید از طریق شبکه‌های اجتماعی یا فرم مقابل با من در ارتباط باشید.
                     </p>
 
-                    <div class="space-y-3 text-sm pt-4 hairline-t max-w-md">
-                        <div class="flex items-center justify-between py-2">
-                            <span class="opacity-70">ایمیل مستقیم:</span>
-                            <button onclick="copyContact('hello@studio-notes.ir', this)" class="interactive-link font-mono text-xs text-oxblood hover:underline">
-                                hello@studio-notes.ir [کپی]
-                            </button>
-                        </div>
-                        <div class="flex items-center justify-between py-2 hairline-t">
-                            <span class="opacity-70">پالت رنگی سایت:</span>
-                            <div class="flex items-center gap-2 font-mono text-[10px]">
-                                <span class="px-2 py-0.5 bg-[#d9d2c2] text-[#2e4e43] hairline-all">#D9D2C2</span>
-                                <span class="px-2 py-0.5 bg-[#2e4e43] text-[#d9d2c2]">#2E4E43</span>
-                                <span class="px-2 py-0.5 bg-[#732229] text-[#d9d2c2]">#732229</span>
-                            </div>
+                    <!-- Dynamic Social Media IDs List (Managed via Telegram Bot) -->
+                    <div class="pt-4 hairline-t max-w-md">
+                        <div class="font-mono text-[11px] text-oxblood mb-3">SOCIAL NETWORKS // شبکه‌های اجتماعی</div>
+                        <div id="socials-list" class="divide-y divide-[var(--border-hairline)] text-sm">
+                            <!-- Populated dynamically from socialLinks -->
                         </div>
                     </div>
                 </div>
 
-                <!-- Minimalist Message Form (Connected to Telegram Bot via GAS) -->
-                <div class="col-span-12 lg:col-span-6">
-                    <form id="dispatch-form" onsubmit="handleDispatchSubmit(event)" class="p-6 sm:p-10 hairline-all surface-subtle space-y-5">
-                        <div>
-                            <label class="block text-xs mb-2 opacity-75">نام شما</label>
-                            <input type="text" id="contact-name" required placeholder="نام یا عنوان مجموعه" class="w-full p-3 bg-transparent hairline-all focus:border-oxblood focus:outline-none text-sm">
+                <!-- Mobile-Safe Message Form -->
+                <div class="lg:col-span-6 w-full min-w-0">
+                    <form id="dispatch-form" onsubmit="handleDispatchSubmit(event)" class="w-full max-w-full p-5 sm:p-8 md:p-10 hairline-all surface-subtle space-y-5">
+                        <div class="w-full min-w-0">
+                            <label id="txt-form-name-label" class="block text-xs mb-2 opacity-75">نام شما</label>
+                            <input type="text" id="contact-name" required placeholder="نام یا عنوان مجموعه" class="w-full max-w-full p-3 bg-transparent hairline-all focus:border-oxblood focus:outline-none text-sm">
                         </div>
-                        <div>
-                            <label class="block text-xs mb-2 opacity-75">موضوع گفتگو</label>
-                            <select id="contact-topic" class="w-full p-3 bg-[var(--bg-primary)] hairline-all focus:border-oxblood focus:outline-none text-sm">
-                                <option value="همکاری در طراحی گرافیک">همکاری در طراحی گرافیک (پوستر، لوگو، تایپوگرافی)</option>
+                        <div class="w-full min-w-0">
+                            <label id="txt-form-topic-label" class="block text-xs mb-2 opacity-75">موضوع گفتگو</label>
+                            <select id="contact-topic" class="w-full max-w-full p-3 bg-[var(--bg-primary)] hairline-all focus:border-oxblood focus:outline-none text-xs sm:text-sm truncate">
                                 <option value="همکاری در کدنویسی و هوش مصنوعی">همکاری در کدنویسی و پروژه هوش مصنوعی</option>
+                                <option value="همکاری در طراحی گرافیک">همکاری در طراحی گرافیک (پوستر، لوگو، تصویرسازی)</option>
                                 <option value="تدریس یا گفتگوی دوستانه">تدریس، تبادل نظر یا گفتگوی دوستانه</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-xs mb-2 opacity-75">پیام شما</label>
-                            <textarea id="contact-msg" rows="3" required placeholder="کمی درباره ایده یا راه ارتباطی خودت بنویس..." class="w-full p-3 bg-transparent hairline-all focus:border-oxblood focus:outline-none text-sm"></textarea>
+                        <div class="w-full min-w-0">
+                            <label id="txt-form-msg-label" class="block text-xs mb-2 opacity-75">پیام شما</label>
+                            <textarea id="contact-msg" rows="3" required placeholder="کمی درباره ایده یا راه ارتباطی خودت بنویس..." class="w-full max-w-full p-3 bg-transparent hairline-all focus:border-oxblood focus:outline-none text-sm"></textarea>
                         </div>
-                        <div class="flex items-center justify-between gap-4 pt-2">
+                        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
                             <button type="submit" id="contact-submit-btn" class="interactive-link px-7 py-3 bg-oxblood text-alabaster text-xs sm:text-sm font-medium hover:bg-botanical transition-colors">
                                 ارسال پیام ←
                             </button>
@@ -497,32 +503,32 @@
             </div>
 
             <div class="mt-16 pt-8 hairline-t flex flex-wrap items-center justify-between gap-4 text-xs opacity-60">
-                <span>طراحی‌شده با سادگی و احترام به مخاطب — ۱۴۰۴</span>
+                <span id="txt-footer-copy">طراحی‌شده با سادگی و احترام به مخاطب — ۱۴۰۵</span>
                 <a href="#top" class="interactive-link hover:text-oxblood">بازگشت به بالا ↑</a>
             </div>
         </footer>
     </main>
 
     <!-- LIGHTBOX MODAL -->
-    <div id="lightbox-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-8 bg-[#2e4e43]/85 backdrop-blur-[2px]" role="dialog" aria-modal="true" aria-labelledby="modal-title" oncontextmenu="return false;">
+    <div id="lightbox-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-8 bg-[#2e4e43]/85 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="modal-title" oncontextmenu="return false;">
         <div class="w-full max-w-4xl bg-[#d9d2c2] text-[#2e4e43] hairline-all overflow-hidden max-h-[90vh] flex flex-col">
             <div class="px-6 py-4 hairline-b flex items-center justify-between">
                 <div class="flex items-center gap-3 font-mono text-xs">
                     <span id="modal-index" class="px-2 py-0.5 bg-[#732229] text-[#d9d2c2]">01</span>
-                    <span id="modal-category" class="opacity-75">پوستر و تایپوگرافی</span>
+                    <span id="modal-category" class="opacity-75">نمونه‌کار</span>
                 </div>
                 <button onclick="closeLightbox()" class="interactive-link font-mono text-xs text-[#732229] font-bold hover:underline">
                     بستن [ESC ✕]
                 </button>
             </div>
 
-            <div class="grid grid-cols-12 overflow-y-auto flex-1">
-                <div class="col-span-12 md:col-span-6 p-8 hairline-l flex items-center justify-center bg-[#2e4e43]/5 protected-artwork-wrap" id="modal-svg-container"></div>
+            <div class="grid grid-cols-1 md:grid-cols-12 overflow-y-auto flex-1">
+                <div class="md:col-span-6 p-6 sm:p-8 hairline-l flex items-center justify-center bg-[#2e4e43]/5 protected-artwork-wrap" id="modal-svg-container"></div>
 
-                <div class="col-span-12 md:col-span-6 p-8 flex flex-col justify-between">
+                <div class="md:col-span-6 p-6 sm:p-8 flex flex-col justify-between">
                     <div>
                         <span id="modal-year" class="font-mono text-xs opacity-60 block mb-1">۱۴۰۴</span>
-                        <h3 id="modal-title" class="text-2xl font-bold mb-5 leading-snug">عنوان اثر</h3>
+                        <h3 id="modal-title" class="text-xl sm:text-2xl font-bold mb-5 leading-snug">عنوان اثر</h3>
                         
                         <div class="space-y-4 text-sm leading-7">
                             <div>
@@ -551,7 +557,7 @@
     </div>
 
     <!-- BOOK-LIKE READER MODAL (Notes & Philosophy) -->
-    <div id="reader-modal" class="fixed inset-0 z-[110] hidden items-center justify-center p-3 sm:p-8 bg-[#2e4e43]/90 backdrop-blur-[2px]" role="dialog" aria-modal="true" aria-labelledby="reader-title">
+    <div id="reader-modal" class="fixed inset-0 z-[110] hidden items-center justify-center p-3 sm:p-8 bg-[#2e4e43]/90 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="reader-title">
         <div class="w-full max-w-3xl bg-[#d9d2c2] text-[#2e4e43] hairline-all overflow-hidden max-h-[92vh] flex flex-col">
             <div class="px-6 sm:px-10 py-4 hairline-b flex items-center justify-between bg-[#d9d2c2]">
                 <div class="flex items-center gap-3 font-mono text-xs">
@@ -600,293 +606,271 @@
         /* ============================================================================
            0. CLOUD & TELEGRAM BOT SYNC CONFIG (GOOGLE APPS SCRIPT)
            ============================================================================ */
-        // آدرس Web App اسکریپت گوگل خود را اینجا قرار دهید:
-        const GAS_API_URL = "https://script.google.com/macros/s/AKfycbygIcBhNhw-Syj3NZ-XBF3sn-ZT-meqKx7iP27E7D7qAwi_bDraHmOAwH2O-tcXiQwHbw/exec"; 
+        const GAS_API_URL = ""; // لینک Web App اسکریپت گوگل خود را اینجا قرار دهید
 
         /* ============================================================================
-           1. DYNAMIC WORK DOMAINS (Categories for Works Section)
+           1. EDITABLE SITE TEXTS (All Titles, Subtitles, Menus, Buttons & Paragraphs)
+           ============================================================================ */
+        let siteTexts = {
+            "txt-brand-title": "دفترچه کار و تجربه‌ها",
+            "txt-brand-sub": "/ STUDIO NOTES",
+            "persp-omni": "همه ابعاد",
+            "persp-art": "گرافیک و تصویر",
+            "persp-ai": "کد و هوش مصنوعی",
+            "nav-home": "خانه",
+            "nav-resume": "رزومه",
+            "nav-works": "نمونه‌کارها",
+            "nav-mind": "علایق و پیوندها",
+            "nav-notes": "یادداشت‌ها",
+            "nav-contact": "ارتباط",
+            "txt-hero-tag": "00 / HOME",
+            "hero-headline": "طراحی گرافیک، کنجکاوی در <span class=\"text-oxblood font-serif italic font-normal\">هوش مصنوعی</span>، و لذتِ یادگیری پیوسته.",
+            "hero-lead": "اینجا آرشیو کوچکی از کارها و دغدغه‌های من است. بیشتر وقتم بین طراحی گرافیک (پوستر، تایپوگرافی، لوگو و تصویرسازی) و ساختن پروژه‌های هوش مصنوعی می‌گذرد؛ مهارت‌هایی که اغلبشان را از راهِ <strong>مهندسی معکوس</strong>، باز کردن ساختارها و آزمون‌وخطا یاد گرفته‌ام.",
+            "txt-hero-btn-primary": "مشاهده نمونه‌کارها ↓",
+            "txt-hero-btn-secondary": "مرور رزومه و مسیر من",
+            "txt-resume-tag": "01 / RESUME",
+            "txt-resume-title": "رزومه و مسیر تجربه‌ها",
+            "txt-resume-desc": "خلاصه‌ای از کارهایی که در این سال‌ها انجام داده‌ام؛ از روزهایی که تدوین ویدیو و ساخت کلیپ‌های صوتی انجام می‌دادم تا تمرکز امروز بر کدنویسی، طراحی گرافیک و مطالعات آزاد.",
+            "txt-works-tag": "02 / SELECTED WORKS",
+            "txt-works-title": "نمونه‌کارها",
+            "txt-works-desc": "آثار و تجربه‌هایم در شش حوزه دسته‌بندی شده‌اند. روی هر حوزه کلیک کنید تا گالری قابل اسکرولِ همان بخش باز شود:",
+            "txt-mind-tag": "03 / INTERESTS & CONNECTIONS",
+            "txt-mind-title": "علایق و پیوندها؛ همگرایی حوزه‌ها در یک هسته واحد",
+            "txt-mind-paragraph": "برای من کدنویسی، طراحی پوستر، تایپوگرافی، تصویرسازی، عکاسی و مطالعات آزاد جزیره‌های جداگانه‌ای نیستند؛ همه آن‌ها شاخه‌هایی هستند که از یک هسته مرکزی (کنجکاوی من برای کشف الگوها و ساختن فرم) تغذیه می‌شوند و در سطح شناختی نیز—از هندسه و منطق تا روایت و نور—ریشه‌های مشترکی در ذهن دارند.",
+            "txt-mind-caption": "شبکه زنده پیوند حوزه‌های نمونه‌کار و رزومه حول هسته مرکزی و ریشه‌های شناختی مشترک",
+            "txt-notes-tag": "04 / NOTES & PHILOSOPHY",
+            "txt-notes-title": "یادداشت‌ها و تاملات؛ حاشیه‌نویسی‌هایی بر زمان، آفرینش و هوشمندی",
+            "txt-notes-desc": "فهرستی از تاملات شخصی من در فاصله‌ی بین طراحی و کدنویسی. با نگه داشتن موس روی هر عنوان، خلاصه‌ی آن را می‌بینید و با کلیک روی آن، صفحه مطالعه باز می‌شود.",
+            "txt-contact-tag": "05 / CONTACT",
+            "txt-contact-title": "خوشحال می‌شوم با هم گپ بزنیم یا روی ایده تازه‌ای کار کنیم.",
+            "txt-contact-desc": "چه برای همکاری در طراحی گرافیک و کدنویسی پروژه‌های هوش مصنوعی، و چه برای یک گفتگوی دوستانه درباره هنر و کتاب؛ می‌توانید از طریق شبکه‌های اجتماعی یا فرم مقابل با من در ارتباط باشید.",
+            "txt-footer-copy": "طراحی‌شده با سادگی و احترام به مخاطب — ۱۴۰۵",
+            "core-node-label": "من (هسته مرکزی)"
+        };
+
+        function applySiteTexts() {
+            Object.keys(siteTexts).forEach(id => {
+                const el = document.getElementById(id);
+                if (el && siteTexts[id]) {
+                    el.innerHTML = siteTexts[id];
+                }
+            });
+        }
+
+        /* ============================================================================
+           2. SOCIAL MEDIA IDS (Editable via Telegram Bot)
+           ============================================================================ */
+        let socialLinks = [
+            { id: "s1", platform: "تلگرام (Telegram)", handle: "@your_telegram_id", url: "https://t.me/your_telegram_id" },
+            { id: "s2", platform: "اینستاگرام (Instagram)", handle: "@your_instagram_id", url: "https://instagram.com/your_instagram_id" },
+            { id: "s3", platform: "گیت‌هاب (GitHub)", handle: "@your_github_id", url: "https://github.com/your_github_id" }
+        ];
+
+        function renderSocialLinks() {
+            const container = document.getElementById('socials-list');
+            if (!container) return;
+            container.innerHTML = socialLinks.map(item => `
+                <div class="flex items-center justify-between py-3 gap-4">
+                    <span class="opacity-75 text-xs sm:text-sm">${item.platform}</span>
+                    <div class="flex items-center gap-3 font-mono text-xs" dir="ltr">
+                        <a href="${item.url || '#'}" target="_blank" rel="noopener noreferrer" class="interactive-link text-oxblood hover:underline font-medium">
+                            ${item.handle}
+                        </a>
+                        <button onclick="copyContact('${item.handle}', this)" class="interactive-link text-[10px] opacity-60 hover:opacity-100 hairline-all px-1.5 py-0.5">
+                            [کپی]
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            bindCursorEvents();
+        }
+
+        /* ============================================================================
+           3. WORK DOMAINS (Ordered: کدنویسی، پوستر و فتومونتاژ، تایپوگرافی و لوگو، تصویرسازی، اسکچ‌ها، عکاسی)
            ============================================================================ */
         let workDomains = [
             {
-                key: "poster",
+                key: "coding",
                 code: "DOMAIN 01",
-                title: "پوستر، فتومونتاژ و تصویرسازی",
+                title: "کدنویسی",
+                unit: "پروژه",
+                cognitiveGroup: "logic",
+                description: "ابزارها، الگوریتم‌ها و پروژه‌های هوش مصنوعی که از طریق مهندسی معکوس و منطق سیستمی ساخته‌ام."
+            },
+            {
+                key: "poster",
+                code: "DOMAIN 02",
+                title: "پوستر و فتومونتاژ",
                 unit: "اثر",
-                colSpan: "col-span-12 md:col-span-4",
-                description: "تجربه‌های بصری و صفحه‌آرایی با الهام از فرم‌های طبیعی، هندسه نجومی و روایت‌های ادبی."
+                cognitiveGroup: "visual_narrative",
+                description: "ترکیب‌بندی‌های مفهومی، کلاژ و صفحه‌آرایی با الهام از فرم‌های طبیعی، هندسه نجومی و روایت‌های ادبی."
             },
             {
                 key: "logo",
-                code: "DOMAIN 02",
-                title: "لوگو، لوگوتایپ و تایپوگرافی",
+                code: "DOMAIN 03",
+                title: "تایپوگرافی و لوگو",
                 unit: "اثر",
-                colSpan: "col-span-12 md:col-span-4",
-                description: "طراحی نشانه‌ها و حروف با تمرکز بر خلاصه‌گویی، هندسه خط فارسی و تعادل فضای پر و خالی."
+                cognitiveGroup: "structure_form",
+                description: "طراحی نشانه‌ها، لوگوتایپ و مهندسی حروف با تمرکز بر خلاصه‌گویی و تعادل فضای پر و خالی."
             },
             {
-                key: "photo",
-                code: "DOMAIN 03",
-                title: "عکاسی و ثبت لحظه‌ها",
-                unit: "مجموعه",
-                colSpan: "col-span-12 md:col-span-4",
-                description: "قاب‌هایی که در پرسه‌زدن‌های روزمره گرفته‌ام؛ تمرینی برای دیدنِ نور، سایه، بافت و هندسه پنهان در محیط."
+                key: "illustration",
+                code: "DOMAIN 04",
+                title: "تصویرسازی",
+                unit: "اثر",
+                cognitiveGroup: "visual_narrative",
+                description: "تصویرسازی‌های مفهومی و خطی برای جان بخشیدن به جستارهای فکری، روایت‌ها و مفاهیم انتزاعی."
             },
             {
                 key: "sketch",
-                code: "DOMAIN 04",
-                title: "اتودهای کاغذی و اسکچ‌ها",
+                code: "DOMAIN 05",
+                title: "اسکچ‌ها",
                 unit: "برگ",
-                colSpan: "col-span-12 md:col-span-6",
-                description: "فکر کردن با مداد و راپید روی کاغذ، پیش از روشن کردن کامپیوتر؛ طرح‌های اولیه، خط‌خطی‌ها و مشق‌های کلاسی."
+                cognitiveGroup: "structure_form",
+                description: "فکر کردن با مداد و راپید روی کاغذ پیش از روشن کردن کامپیوتر؛ اتودهای اولیه و تمرین‌های هاشورزنی."
             },
             {
-                key: "ai",
-                code: "DOMAIN 05",
-                title: "کدنویسی و پروژه‌های هوش مصنوعی",
-                unit: "اثر",
-                colSpan: "col-span-12 md:col-span-6",
-                description: "ابزارها و سیستم‌های هوشمندی که از طریق مهندسی معکوس و الگوبرداری از منطق شطرنج ساخته‌ام."
+                key: "photo",
+                code: "DOMAIN 06",
+                title: "عکاسی",
+                unit: "مجموعه",
+                cognitiveGroup: "visual_narrative",
+                description: "قاب‌هایی از پرسه‌زدن‌های روزمره؛ تمرینی برای دیدنِ نور، سایه، بافت و هندسه پنهان در محیط."
             }
         ];
 
         /* ============================================================================
-           2. WORKS DATASET
+           4. WORKS DATASET (Aligned with the 6 Ordered Domains)
            ============================================================================ */
         let portfolioWorks = [
             {
                 id: 1,
                 num: "01",
-                domain: "poster",
-                category: "graphic",
-                categoryLabel: "پوستر و صفحه‌آرایی",
-                title: "پوستر «سکوتِ مداری»",
+                domain: "coding",
+                category: "ai",
+                categoryLabel: "کدنویسی و هوش مصنوعی",
+                title: "کاوشگر لایه‌های پنهان مدل زبانی",
                 year: "۱۴۰۴",
-                spanClass: "col-span-12 md:col-span-6",
-                mindConnection: "الهام از نجوم",
-                description: "این پوستر از دلِ علاقه‌ام به کتاب‌های قدیمی نجوم شکل گرفت. همیشه برایم جالب بود که سیارات در مدار بیضوی گاهی تندتر و گاهی کندتر حرکت می‌کنند؛ سعی کردم همین ریتم و سکوت را با فاصله‌گذاری حروف روی صفحه کاغذ پیاده کنم.",
-                anatomy: "چیدمان با شبکه نامتقارن سوئیسی، استفاده از دو مدار بیضوی متقاطع و یک نقطه کانونی زرشکی برای هدایت چشم مخاطب.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><line x1="70" y1="0" x2="70" y2="420" stroke="#2e4e43" stroke-width="0.5" opacity="0.3"/><ellipse cx="220" cy="210" rx="130" ry="88" fill="none" stroke="#2e4e43" stroke-width="1" transform="rotate(-22 220 210)"/><circle cx="220" cy="210" r="52" fill="#2e4e43"/><circle cx="140" cy="175" r="14" fill="#732229"/><text x="385" y="48" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="20">سکوت مداری</text><text x="35" y="390" fill="#732229" font-family="Space Mono" font-size="11">ORBITAL STUDY // 01</text></svg>`
+                mindConnection: "مهندسی معکوس",
+                description: "با مهندسی معکوسِ یک مدل زبانی، ابزاری ساختم که ارتباط بین مفاهیم و بردارها را به شکل یک نقشه ساده خطی نشان می‌دهد.",
+                anatomy: "استخراج بردارهای میانی مدل با پایتون و تبدیل آن‌ها به یک رابط گرافیکی دوبعدی برای دیدن مسیر تصمیم‌گیری مدل.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[300px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#2e4e43" stroke="#d9d2c2" stroke-width="1"/><polygon points="90,130 210,80 330,130 210,180" fill="none" stroke="#d9d2c2" stroke-width="1" opacity="0.7"/><polygon points="90,210 210,160 330,210 210,260" fill="none" stroke="#d9d2c2" stroke-width="1" opacity="0.7"/><polygon points="90,290 210,240 330,290 210,340" fill="rgba(115,34,41,0.4)" stroke="#732229" stroke-width="1.5"/><line x1="210" y1="80" x2="210" y2="340" stroke="#732229" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="210" cy="210" r="7" fill="#732229" stroke="#d9d2c2" stroke-width="1.5"/><text x="385" y="390" text-anchor="end" fill="#d9d2c2" font-family="Vazirmatn" font-weight="600" font-size="16">نقشه لایه‌های هوش مصنوعی</text></svg>`
             },
             {
-                id: 4,
+                id: 2,
                 num: "02",
-                domain: "poster",
-                category: "graphic",
-                categoryLabel: "فتومونتاژ و تصویرسازی",
-                title: "تصویرسازی و کلاژ «برگ و ساعت»",
-                year: "۱۴۰۳",
-                spanClass: "col-span-12 md:col-span-6",
-                mindConnection: "زیست‌شناسی و علوم انسانی",
-                description: "ترکیبی از نقاشی‌های قدیمی گیاه‌شناسی و فرم‌های هندسی ساده؛ کاری که برای همراهی با چند جستار ادبی و فلسفی درباره مفهوم زمان و رشد در طبیعت تصویرسازی شد.",
-                anatomy: "کلاژ دیجیتال و هاشورزنی خطی محدود به سه رنگ اصلی سایت برای حفظ حس چاپ دستی روی کاغذ کاهی.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><polygon points="105,310 210,85 315,310" fill="#2e4e43"/><circle cx="210" cy="220" r="58" fill="#d9d2c2" stroke="#732229" stroke-width="1.5"/><circle cx="210" cy="220" r="18" fill="#732229"/><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="17">فتومونتاژ و تصویرسازی</text></svg>`
+                domain: "coding",
+                category: "ai",
+                categoryLabel: "کدنویسی و الگوریتم",
+                title: "سیستم تصمیم‌گیری الهام‌گرفته از شطرنج",
+                year: "۱۴۰۴",
+                mindConnection: "شطرنج و منطق",
+                description: "در این پروژه منطق درخت تصمیم شطرنج را به چند ایجنت هوش مصنوعی دادم تا قبل از تولید خروجی نهایی، راه‌حل‌های مختلف را بسنجند.",
+                anatomy: "ساختار درختی جستجو که به مدل کمک می‌کند خطاهای کمتری در کدنویسی و استدلال داشته باشد.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[300px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#2e4e43" stroke="#d9d2c2" stroke-width="1"/><line x1="210" y1="80" x2="125" y2="190" stroke="#d9d2c2" stroke-width="1" opacity="0.6"/><line x1="210" y1="80" x2="295" y2="190" stroke="#d9d2c2" stroke-width="1" opacity="0.6"/><line x1="295" y1="190" x2="240" y2="295" stroke="#d9d2c2" stroke-width="1" opacity="0.6"/><polyline points="210,80 295,190 240,295" fill="none" stroke="#732229" stroke-width="3"/><circle cx="210" cy="80" r="7" fill="#d9d2c2"/><circle cx="295" cy="190" r="9" fill="#732229" stroke="#d9d2c2" stroke-width="1.5"/><circle cx="240" cy="295" r="9" fill="#732229" stroke="#d9d2c2" stroke-width="1.5"/><text x="385" y="390" text-anchor="end" fill="#d9d2c2" font-family="Vazirmatn" font-weight="600" font-size="16">درخت استدلال شطرنج‌محور</text></svg>`
             },
             {
                 id: 3,
                 num: "03",
-                domain: "logo",
+                domain: "poster",
                 category: "graphic",
-                categoryLabel: "لوگو و لوگوتایپ",
-                title: "مجموعه نشانه‌ها و لوگوتایپ‌ها",
-                year: "۱۴۰۳",
-                spanClass: "col-span-12 md:col-span-6",
-                mindConnection: "زبان و هندسه خط",
-                description: "طراحی لوگو برای من تمرینِ خلاصه‌گویی است؛ اینکه چطور می‌شود یک ایده یا نام فارسی را آن‌قدر ساده و پالایش کرد که حتی در اندازه یک مهر کوچک هم خوانا و باوقار بماند.",
-                anatomy: "طراحی روی شبکه شطرنجی متوازن با تمرکز بر تعادل فضای پر و خالی (سیاه و سفید) بدون هیچ افکت اضافه.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><path d="M 135 120 L 285 120 L 285 270 L 210 270 L 210 195 L 135 195 Z" fill="#2e4e43"/><rect x="135" y="220" width="50" height="50" fill="#732229"/><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="17">طراحی لوگو و نشانه</text></svg>`
+                categoryLabel: "پوستر و فتومونتاژ",
+                title: "پوستر «سکوتِ مداری»",
+                year: "۱۴۰۴",
+                mindConnection: "الهام از نجوم",
+                description: "این پوستر از دلِ علاقه‌ام به کتاب‌های قدیمی نجوم شکل گرفت؛ ریتم و سکوت مدارهای بیضوی با فاصله‌گذاری حروف روی کاغذ.",
+                anatomy: "چیدمان با شبکه نامتقارن سوئیسی، استفاده از دو مدار بیضوی متقاطع و یک نقطه کانونی زرشکی.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[300px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><line x1="70" y1="0" x2="70" y2="420" stroke="#2e4e43" stroke-width="0.5" opacity="0.3"/><ellipse cx="220" cy="210" rx="130" ry="88" fill="none" stroke="#2e4e43" stroke-width="1" transform="rotate(-22 220 210)"/><circle cx="220" cy="210" r="52" fill="#2e4e43"/><circle cx="140" cy="175" r="14" fill="#732229"/><text x="385" y="48" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="20">سکوت مداری</text><text x="35" y="390" fill="#732229" font-family="Space Mono" font-size="11">ORBITAL STUDY // 01</text></svg>`
             },
             {
-                id: 6,
+                id: 4,
                 num: "04",
                 domain: "logo",
                 category: "graphic",
-                categoryLabel: "تایپوگرافی و ریتم بصری",
-                title: "نگارش تایپوگرافیکِ یک قطعه صوتی",
-                year: "۱۴۰۲",
-                spanClass: "col-span-12 md:col-span-6",
-                mindConnection: "تدوین صدا و هندسه حروف",
-                description: "یادگاری از دوره کار با صدا؛ در این تجربه، ریتم و مکث‌های یک قطعه صوتی کوتاه را به شکل کشیدگی حروف، خط‌ها و نقطه‌های گرافیکی روی کاغذ ترسیم کردم.",
-                anatomy: "ترکیب تجربه تدوین صدا با تایپوگرافی؛ ضخامت هر خط نماینده شدت صدا و نقاط زرشکی نشان‌دهنده مکث‌ها و ضرب‌آهنگ‌هاست.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><line x1="40" y1="210" x2="380" y2="210" stroke="#2e4e43" stroke-width="0.8" opacity="0.4"/><path d="M 50 210 Q 115 120, 180 210 T 310 210 T 370 175" fill="none" stroke="#732229" stroke-width="2.5"/><circle cx="115" cy="165" r="12" fill="#732229"/><circle cx="255" cy="245" r="18" fill="#2e4e43"/><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="17">تایپوگرافی و ریتم صدا</text></svg>`
+                categoryLabel: "تایپوگرافی و لوگو",
+                title: "مجموعه نشانه‌ها و لوگوتایپ‌ها",
+                year: "۱۴۰۳",
+                mindConnection: "زبان و هندسه خط",
+                description: "طراحی لوگو و تایپوگرافی با تمرکز بر پالایش فرم تا جایی که در کوچک‌ترین مقیاس هم خوانا و باوقار بماند.",
+                anatomy: "طراحی روی شبکه شطرنجی متوازن با تمرکز بر تعادل فضای پر و خالی بدون افکت اضافه.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[300px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><path d="M 135 120 L 285 120 L 285 270 L 210 270 L 210 195 L 135 195 Z" fill="#2e4e43"/><rect x="135" y="220" width="50" height="50" fill="#732229"/><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="17">طراحی لوگو و نشانه</text></svg>`
+            },
+            {
+                id: 5,
+                num: "05",
+                domain: "illustration",
+                category: "graphic",
+                categoryLabel: "تصویرسازی مفهومی",
+                title: "تصویرسازی «برگ و ساعت»",
+                year: "۱۴۰۳",
+                mindConnection: "زیست‌شناسی و علوم انسانی",
+                description: "ترکیبی از نقاشی‌های گیاه‌شناسی و فرم‌های هندسی ساده درباره مفهوم زمان و رشد در طبیعت.",
+                anatomy: "هاشورزنی خطی محدود به سه رنگ اصلی سایت برای حفظ حس چاپ دستی روی کاغذ کاهی.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[300px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><polygon points="105,310 210,85 315,310" fill="#2e4e43"/><circle cx="210" cy="220" r="58" fill="#d9d2c2" stroke="#732229" stroke-width="1.5"/><circle cx="210" cy="220" r="18" fill="#732229"/><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="17">تصویرسازی برگ و ساعت</text></svg>`
+            },
+            {
+                id: 6,
+                num: "06",
+                domain: "sketch",
+                category: "graphic",
+                categoryLabel: "اسکچ‌ها و اتودهای کاغذی",
+                title: "برگه‌های اتود: جستجوی فرم روی کاغذ",
+                year: "۱۴۰۴",
+                mindConnection: "فکر کردن روی کاغذ",
+                description: "اتودهای سریع با مداد و راپید روی کاغذهای کاهی پیش از شروع طراحی دیجیتال.",
+                anatomy: "اتود دستی به همراه خطوط راهنما، دوایر تناسبات و یادداشت‌های حاشیه‌ای با مرکب زرشکی.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[300px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><circle cx="210" cy="200" r="95" fill="none" stroke="#2e4e43" stroke-width="1" stroke-dasharray="4 4" opacity="0.65"/><path d="M 145 245 C 145 140, 275 140, 275 200 C 275 245, 210 255, 175 215" fill="none" stroke="#2e4e43" stroke-width="3.2" stroke-linecap="round"/><circle cx="275" cy="200" r="6" fill="#732229"/><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">اتودهای کاغذی و تناسبات</text></svg>`
             },
             {
                 id: 7,
-                num: "05",
+                num: "07",
                 domain: "photo",
                 category: "graphic",
                 categoryLabel: "عکاسی معماری و سایه",
                 title: "مجموعه عکس «پرسه در هندسه نور و سایه»",
                 year: "۱۴۰۳",
-                spanClass: "col-span-12 md:col-span-6",
                 mindConnection: "مشاهده روزمره و کادربندی",
-                description: "عکاسی برای من راهی برای تمرینِ «دیدن» است. در این عکس‌ها که در پیاده‌روی‌های عصرگاهی گرفته‌ام، دنبال لحظه‌ای گشته‌ام که نورِ مایل خورشید روی دیوارهای ساده، فرم‌های گرافیکی و کنتراست‌های تند می‌سازد.",
-                anatomy: "کنتاکت‌شیت و کادربندی بدون دستکاری سنگین؛ تمرکز بر خطوط قطری سایه‌ها و قرار گرفتن یک سوژه کوچک در نقطه کانونی قاب.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><path d="M 30 55 L 30 30 L 55 30 M 365 30 L 390 30 L 390 55 M 30 365 L 30 390 L 55 390 M 365 390 L 390 390 L 390 365" fill="none" stroke="#732229" stroke-width="1.5"/><rect x="65" y="65" width="290" height="270" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><polygon points="65,65 265,65 145,335 65,335" fill="#2e4e43"/><polygon points="220,335 355,155 355,335" fill="#2e4e43" opacity="0.85"/><circle cx="205" cy="245" r="11" fill="#732229"/><line x1="205" y1="256" x2="155" y2="290" stroke="#732229" stroke-width="2.5"/><text x="72" y="85" fill="#d9d2c2" font-family="Space Mono" font-size="10">ISO 100 // 50MM</text><text x="385" y="382" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">عکاسی سایه و معماری</text></svg>`
-            },
-            {
-                id: 8,
-                num: "06",
-                domain: "photo",
-                category: "graphic",
-                categoryLabel: "عکاسی طبیعت و جزئیات",
-                title: "مجموعه عکس «سکوتِ برگ‌ها و بافت‌های نزدیک»",
-                year: "۱۴۰۲",
-                spanClass: "col-span-12 md:col-span-6",
-                mindConnection: "زیست‌شناسی و نور طبیعی",
-                description: "وقتی از نزدیک به بافتِ یک برگ خشک، پوست درخت یا قطره آب نگاه می‌کنیم، الگوهایی را می‌بینیم که با چشم عادی پنهان هستند. این عکس‌ها بهانه من برای ترکیب کردن علاقه به زیست‌شناسی با عکاسی ماکرو بوده است.",
-                anatomy: "ثبت با نور طبیعی و عمق میدان کم برای جدا کردن بافتِ سوژه از پس‌زمینه آرام و خلوت.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><g fill="#2e4e43" opacity="0.35"><rect x="22" y="50" width="10" height="16"/><rect x="22" y="85" width="10" height="16"/><rect x="22" y="120" width="10" height="16"/><rect x="22" y="155" width="10" height="16"/><rect x="22" y="190" width="10" height="16"/><rect x="22" y="225" width="10" height="16"/><rect x="22" y="260" width="10" height="16"/><rect x="22" y="295" width="10" height="16"/></g><rect x="52" y="45" width="330" height="290" fill="#2e4e43"/><circle cx="217" cy="190" r="105" fill="#d9d2c2" opacity="0.12"/><path d="M 120 295 Q 215 190 310 85" fill="none" stroke="#d9d2c2" stroke-width="2.5"/><path d="M 165 245 Q 140 195 160 155 M 205 200 Q 175 150 200 110 M 245 155 Q 225 115 245 85 M 165 245 Q 220 265 265 245 M 205 200 Q 260 215 300 195" fill="none" stroke="#d9d2c2" stroke-width="1.2" opacity="0.85"/><circle cx="205" cy="200" r="18" fill="none" stroke="#732229" stroke-width="2"/><circle cx="205" cy="200" r="4" fill="#732229"/><text x="68" y="320" fill="#d9d2c2" font-family="Space Mono" font-size="10">FRAME 24A // MACRO</text><text x="382" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">عکاسی بافت و طبیعت</text></svg>`
-            },
-            {
-                id: 9,
-                num: "07",
-                domain: "sketch",
-                category: "graphic",
-                categoryLabel: "اتود کاغذی و مشق فرم",
-                title: "برگه‌های اتود: جستجوی فرم و تناسبات لوگو",
-                year: "۱۴۰۴",
-                spanClass: "col-span-12 md:col-span-6",
-                mindConnection: "فکر کردن روی کاغذ",
-                description: "هیچ کاری را مستقیم از روی مانیتور شروع نمی‌کنم. همیشه اول روی کاغذهای نقطه‌دار یا کاهی، ده‌ها اتود سریع و خط‌خطی می‌زنم تا ایده‌های خام ته‌نشین شوند و فرم اصلی کم‌کم خودش را نشان بدهد.",
-                anatomy: "اتود با مداد و راپید روی کاغذ به همراه خطوط راهنما، دوایر تناسبات و یادداشت‌های حاشیه‌ای با مرکب زرشکی.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><g stroke="#2e4e43" stroke-width="0.5" opacity="0.2"><line x1="0" y1="70" x2="420" y2="70"/><line x1="0" y1="140" x2="420" y2="140"/><line x1="0" y1="210" x2="420" y2="210"/><line x1="0" y1="280" x2="420" y2="280"/><line x1="0" y1="350" x2="420" y2="350"/><line x1="70" y1="0" x2="70" y2="420"/><line x1="140" y1="0" x2="140" y2="420"/><line x1="210" y1="0" x2="210" y2="420"/><line x1="280" y1="0" x2="280" y2="420"/><line x1="350" y1="0" x2="350" y2="420"/></g><circle cx="210" cy="200" r="95" fill="none" stroke="#2e4e43" stroke-width="1" stroke-dasharray="4 4" opacity="0.65"/><circle cx="175" cy="200" r="60" fill="none" stroke="#2e4e43" stroke-width="0.8" opacity="0.5"/><line x1="90" y1="200" x2="330" y2="200" stroke="#732229" stroke-width="0.8" stroke-dasharray="3 3"/><line x1="210" y1="85" x2="210" y2="315" stroke="#732229" stroke-width="0.8" stroke-dasharray="3 3"/><path d="M 145 245 C 145 140, 275 140, 275 200 C 275 245, 210 255, 175 215" fill="none" stroke="#2e4e43" stroke-width="3.2" stroke-linecap="round"/><path d="M 142 248 C 144 136, 278 143, 272 203" fill="none" stroke="#2e4e43" stroke-width="1" opacity="0.6"/><circle cx="275" cy="200" r="6" fill="#732229"/><path d="M 288 188 L 320 155" fill="none" stroke="#732229" stroke-width="1.2"/><text x="325" y="150" fill="#732229" font-family="Space Mono" font-size="10">r = 1.618</text><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">اتودهای کاغذی و تناسبات</text></svg>`
-            },
-            {
-                id: 10,
-                num: "08",
-                domain: "sketch",
-                category: "graphic",
-                categoryLabel: "اسکچ دستی و هاشور",
-                title: "دفترچه اسکچ: تمرین‌های هاشورزنی و فرم‌های طبیعی",
-                year: "۱۴۰۳",
-                spanClass: "col-span-12 md:col-span-6",
-                mindConnection: "تدریس هنر و طراحی پایه",
-                description: "بخشی از دفترچه اسکچ‌های روزانه‌ام که هم برای تمرینِ دست خودم است و هم سر کلاس به هنرجوها نشان می‌دهم که چطور با خط‌های ساده، هاشور و لکه می‌توان حجم و سایه‌روشن ساخت.",
-                anatomy: "طراحی آزاد با خطوط متقاطع (Cross-hatching) و بررسی حرکت دست بدون استفاده از خط‌کش یا ابزار دیجیتال.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><line x1="65" y1="0" x2="65" y2="420" stroke="#732229" stroke-width="1" opacity="0.45"/><path d="M 135 290 Q 150 150 265 110 Q 290 220 185 295 Z" fill="none" stroke="#2e4e43" stroke-width="2"/><path d="M 132 294 Q 155 145 270 107" fill="none" stroke="#2e4e43" stroke-width="0.9" opacity="0.65"/><g stroke="#2e4e43" stroke-width="1" opacity="0.55"><line x1="165" y1="255" x2="215" y2="235"/><line x1="170" y1="240" x2="228" y2="218"/><line x1="178" y1="225" x2="240" y2="200"/><line x1="185" y1="210" x2="248" y2="182"/><line x1="195" y1="192" x2="255" y2="165"/><line x1="210" y1="172" x2="260" y2="148"/></g><path d="M 115 315 Q 205 215 295 90" fill="none" stroke="#732229" stroke-width="1.5" stroke-dasharray="5 4"/><circle cx="212" cy="195" r="5" fill="#732229"/><text x="80" y="50" fill="#732229" font-family="Space Mono" font-size="11">SKETCHBOOK // PAGE 42</text><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">اسکچ دستی و تمرین خط</text></svg>`
-            },
-            {
-                id: 2,
-                num: "09",
-                domain: "ai",
-                category: "ai",
-                categoryLabel: "کدنویسی و هوش مصنوعی",
-                title: "کاوشگر لایه‌های پنهان مدل زبانی",
-                year: "۱۴۰۴",
-                spanClass: "col-span-12 md:col-span-6",
-                mindConnection: "مهندسی معکوس",
-                description: "وقتی با مدل‌های هوش مصنوعی کار می‌کردم، دوست داشتم بدانم پشت صحنه چطور کلمات را به هم ربط می‌دهند. با مهندسی معکوسِ یک مدل کوچک، ابزاری ساختم که ارتباط بین مفاهیم را به شکل یک نقشه ساده خطی نشان می‌دهد.",
-                anatomy: "استخراج بردارهای میانی مدل با پایتون و تبدیل آن‌ها به یک رابط گرافیکی دوبعدی برای دیدن مسیر تصمیم‌گیری مدل.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#2e4e43" stroke="#d9d2c2" stroke-width="1"/><polygon points="90,130 210,80 330,130 210,180" fill="none" stroke="#d9d2c2" stroke-width="1" opacity="0.7"/><polygon points="90,210 210,160 330,210 210,260" fill="none" stroke="#d9d2c2" stroke-width="1" opacity="0.7"/><polygon points="90,290 210,240 330,290 210,340" fill="rgba(115,34,41,0.4)" stroke="#732229" stroke-width="1.5"/><line x1="210" y1="80" x2="210" y2="340" stroke="#732229" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="210" cy="210" r="7" fill="#732229" stroke="#d9d2c2" stroke-width="1.5"/><text x="385" y="390" text-anchor="end" fill="#d9d2c2" font-family="Vazirmatn" font-weight="600" font-size="16">نقشه لایه‌های هوش مصنوعی</text></svg>`
-            },
-            {
-                id: 5,
-                num: "10",
-                domain: "ai",
-                category: "ai",
-                categoryLabel: "کدنویسی و هوش مصنوعی",
-                title: "سیستم تصمیم‌گیری الهام‌گرفته از شطرنج",
-                year: "۱۴۰۴",
-                spanClass: "col-span-12 md:col-span-6",
-                mindConnection: "شطرنج و منطق",
-                description: "در شطرنج همیشه قبل از حرکت، چند شاخه مختلف را در ذهنمان سبک‌سنگین می‌کنیم. در این پروژه سعی کردم همین روش را به چند ایجنت هوش مصنوعی بدهم تا قبل از تولید خروجی نهایی، راه‌حل‌های مختلف را با هم مقایسه کنند.",
-                anatomy: "ساختار درختی جستجو (مشابه تحلیل حرکت در شطرنج) که به مدل کمک می‌کند خطاهای کمتری در کدنویسی داشته باشد.",
-                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#2e4e43" stroke="#d9d2c2" stroke-width="1"/><line x1="210" y1="80" x2="125" y2="190" stroke="#d9d2c2" stroke-width="1" opacity="0.6"/><line x1="210" y1="80" x2="295" y2="190" stroke="#d9d2c2" stroke-width="1" opacity="0.6"/><line x1="295" y1="190" x2="240" y2="295" stroke="#d9d2c2" stroke-width="1" opacity="0.6"/><polyline points="210,80 295,190 240,295" fill="none" stroke="#732229" stroke-width="3"/><circle cx="210" cy="80" r="7" fill="#d9d2c2"/><circle cx="295" cy="190" r="9" fill="#732229" stroke="#d9d2c2" stroke-width="1.5"/><circle cx="240" cy="295" r="9" fill="#732229" stroke="#d9d2c2" stroke-width="1.5"/><text x="385" y="390" text-anchor="end" fill="#d9d2c2" font-family="Vazirmatn" font-weight="600" font-size="16">درخت استدلال شطرنج‌محور</text></svg>`
+                description: "ثبت لحظه‌هایی که نور مایل خورشید روی دیوارهای ساده، فرم‌های گرافیکی و کنتراست‌های تند می‌سازد.",
+                anatomy: "کادربندی بدون دستکاری سنگین؛ تمرکز بر خطوط قطری سایه‌ها و نقطه کانونی قاب.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[300px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><rect x="65" y="65" width="290" height="270" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><polygon points="65,65 265,65 145,335 65,335" fill="#2e4e43"/><circle cx="205" cy="245" r="11" fill="#732229"/><text x="385" y="382" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">عکاسی سایه و معماری</text></svg>`
             }
         ];
 
         /* ============================================================================
-           3. MIND LAB NODES
-           ============================================================================ */
-        const mindLabNodes = [
-            {
-                id: "biology",
-                coord: "d5",
-                x: 350, y: 350,
-                title: "زیست‌شناسی",
-                summary: "خواندن درباره شکل برگ‌ها، رشد سلول‌ها و نظم اندام‌های زنده برایم یکی از لذت‌بخش‌ترین راه‌های یادگیری فرم و ساختار است.",
-                graphicLink: "در گرافیک به من یاد می‌دهد چطور منحنی‌ها و چیدمان‌ها را طوری طراحی کنم که خشک نباشند و حس طبیعی و زنده داشته باشند.",
-                aiLink: "در کدنویسی و هوش مصنوعی، الگوهای رشد طبیعی و شبکه‌های عصبی زیستی به من ایده می‌دهند تا کدهای خلاقانه‌تری بنویسم.",
-                connectTo: ["astronomy", "language", "chess"]
-            },
-            {
-                id: "astronomy",
-                coord: "f6",
-                x: 550, y: 250,
-                title: "نجوم",
-                summary: "نگاه کردن به آسمان شب و نقشه‌های مداری همیشه به من حس تواضع می‌دهد و کمکم می‌کند مقیاس‌ها و فضاهای خالی را بهتر درک کنم.",
-                graphicLink: "استفاده از فضای خالی (Whitespace) زیاد در پوسترهایم و علاقه به دوایر ظریف هندسی مستقیماً از نقشه‌های نجومی می‌آید.",
-                aiLink: "شبیه‌سازی حرکت و هندسه مدارها در کدنویسی یکی از تمرین‌های موردعلاقه‌ام است.",
-                connectTo: ["biology", "chess"]
-            },
-            {
-                id: "chess",
-                coord: "e4",
-                x: 450, y: 450,
-                title: "شطرنج",
-                summary: "شطرنج برایم فقط یک بازی نیست؛ تمرینِ صبوری، دیدنِ ارتباط بین اجزا و فکر کردن به چند حرکتِ بعدی در یک صفحه ساده ۶۴ خانه‌ای است.",
-                graphicLink: "در طراحی صفحه یا لوگو، مثل شطرنج به این فکر می‌کنم که چطور با کمترین تعداد مهره (عناصر بصری)، بیشترین تعادل را ایجاد کنم.",
-                aiLink: "در پروژه‌های هوش مصنوعی، منطقِ درخت تصمیم شطرنج کمکم می‌کند سیستم‌هایی بسازم که قبل از پاسخ دادن، چند مسیر را بسنجند.",
-                connectTo: ["biology", "astronomy", "humanities", "pedagogy"]
-            },
-            {
-                id: "humanities",
-                coord: "c3",
-                x: 250, y: 550,
-                title: "علوم انسانی",
-                summary: "مطالعه آزاد در تاریخ، فلسفه و ادبیات کمکم می‌کند فراموش نکنم که هر طرح گرافیکی یا هر خط کد، در نهایت قرار است با یک «انسان» حرف بزند.",
-                graphicLink: "به پوسترها، فتومونتاژها و تصویرسازی‌هایم قصه و معنا می‌دهد تا صرفاً یک چیدمان تزئینی نباشند.",
-                aiLink: "در کار با هوش مصنوعی، کمک می‌کند فقط دنبال جنبه‌های فنی نباشم و به تجربه انسانی و معناییِ کاربر هم فکر کنم.",
-                connectTo: ["language", "pedagogy", "chess"]
-            },
-            {
-                id: "language",
-                coord: "b6",
-                x: 150, y: 250,
-                title: "یادگیری زبان",
-                summary: "کشف ساختار زبان‌های مختلف و ریشه کلمات، دیدم را نسبت به نحوه شکل‌گیری معنا و ارتباط بازتر می‌کند.",
-                graphicLink: "در تایپوگرافی و طراحی لوگوتایپ، شناختِ آهنگ و ساختار حروف فارسی و انگلیسی کمکم می‌کند ترکیب‌های دقیق‌تری بسازم.",
-                aiLink: "چون پایه مدل‌های زبانی هوش مصنوعی (LLMs) بر اساس ساختار زبان است، این علاقه به فهمیدنِ بهترِ نحوه کارکرد آن‌ها کمک زیادی می‌کند.",
-                connectTo: ["humanities", "biology"]
-            },
-            {
-                id: "pedagogy",
-                coord: "g3",
-                x: 650, y: 550,
-                title: "تدریس هنر",
-                summary: "گفتگو با هنرجوها و تلاش برای توضیح دادنِ ساده یک مفهوم هنری، بهترین راهی بوده که خودم دوباره مبانی را عمیق‌تر یاد بگیرم.",
-                graphicLink: "باعث شده همیشه در کارهایم دنبال سادگی، شفافیت و دوری از شلوغی‌های بی‌مورد باشم.",
-                aiLink: "وقتی یک سیستم پیچیده هوش مصنوعی را مهندسی معکوس می‌کنم، همین عادتِ معلمی کمکم می‌کند ساختار آن را ساده و قابل فهم پیاده‌سازی کنم.",
-                connectTo: ["humanities", "chess"]
-            }
-        ];
-
-        /* ============================================================================
-           4. ARCHIVE TIMELINE DATASET
+           5. RESUME / ARCHIVE TIMELINE DATASET
            ============================================================================ */
         let archiveTimeline = [
             {
+                id: "r1",
                 period: "۱۴۰۲ — اکنون",
-                title: "تمرکز هم‌زمان بر طراحی گرافیک و پروژه‌های هوش مصنوعی",
+                title: "کدنویسی، هوش مصنوعی و طراحی گرافیک",
+                graphTag: "مهندسی معکوس و AI",
+                cognitiveGroup: "logic",
                 summary: "طراحی پوستر، لوگو و تایپوگرافی در کنار ساخت سیستم‌ها و ابزارهای هوشمند از مسیر مهندسی معکوس.",
                 details: "در این دوره سعی کرده‌ام به جای محدود ماندن به یک ابزار، منطقِ پشت سیستم‌ها را یاد بگیرم؛ چه زمانی که روی هندسه یک لوگوتایپ و پوستر فرهنگی کار می‌کنم، و چه زمانی که معماری یک پروژه هوش مصنوعی را بازخوانی و پیاده‌سازی می‌کنم."
             },
             {
+                id: "r2",
                 period: "۱۴۰۰ — ۱۴۰۲",
-                title: "تدریس هنر، تصویرسازی و گسترش مطالعات آزاد",
+                title: "تدریس هنر، تصویرسازی و مطالعات آزاد",
+                graphTag: "تدریس هنر و مطالعات",
+                cognitiveGroup: "structure_form",
                 summary: "همراهی با هنرجوها در مبانی هنرهای تجسمی، تجربه در فتومونتاژ و مطالعه پیوسته در زیست‌شناسی، نجوم و شطرنج.",
                 details: "تدریس به من یاد داد هر ایده پیچیده‌ای را به ساده‌ترین اجزایش بشکنم. هم‌زمان، مطالعات آزاد در علوم پایه، ادبیات و یادگیری زبان به منبع اصلی ایده‌پردازی‌های بصری من تبدیل شد."
             },
             {
+                id: "r3",
                 period: "۱۳۹۸ — ۱۴۰۰",
-                title: "تجربه‌های گذشته در تدوین ویدیو و ساخت کلیپ‌های صوتی",
+                title: "تدوین ویدیو و طراحی کلیپ‌های صوتی",
+                graphTag: "تدوین صدا و تصویر",
+                cognitiveGroup: "visual_narrative",
                 summary: "کار با ریتم، صدا و تصویر متحرک؛ دوره‌ای که درک من از زمان‌بندی و روایت را شکل داد.",
-                details: "هرچند امروز کمتر سراغ تدوین ویدیو و صدا می‌روم، اما کار کردن با موج‌های صوتی، مکث‌ها و برش‌های تصویر به من آموخت چطور در طراحی گرافیک و حتی کدنویسی، به «ریتم» و «حوصله مخاطب» توجه کنم."
+                details: "کار کردن با موج‌های صوتی، مکث‌ها و برش‌های تصویر به من آموخت چطور در طراحی گرافیک و حتی کدنویسی، به «ریتم» و «حوصله مخاطب» توجه کنم."
             }
         ];
 
         /* ============================================================================
-           5. PHILOSOPHICAL NOTES DATASET
+           6. PHILOSOPHICAL NOTES DATASET
            ============================================================================ */
         let philosophicalNotes = [
             {
@@ -899,10 +883,9 @@
                 keyQuote: "«الگوریتم‌ها برای حذف کردنِ مکث ساخته شده‌اند، اما هنر دقیقاً در همان لحظه‌ای متولد می‌شود که ما دست نگه می‌داریم و سکوت می‌کنیم.»",
                 paragraphs: [
                     "وقتی پای کدنویسی و کار با مدل‌های هوش مصنوعی می‌نشینم، همه‌چیز بر مدار سرعت و بهینه‌سازی می‌چرخد؛ اینکه چطور فاصله‌ی بین «پرسش» و «پاسخ» را به چند میلی‌ثانیه برسانیم. اما هر بار که به میز طراحی گرافیک برمی‌گردم یا به نقشه‌های قدیمی نجوم نگاه می‌کنم، متوجه می‌شوم آنچه به یک اثر معنا می‌دهد نه سرعتِ پر کردن صفحه، بلکه جسارتِ خالی نگه داشتنِ آن است.",
-                    "سال‌ها پیش، وقتی تدوین صدا و ویدیو انجام می‌دادم، مهم‌ترین درسی که یاد گرفتم این بود که هیچ نت موسیقی بدونِ سکوتِ قبل و بعدش شنیده نمی‌شود. در طراحی یک پوستر یا لوگوتایپ هم فضای منفی (Whitespace) حکم همان مکث را دارد؛ جایی که چشم مخاطب نفس می‌کشد و زمان، از یک شمارنده‌ی ماشینی به یک تجربه‌ی انسانی تبدیل می‌شود.",
-                    "شاید به همین دلیل است که حتی در ساختن سیستم‌های هوش مصنوعی هم دوست ندارم سراغ پاسخ‌های فوری و سطحی بروم. برایم جذاب‌تر است که به کد یاد بدهم مثل یک شطرنج‌باز یا یک طراح، پیش از تصمیم‌گیری کمی «درنگ» کند و مسیرهای نرفته را ببیند."
+                    "سال‌ها پیش، وقتی تدوین صدا و ویدیو انجام می‌دادم، مهم‌ترین درسی که یاد گرفتم این بود که هیچ نت موسیقی بدونِ سکوتِ قبل و بعدش شنیده نمی‌شود. در طراحی یک پوستر یا لوگوتایپ هم فضای منفی (Whitespace) حکم همان مکث را دارد؛ جایی که چشم مخاطب نفس می‌کشد و زمان، از یک شمارنده‌ی ماشینی به یک تجربه‌ی انسانی تبدیل می‌شود."
                 ],
-                marginalia: "پیوند با آثار: این نگاه مستقیماً در پوستر «سکوت مداری» (از طریق فضاهای خالی وسیع) و در پروژه «درخت استدلال شطرنج‌محور» (جایگزینی سرعتِ صرف با تاملِ مرحله‌به‌مرحله در هوش مصنوعی) بازتاب پیدا کرده است."
+                marginalia: "پیوند با آثار: این نگاه مستقیماً در پوستر «سکوت مداری» و در پروژه «درخت استدلال شطرنج‌محور» بازتاب پیدا کرده است."
             },
             {
                 id: 2,
@@ -913,31 +896,15 @@
                 date: "بهمن ۱۴۰۳",
                 keyQuote: "«مهندسی معکوس برای من یک تکنیک فنی نیست؛ شکلی از تماشا کردنِ فروتنانه است تا بفهمم یک ساختار چطور سرِ پا ایستاده است.»",
                 paragraphs: [
-                    "کلمه‌ی «مهندسی معکوس» معمولاً حسِ سردِ باز کردن چرخ‌دنده‌های یک ماشین یا شکافتنِ کدهای یک نرم‌افزار را تداعی می‌کند. اما برای من، این کار از کنجکاوی در طبیعت و هنر شروع شد. وقتی یک برگ خشک‌شده را جلوی نور می‌گیریم تا شبکه‌ی رگبرگ‌هایش را ببینیم، یا وقتی یک پوستر کلاسیک سوئیسی را خط‌کشی می‌کنیم تا بفهمیم چرا ترکیب‌بندی‌اش تا این اندازه آرامش‌بخش است، در واقع داریم مهندسی معکوس می‌کنیم.",
-                    "من برنامه‌نویسی و هوش مصنوعی را در کلاس‌های رسمی یاد نگرفتم؛ با باز کردنِ پروژه‌های موجود، دستکاری کردن متغیرها، خراب کردن و دوباره ساختنشان یاد گرفتم. درست مثل هنرجویی که برای فهمیدنِ رازِ قلم‌موی یک نقاش، بارها روی کاغذ کاهی مشق می‌کند.",
+                    "کلمه‌ی «مهندسی معکوس» معمولاً حسِ سردِ باز کردن چرخ‌دنده‌های یک ماشین یا شکافتنِ کدهای یک نرم‌افزار را تداعی می‌کند. اما برای من، این کار از کنجکاوی در طبیعت و هنر شروع شد.",
                     "در نگاه من، بینِ آفرینش هنری و نوشتنِ یک الگوریتم هیچ دیواری وجود ندارد. هر دو تلاش‌های کوچکی هستند برای اینکه نظمِ پنهانِ یک ایده را کشف کنیم و آن را در قالبِ خط، رنگ یا کد به زبانی ترجمه کنیم که دیگران هم بتوانند حسش کنند."
                 ],
-                marginalia: "پیوند با مطالعات: تلفیقِ مطالعات زیست‌شناسی (ریخت‌شناسی گیاهان)، تدریس مبانی هنر و کاوش در لایه‌های پنهان مدل‌های زبانی."
-            },
-            {
-                id: 3,
-                num: "03",
-                concept: "هنر، محدودیت و فرم",
-                title: "هوشمندی در محدودیت؛ درس‌هایی از ۶۴ خانه شطرنج و سه رنگ",
-                readingTime: "۳ دقیقه مطالعه",
-                date: "آذر ۱۴۰۳",
-                keyQuote: "«آزادیِ بی‌مرز اغلب به شلوغی و سرگردانی می‌انجامد؛ اما محدودیتِ آگاهانه، ذهن را مجبور به کشفِ ظرافت می‌کند.»",
-                paragraphs: [
-                    "در دوره‌ای زندگی می‌کنیم که ابزارهای دیجیتال و هوش مصنوعی به ما امکان می‌دهند در چند ثانیه هزاران رنگ، افکت و فرم شلوغ تولید کنیم. اما تجربه‌ی شخصی من—چه در طراحی لوگو و تایپوگرافی و چه در بازی شطرنج—نشان داده که زیبایی و هوشمندیِ واقعی از دلِ «محدودیت» بیرون می‌آید، نه از دلِ بی‌نهایت.",
-                    "صفحه‌ی شطرنج فقط ۶۴ خانه و ۳۲ مهره با قوانینِ حرکتی بسیار ساده دارد، اما همین چارچوبِ بسته، قرن‌هاست که بی‌نهایت بازیِ تکرارنشدنی و شاعرانه خلق کرده است. در طراحی همین دفترچه اینترنتی هم تصمیم گرفتم خودم را فقط به سه رنگ (کرمِ کاغذی، سبزِ یشمی و زرشکی) و خطوطِ صافِ یک‌پیکسلی محدود کنم.",
-                    "وقتی زرق‌وبرق‌های اضافه را کنار می‌گذاریم، دیگر جایی برای پنهان شدن پشتِ افکت‌ها باقی نمی‌ماند؛ آن‌وقت است که باید واقعاً به اصلِ فرم، به توازنِ حروف، به منطقِ کد و به صداقتِ حرفی که می‌زنیم فکر کنیم."
-                ],
-                marginalia: "پیوند با هویت بصری: فلسفه‌ی انتخاب پالت سه‌رنگی این وب‌سایت (#D9D2C2، #2E4E43، #732229) و رویکرد خلاصه‌گرایی در طراحی لوگو و سیستم‌های هوشمند."
+                marginalia: "پیوند با مطالعات: تلفیقِ مطالعات زیست‌شناسی، تدریس مبانی هنر و کاوش در لایه‌های پنهان مدل‌های زبانی."
             }
         ];
 
         /* ============================================================================
-           6. HELPER: SAFE MEDIA RENDERER (Supports SVG & Uploaded Telegram Images)
+           7. HELPER: SAFE MEDIA RENDERER
            ============================================================================ */
         function renderProtectedArtwork(mediaContent, titleText) {
             const raw = String(mediaContent || '').trim();
@@ -947,7 +914,7 @@
             return `
                 <div class="artwork-shield" oncontextmenu="return false;"></div>
                 <img src="${raw}" alt="${titleText || 'اثر'}" 
-                     class="w-full h-full max-h-[320px] object-contain artwork-svg" 
+                     class="w-full h-full max-h-[300px] object-contain artwork-svg" 
                      draggable="false" oncontextmenu="return false;" loading="lazy" />
             `;
         }
@@ -957,13 +924,13 @@
         }
 
         /* ============================================================================
-           7. DYNAMIC DOMAIN CARDS & GALLERY ENGINE
+           8. WORKS GALLERY ENGINE (6 Ordered Domains + High-Volume Scroll UX)
            ============================================================================ */
         let activeDomain = null;
+        let galleryDensity = 'comfortable'; // 'comfortable' (2-col) or 'compact' (4-col for many images)
         let currentLightboxList = portfolioWorks;
         let currentLightboxIndex = 0;
 
-        // Auto-detect any new domains added in portfolioWorks or via Bot
         function syncDynamicDomains() {
             const knownKeys = new Set(workDomains.map(d => d.key));
             portfolioWorks.forEach(w => {
@@ -975,7 +942,7 @@
                         code: `DOMAIN ${nextNum}`,
                         title: w.categoryLabel || w.domain,
                         unit: "اثر",
-                        colSpan: "col-span-12 md:col-span-4",
+                        cognitiveGroup: "visual_narrative",
                         description: `مجموعه آثار و تجربه‌های ثبت‌شده در بخش «${w.categoryLabel || w.domain}».`
                     });
                 }
@@ -991,11 +958,10 @@
                 const count = portfolioWorks.filter(w => w.domain === dom.key).length;
                 const countLabel = `${toPersianDigits(count)} ${dom.unit || 'اثر'}`;
                 const codeLabel = dom.code || `DOMAIN ${String(idx + 1).padStart(2, '0')}`;
-                const spanClass = dom.colSpan || (workDomains.length % 3 === 0 ? "col-span-12 md:col-span-4" : "col-span-12 md:col-span-6");
 
                 return `
                     <button onclick="toggleWorkDomain('${dom.key}')" id="domain-btn-${dom.key}" 
-                            class="${spanClass} interactive-link domain-card text-right p-7 sm:p-8 hairline-all surface-subtle hover:border-oxblood transition-all flex flex-col justify-between group">
+                            class="interactive-link domain-card text-right p-7 sm:p-8 hairline-all surface-subtle hover:border-oxblood transition-all flex flex-col justify-between group">
                         <div>
                             <div class="flex items-center justify-between font-mono text-xs mb-4">
                                 <span class="text-oxblood">${codeLabel}</span>
@@ -1016,7 +982,40 @@
                 `;
             }).join('');
 
+            renderDrawerQuickPills();
             bindCursorEvents();
+        }
+
+        function renderDrawerQuickPills() {
+            const pillContainer = document.getElementById('drawer-quick-pills');
+            if (!pillContainer) return;
+            pillContainer.innerHTML = workDomains.map(dom => {
+                const isAct = activeDomain === dom.key;
+                return `
+                    <button onclick="openWorkDomain('${dom.key}')" 
+                            class="interactive-link shrink-0 px-3 py-1 text-xs hairline-all transition-colors ${isAct ? 'bg-oxblood text-alabaster font-medium' : 'opacity-75 hover:opacity-100'}">
+                        ${dom.title}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function setGalleryDensity(mode) {
+            galleryDensity = mode;
+            const btnCompact = document.getElementById('density-compact');
+            const btnComfort = document.getElementById('density-comfortable');
+            if (mode === 'compact') {
+                btnCompact.classList.add('bg-oxblood', 'text-alabaster');
+                btnCompact.classList.remove('opacity-70');
+                btnComfort.classList.remove('bg-oxblood', 'text-alabaster');
+                btnComfort.classList.add('opacity-70');
+            } else {
+                btnComfort.classList.add('bg-oxblood', 'text-alabaster');
+                btnComfort.classList.remove('opacity-70');
+                btnCompact.classList.remove('bg-oxblood', 'text-alabaster');
+                btnCompact.classList.add('opacity-70');
+            }
+            if (activeDomain) openWorkDomain(activeDomain);
         }
 
         function toggleWorkDomain(domain) {
@@ -1030,14 +1029,16 @@
         function openWorkDomain(domain) {
             activeDomain = domain;
             const drawer = document.getElementById('works-drawer');
+            const viewport = document.getElementById('works-scroll-viewport');
             const grid = document.getElementById('works-grid');
             const titleEl = document.getElementById('active-domain-title');
+            const countEl = document.getElementById('active-domain-count');
 
             workDomains.forEach(dom => {
                 const btn = document.getElementById(`domain-btn-${dom.key}`);
                 if (!btn) return;
                 const actionLabel = btn.querySelector('.domain-action-label');
-                const isSelected = (dom.key === domain) || (domain === 'graphic' && dom.key !== 'ai');
+                const isSelected = (dom.key === domain) || (domain === 'graphic' && dom.key !== 'coding');
                 if (isSelected) {
                     btn.classList.add('bg-oxblood', 'text-alabaster');
                     if (actionLabel) {
@@ -1053,39 +1054,46 @@
                 }
             });
 
+            renderDrawerQuickPills();
+
             const filtered = domain === 'graphic'
-                ? portfolioWorks.filter(w => w.category === 'graphic')
+                ? portfolioWorks.filter(w => w.domain !== 'coding')
                 : portfolioWorks.filter(w => w.domain === domain);
 
             currentLightboxList = filtered;
             const foundDom = workDomains.find(d => d.key === domain);
             titleEl.textContent = domain === 'graphic'
-                ? "گزیده آثار: طراحی گرافیک، عکاسی و اتودهای دستی"
-                : (foundDom ? `گزیده آثار: ${foundDom.title}` : "آثار انتخاب‌شده");
+                ? "گزیده آثار: گرافیک و تصویر"
+                : (foundDom ? foundDom.title : "آثار انتخاب‌شده");
+            countEl.textContent = `${toPersianDigits(filtered.length)} اثر`;
+
+            const cardColSpan = galleryDensity === 'compact'
+                ? 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 p-4'
+                : 'col-span-12 md:col-span-6 p-6 sm:p-8';
 
             grid.innerHTML = filtered.map((work, i) => {
-                const displayNum = work.num || String(i + 1).padStart(2, '0');
+                const displayNum = toPersianDigits(String(i + 1).padStart(2, '0'));
                 return `
                 <article onclick="openLightbox('${work.id}')" oncontextmenu="return false;"
-                         class="${work.spanClass || 'col-span-12 md:col-span-6'} work-card hairline-all p-6 sm:p-8 flex flex-col justify-between cursor-pointer group">
+                         class="${cardColSpan} work-card hairline-all bg-[var(--bg-primary)] flex flex-col justify-between cursor-pointer group">
                     
-                    <div class="flex items-center justify-between font-mono text-xs mb-5 opacity-70">
+                    <div class="flex items-center justify-between font-mono text-[11px] mb-3 opacity-70">
                         <span>${displayNum} / ${work.categoryLabel}</span>
                         <span>${work.year}</span>
                     </div>
 
-                    <div class="my-2 w-full overflow-hidden flex items-center justify-center p-2 surface-subtle protected-artwork-wrap">
+                    <div class="my-1 w-full overflow-hidden flex items-center justify-center p-2 surface-subtle protected-artwork-wrap">
                         ${renderProtectedArtwork(work.svg, work.title)}
                     </div>
 
-                    <div class="mt-6 pt-4 hairline-t">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-lg sm:text-xl font-bold group-hover:text-oxblood transition-colors">
+                    <div class="mt-4 pt-3 hairline-t">
+                        <div class="flex items-center justify-between gap-2 mb-1.5">
+                            <h4 class="${galleryDensity === 'compact' ? 'text-sm' : 'text-lg'} font-bold group-hover:text-oxblood transition-colors truncate">
                                 ${work.title}
-                            </h3>
-                            <span class="font-mono text-[11px] text-oxblood">${work.mindConnection || ''}</span>
+                            </h4>
+                            <span class="font-mono text-[10px] text-oxblood shrink-0">${work.mindConnection || ''}</span>
                         </div>
-                        <p class="text-xs sm:text-sm opacity-80 leading-7 font-light">
+                        <p class="text-xs opacity-80 leading-6 font-light line-clamp-2">
                             ${work.description}
                         </p>
                     </div>
@@ -1093,6 +1101,7 @@
             `}).join('');
 
             drawer.classList.remove('hidden');
+            if (viewport) viewport.scrollTop = 0;
             bindCursorEvents();
         }
 
@@ -1149,7 +1158,161 @@
         }
 
         /* ============================================================================
-           8. NOTES & READER ENGINE
+           9. ANIMATED CORE-CENTERED & COGNITIVE-ROOT GRAPH (Synced with Works & Resume)
+           ============================================================================ */
+        let graphAnimFrame = null;
+        let graphNodesData = [];
+        let graphSharedEdges = [];
+
+        function buildAndAnimateMindGraph() {
+            if (graphAnimFrame) cancelAnimationFrame(graphAnimFrame);
+
+            const gridGroup = document.getElementById('board-grid-lines');
+            if (gridGroup && !gridGroup.innerHTML) {
+                let gridLines = '';
+                for (let i = 1; i < 8; i++) {
+                    const pos = i * 100;
+                    gridLines += `<line x1="${pos}" y1="0" x2="${pos}" y2="800" />`;
+                    gridLines += `<line x1="0" y1="${pos}" x2="800" y2="${pos}" />`;
+                }
+                gridGroup.innerHTML = gridLines;
+            }
+
+            // Collect satellite nodes automatically from Work Domains + Resume highlights
+            const satellites = [];
+            workDomains.forEach(dom => {
+                satellites.push({
+                    id: `dom_${dom.key}`,
+                    label: dom.title,
+                    group: dom.cognitiveGroup || (dom.key === 'coding' ? 'logic' : 'visual_narrative'),
+                    radius: 255
+                });
+            });
+
+            archiveTimeline.forEach((item, idx) => {
+                const shortLabel = item.graphTag || item.title.split('،')[0];
+                // Avoid duplicate labels
+                if (!satellites.some(s => s.label === shortLabel)) {
+                    satellites.push({
+                        id: `res_${idx}`,
+                        label: shortLabel,
+                        group: item.cognitiveGroup || (idx === 0 ? 'logic' : 'structure_form'),
+                        radius: 175
+                    });
+                }
+            });
+
+            const total = satellites.length;
+            graphNodesData = satellites.map((sat, i) => {
+                const baseAngle = (i / total) * Math.PI * 2 - Math.PI / 2;
+                return {
+                    ...sat,
+                    baseAngle,
+                    speed: (i % 2 === 0 ? 1 : -1) * (0.00035 + (i * 0.00004)),
+                    phase: i * 1.1,
+                    x: 400 + Math.cos(baseAngle) * sat.radius,
+                    y: 400 + Math.sin(baseAngle) * sat.radius
+                };
+            });
+
+            // Build shared cognitive/content root edges between nodes of the same or complementary cognitive groups
+            graphSharedEdges = [];
+            for (let i = 0; i < graphNodesData.length; i++) {
+                for (let j = i + 1; j < graphNodesData.length; j++) {
+                    if (graphNodesData[i].group === graphNodesData[j].group || Math.abs(i - j) === 1 || (i === 0 && j === graphNodesData.length - 1)) {
+                        graphSharedEdges.push([i, j]);
+                    }
+                }
+            }
+
+            let startTime = performance.now();
+
+            function animateGraph(now) {
+                const elapsed = (now - startTime) * 0.001;
+                const coreX = 400 + Math.sin(elapsed * 0.9) * 4;
+                const coreY = 400 + Math.cos(elapsed * 0.7) * 4;
+
+                // Update satellite coordinates with subtle organic floating & orbital breathing
+                graphNodesData.forEach((n, idx) => {
+                    const currentAngle = n.baseAngle + Math.sin(elapsed * 0.45 + n.phase) * 0.08;
+                    const currentRadius = n.radius + Math.cos(elapsed * 0.8 + idx) * 9;
+                    n.x = 400 + Math.cos(currentAngle) * currentRadius;
+                    n.y = 400 + Math.sin(currentAngle) * currentRadius;
+                });
+
+                // 1. Render shared cognitive root lines (web between related fields)
+                const sharedGroup = document.getElementById('shared-root-lines');
+                if (sharedGroup) {
+                    sharedGroup.innerHTML = graphSharedEdges.map(([i, j]) => {
+                        const a = graphNodesData[i];
+                        const b = graphNodesData[j];
+                        const sameRoot = a.group === b.group;
+                        return `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" 
+                                      stroke="currentColor" stroke-width="${sameRoot ? '1.1' : '0.7'}" 
+                                      stroke-dasharray="${sameRoot ? 'none' : '4 5'}" 
+                                      opacity="${sameRoot ? '0.28' : '0.16'}" />`;
+                    }).join('');
+                }
+
+                // 2. Render primary radial connections from Central Core ("من") to every node
+                const radialGroup = document.getElementById('core-radial-lines');
+                if (radialGroup) {
+                    radialGroup.innerHTML = graphNodesData.map(n => `
+                        <line x1="${coreX.toFixed(1)}" y1="${coreY.toFixed(1)}" x2="${n.x.toFixed(1)}" y2="${n.y.toFixed(1)}" 
+                              stroke="#732229" stroke-width="1.5" opacity="0.55" />
+                    `).join('');
+                }
+
+                // 3. Render animated synaptic pulses traveling between the Core and nodes
+                const pulseGroup = document.getElementById('synapse-pulses');
+                if (pulseGroup) {
+                    pulseGroup.innerHTML = graphNodesData.map((n, idx) => {
+                        const t = ((elapsed * 0.45 + idx * 0.18) % 1);
+                        const px = coreX + (n.x - coreX) * t;
+                        const py = coreY + (n.y - coreY) * t;
+                        return `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3.2" fill="#732229" opacity="${Math.sin(t * Math.PI).toFixed(2)}" />`;
+                    }).join('');
+                }
+
+                // 4. Render Satellite Nodes + Central Core Node
+                const nodesGroup = document.getElementById('board-nodes');
+                if (nodesGroup) {
+                    const satellitesHtml = graphNodesData.map(n => `
+                        <g>
+                            <circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="18" fill="var(--bg-primary)" stroke="currentColor" stroke-width="1" opacity="0.9" />
+                            <circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="6.5" fill="${n.group === 'logic' ? '#732229' : 'currentColor'}" />
+                            <text x="${n.x.toFixed(1)}" y="${(n.y - 26).toFixed(1)}" text-anchor="middle" fill="currentColor" 
+                                  font-family="Vazirmatn" font-size="18" font-weight="600">
+                                ${n.label}
+                            </text>
+                        </g>
+                    `).join('');
+
+                    const pulseRadius = 38 + Math.sin(elapsed * 2.2) * 5;
+                    const coreLabel = siteTexts["core-node-label"] || "من (هسته مرکزی)";
+                    const coreHtml = `
+                        <g>
+                            <circle cx="${coreX.toFixed(1)}" cy="${coreY.toFixed(1)}" r="${pulseRadius.toFixed(1)}" fill="none" stroke="#732229" stroke-width="1.2" opacity="0.45" />
+                            <circle cx="${coreX.toFixed(1)}" cy="${coreY.toFixed(1)}" r="24" fill="#732229" />
+                            <circle cx="${coreX.toFixed(1)}" cy="${coreY.toFixed(1)}" r="6" fill="#d9d2c2" />
+                            <text x="${coreX.toFixed(1)}" y="${(coreY + 46).toFixed(1)}" text-anchor="middle" fill="#732229" 
+                                  font-family="Vazirmatn" font-size="19" font-weight="800">
+                                ${coreLabel}
+                            </text>
+                        </g>
+                    `;
+
+                    nodesGroup.innerHTML = satellitesHtml + coreHtml;
+                }
+
+                graphAnimFrame = requestAnimationFrame(animateGraph);
+            }
+
+            graphAnimFrame = requestAnimationFrame(animateGraph);
+        }
+
+        /* ============================================================================
+           10. NOTES & READER ENGINE
            ============================================================================ */
         let currentReaderIndex = 0;
 
@@ -1164,7 +1327,6 @@
                          onmouseenter="highlightNoteRow(${idx})"
                          class="note-row ${idx === 0 ? 'active-preview' : ''} hairline-b py-7 px-4 cursor-pointer group">
                     <div class="grid grid-cols-12 gap-4 items-baseline">
-                        
                         <div class="col-span-12 md:col-span-2 flex items-center justify-between md:block font-mono text-xs">
                             <span class="text-oxblood font-bold">NOTE // ${displayNum}</span>
                             <span class="md:hidden opacity-60 text-[11px]">${note.readingTime}</span>
@@ -1180,13 +1342,12 @@
                             <h3 class="text-lg sm:text-xl font-bold group-hover:text-oxblood transition-colors leading-snug">
                                 ${note.title}
                             </h3>
-                            
                             <div class="note-preview-quote pr-3.5 border-r-2 border-oxblood">
                                 <p class="text-xs sm:text-sm opacity-85 font-light italic leading-7">
                                     ${note.keyQuote}
                                 </p>
                                 <span class="inline-block mt-1.5 font-mono text-[11px] text-oxblood">
-                                    [کلیک برای باز کردن متن کامل در حالت مطالعه ←]
+                                    [کلیک برای باز کردن متن کامل ←]
                                 </span>
                             </div>
                         </div>
@@ -1264,7 +1425,7 @@
         });
 
         /* ============================================================================
-           9. PERSPECTIVE SWITCHER, MIND LAB & ARCHIVE
+           11. PERSPECTIVE SWITCHER & RESUME RENDERER
            ============================================================================ */
         function setPerspective(mode) {
             document.body.setAttribute('data-perspective', mode);
@@ -1279,126 +1440,18 @@
                 activeBtn.classList.remove('opacity-75');
             }
 
-            const headline = document.getElementById('hero-headline');
-            const lead = document.getElementById('hero-lead');
-            const badge = document.getElementById('perspective-badge');
-
             if (mode === 'omni') {
-                badge.textContent = 'نگاه کلی به کارها و علایق';
-                headline.innerHTML = 'طراحی گرافیک، کنجکاوی در <span class="text-oxblood font-serif italic font-normal">هوش مصنوعی</span>، و لذتِ یادگیری پیوسته.';
-                lead.innerHTML = 'اینجا آرشیو کوچکی از کارها و دغدغه‌های من است. بیشتر وقتم بین طراحی گرافیک (پوستر، تایپوگرافی، لوگو و تصویرسازی) و ساختن پروژه‌های هوش مصنوعی می‌گذرد؛ مهارت‌هایی که اغلبشان را از راهِ <strong>مهندسی معکوس</strong>، باز کردن ساختارها و آزمون‌وخطا یاد گرفته‌ام.';
                 closeWorkDrawer();
             } else if (mode === 'art') {
-                badge.textContent = 'زاویه دید: طراحی گرافیک و هنرهای تجسمی';
-                headline.innerHTML = 'جستجوی سادگی در <span class="text-oxblood font-serif italic font-normal">پوستر، تایپوگرافی و نشانه</span>.';
-                lead.innerHTML = 'در بخش گرافیک، دغدغه اصلی من رسیدن به فرم‌های ساده، خوانا و ماندگار است. از طراحی لوگو و لوگوتایپ تا پوسترهای فرهنگی، فتومونتاژ و تصویرسازی؛ همیشه تلاش می‌کنم زوائد را کنار بگذارم تا پیام اصلی اثر با آرامش دیده شود.';
                 openWorkDomain('graphic');
             } else if (mode === 'ai') {
-                badge.textContent = 'زاویه دید: کدنویسی و هوش مصنوعی';
-                headline.innerHTML = 'یادگیری از مسیرِ <span class="text-oxblood font-serif italic font-normal">مهندسی معکوس</span> و ساختن سیستم‌های هوشمند.';
-                lead.innerHTML = 'ورود من به دنیای کدنویسی و هوش مصنوعی از سرِ کنجکاوی بود: اینکه یک سیستم پیچیده را باز کنم، منطقِ درونی‌اش را بفهمم و با ترکیب دوباره اجزای آن، ابزارها و پروژه‌های تازه‌ای بسازم.';
-                openWorkDomain('ai');
+                openWorkDomain('coding');
             }
-        }
-
-        function initMindLab() {
-            const gridGroup = document.getElementById('board-grid-lines');
-            let gridLines = '';
-            for (let i = 1; i < 8; i++) {
-                const pos = i * 100;
-                gridLines += `<line x1="${pos}" y1="0" x2="${pos}" y2="800" />`;
-                gridLines += `<line x1="0" y1="${pos}" x2="800" y2="${pos}" />`;
-            }
-            gridGroup.innerHTML = gridLines;
-
-            const baseGraphGroup = document.getElementById('base-graph-lines');
-            let baseEdges = '';
-            mindLabNodes.forEach(source => {
-                source.connectTo.forEach(targetId => {
-                    const target = mindLabNodes.find(n => n.id === targetId);
-                    if (target && source.id < target.id) {
-                        baseEdges += `<line x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" />`;
-                    }
-                });
-            });
-            if (baseGraphGroup) baseGraphGroup.innerHTML = baseEdges;
-
-            const quickTabs = document.getElementById('mind-quick-tabs');
-            quickTabs.innerHTML = mindLabNodes.map(node => `
-                <button onclick="selectMindNode('${node.id}')" id="mind-tab-${node.id}"
-                        class="interactive-link p-3 hairline-all text-right transition-colors flex items-center justify-between">
-                    <span class="text-xs sm:text-sm font-semibold">${node.title}</span>
-                    <span class="font-mono text-[10px] opacity-60">${node.coord}</span>
-                </button>
-            `).join('');
-
-            selectMindNode('biology');
-        }
-
-        function selectMindNode(nodeId) {
-            const activeNode = mindLabNodes.find(n => n.id === nodeId);
-            if (!activeNode) return;
-
-            mindLabNodes.forEach(n => {
-                const tab = document.getElementById(`mind-tab-${n.id}`);
-                if (n.id === nodeId) {
-                    tab.classList.add('bg-oxblood', 'text-alabaster');
-                } else {
-                    tab.classList.remove('bg-oxblood', 'text-alabaster');
-                }
-            });
-
-            let linesHtml = '';
-            activeNode.connectTo.forEach(targetId => {
-                const target = mindLabNodes.find(n => n.id === targetId);
-                if (target) {
-                    linesHtml += `<line x1="${activeNode.x}" y1="${activeNode.y}" x2="${target.x}" y2="${target.y}" stroke="#732229" stroke-width="2" />`;
-                }
-            });
-            document.getElementById('synapse-lines').innerHTML = linesHtml;
-
-            const nodesGroup = document.getElementById('board-nodes');
-            nodesGroup.innerHTML = mindLabNodes.map(n => {
-                const isSelected = n.id === nodeId;
-                const isConnected = activeNode.connectTo.includes(n.id);
-                return `
-                    <g onclick="selectMindNode('${n.id}')" class="cursor-pointer">
-                        ${isSelected ? `<circle cx="${n.x}" cy="${n.y}" r="36" fill="none" stroke="#732229" stroke-width="1.5" />` : ''}
-                        <circle cx="${n.x}" cy="${n.y}" r="${isSelected ? 16 : 11}" 
-                                fill="${isSelected ? '#732229' : (isConnected ? '#732229' : 'currentColor')}" 
-                                opacity="${isSelected || isConnected ? '1' : '0.45'}" />
-                        <text x="${n.x}" y="${n.y - 24}" text-anchor="middle" fill="currentColor" 
-                              font-family="Vazirmatn" font-size="22" font-weight="${isSelected ? '700' : '400'}">
-                            ${n.title}
-                        </text>
-                    </g>
-                `;
-            }).join('');
-
-            document.getElementById('mindlab-dossier').innerHTML = `
-                <div>
-                    <div class="flex items-center justify-between font-mono text-xs text-oxblood mb-2">
-                        <span>گره انتخاب‌شده: ${activeNode.title}</span>
-                        <span>خانه [${activeNode.coord}]</span>
-                    </div>
-                    <p class="text-sm sm:text-base leading-8 mb-6">${activeNode.summary}</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-5 hairline-t text-xs sm:text-sm leading-7">
-                    <div>
-                        <div class="font-semibold text-oxblood mb-1">ردپای آن در طراحی گرافیک:</div>
-                        <p class="opacity-85 font-light">${activeNode.graphicLink}</p>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-oxblood mb-1">ردپای آن در کد و هوش مصنوعی:</div>
-                        <p class="opacity-85 font-light">${activeNode.aiLink}</p>
-                    </div>
-                </div>
-            `;
         }
 
         function renderArchiveTimeline() {
             const container = document.getElementById('archive-list');
+            if (!container) return;
             container.innerHTML = archiveTimeline.map((item, idx) => `
                 <div class="archive-row ${idx === 0 ? 'active' : ''} hairline-b py-7 px-4 sm:px-6 cursor-pointer transition-colors hover:bg-[var(--surface-hover)]"
                      onclick="activateArchiveRow(${idx})"
@@ -1406,7 +1459,7 @@
                     
                     <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
                         <h3 class="text-lg sm:text-xl font-bold">${item.title}</h3>
-                        <span class="font-mono text-xs text-oxblood">${item.period}</span>
+                        <span class="font-mono text-xs text-oxblood shrink-0">${item.period}</span>
                     </div>
                     <p class="text-sm opacity-80 mt-2 leading-7 font-light">${item.summary}</p>
                     
@@ -1427,7 +1480,7 @@
         }
 
         /* ============================================================================
-           10. CLOUD SYNC WITH GOOGLE APPS SCRIPT & TELEGRAM CONTACT DISPATCH
+           12. CLOUD SYNC WITH GOOGLE APPS SCRIPT & TELEGRAM CONTACT DISPATCH
            ============================================================================ */
         async function syncPortfolioWithCloud() {
             if (!GAS_API_URL) return;
@@ -1435,12 +1488,16 @@
                 const res = await fetch(GAS_API_URL);
                 const data = await res.json();
                 if (data.status === "success") {
+                    if (data.siteTexts && typeof data.siteTexts === 'object') {
+                        siteTexts = { ...siteTexts, ...data.siteTexts };
+                        applySiteTexts();
+                    }
+                    if (Array.isArray(data.socials) && data.socials.length > 0) {
+                        socialLinks = data.socials;
+                        renderSocialLinks();
+                    }
                     if (Array.isArray(data.domains) && data.domains.length > 0) {
-                        // Merge cloud domains with local domains without duplicates
-                        data.domains.forEach(cd => {
-                            const exists = workDomains.find(ld => ld.key === cd.key);
-                            if (!exists) workDomains.push(cd);
-                        });
+                        workDomains = data.domains;
                     }
                     if (Array.isArray(data.works) && data.works.length > 0) {
                         portfolioWorks = data.works;
@@ -1454,6 +1511,7 @@
                     renderDomainSelectors();
                     renderNotesIndex();
                     renderArchiveTimeline();
+                    buildAndAnimateMindGraph();
                     if (activeDomain) openWorkDomain(activeDomain);
                 }
             } catch (err) {
@@ -1497,7 +1555,7 @@
         }
 
         /* ============================================================================
-           11. CURSOR FOLLOWER & UTILITIES
+           13. CURSOR FOLLOWER & UTILITIES
            ============================================================================ */
         function initCursorFollower() {
             const follower = document.getElementById('cursor-follower');
@@ -1537,18 +1595,21 @@
             document.body.removeChild(tempInput);
 
             const original = btnEl.textContent;
-            btnEl.textContent = 'کپی شد ✓';
+            btnEl.textContent = '[کپی شد ✓]';
             setTimeout(() => { btnEl.textContent = original; }, 2000);
         }
 
         window.onload = function () {
+            applySiteTexts();
+            renderSocialLinks();
             renderDomainSelectors();
-            initMindLab();
-            renderNotesIndex();
             renderArchiveTimeline();
+            buildAndAnimateMindGraph();
+            renderNotesIndex();
             initCursorFollower();
             syncPortfolioWithCloud();
         };
     </script>
 </body>
 </html>
+
