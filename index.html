@@ -179,7 +179,7 @@
         }
         .archive-row.active .archive-details,
         .archive-row:hover .archive-details {
-            max-height: 280px;
+            max-height: 900px;
             opacity: 1;
         }
 
@@ -1450,27 +1450,37 @@
         }
 
         function renderArchiveTimeline() {
-            const container = document.getElementById('archive-list');
-            if (!container) return;
-            container.innerHTML = archiveTimeline.map((item, idx) => `
-                <div class="archive-row ${idx === 0 ? 'active' : ''} hairline-b py-7 px-4 sm:px-6 cursor-pointer transition-colors hover:bg-[var(--surface-hover)]"
-                     onclick="activateArchiveRow(${idx})"
-                     onmouseenter="activateArchiveRow(${idx})">
-                    
-                    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-                        <h3 class="text-lg sm:text-xl font-bold">${item.title}</h3>
-                        <span class="font-mono text-xs text-oxblood shrink-0">${item.period}</span>
-                    </div>
-                    <p class="text-sm opacity-80 mt-2 leading-7 font-light">${item.summary}</p>
-                    
-                    <div class="archive-details">
-                        <p class="text-xs sm:text-sm opacity-75 mt-4 pt-3 hairline-t leading-7 font-light">
-                            ${item.details}
-                        </p>
-                    </div>
-                </div>
-            `).join('');
-        }
+    const container = document.getElementById('archive-list');
+    if (!container) return;
+    container.innerHTML = archiveTimeline.map((item, idx) => {
+        const lines = String(item.details || '')
+            .split('\n')
+            .map(l => l.trim())
+            .filter(Boolean);
+
+        const detailsHtml = lines.length > 1
+            ? `<ul class="space-y-2 mt-4 pt-4 hairline-t text-xs sm:text-sm opacity-85 font-light leading-7">
+                 ${lines.map(line => `<li>${line}</li>`).join('')}
+               </ul>`
+            : `<p class="text-xs sm:text-sm opacity-75 mt-4 pt-3 hairline-t leading-7 font-light">${item.details || ''}</p>`;
+
+        return `
+        <div class="archive-row ${idx === 0 ? 'active' : ''} hairline-b py-7 px-4 sm:px-6 cursor-pointer transition-colors hover:bg-[var(--surface-hover)]"
+             onclick="activateArchiveRow(${idx})"
+             onmouseenter="activateArchiveRow(${idx})">
+            
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                <h3 class="text-lg sm:text-xl font-bold">${item.title}</h3>
+                <span class="font-mono text-xs text-oxblood shrink-0">${item.period}</span>
+            </div>
+            <p class="text-sm opacity-80 mt-2 leading-7 font-light">${item.summary}</p>
+            
+            <div class="archive-details" style="max-height: 900px;">
+                ${detailsHtml}
+            </div>
+        </div>
+    `}).join('');
+}
 
         function activateArchiveRow(index) {
             document.querySelectorAll('.archive-row').forEach((r, i) => {
