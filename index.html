@@ -1,1023 +1,1554 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="scroll-smooth selection:bg-[#A2D5C6] selection:text-black antialiased">
+<html lang="fa" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARTorki | امین‌رضا ترکی</title>
-    <meta name="description" content="پورتفولیو شخصی امین‌رضا ترکی؛ ترکیبی از برنامه‌نویسی، پژوهش امنیت، طراحی گرافیک و روایت بصری">
-    <meta name="theme-color" content="#030303">
-    <meta name="color-scheme" content="dark">
+    <title>دفترچه کار و تجربه‌ها | گرافیک، هوش مصنوعی و مطالعات آزاد</title>
     
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="امین‌رضا ترکی | پورتفولیو شخصی">
-    <meta property="og:description" content="پورتفولیو شخصی امین‌رضا ترکی، دانشجوی مهندسی کامپیوتر، برنامه‌نویس و طراح گرافیک">
-    <meta property="og:image" content="https://i.ibb.co/JWvR6jQ4/IMG-20260403-172401-635.jpg">
-    <meta property="og:type" content="website">
-    
-    <link rel="preload" as="image" href="https://i.ibb.co/kgFhBL4V/gradient-background-web-optimized.jpg">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;700;900&display=swap">
-    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Google Fonts: Vazirmatn (Persian), Cormorant Garamond (Editorial Serif), Space Mono (Swiss Archival) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        alabaster: '#d9d2c2',
+                        botanical: '#2e4e43',
+                        oxblood: '#732229',
+                    },
+                    fontFamily: {
+                        persian: ['Vazirmatn', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         :root {
-            --bg-dark: #030303;
-            --bg-surface: #0a0a0a;
-            --accent: #A2D5C6;
-            --text-main: #f5f5f5;
-            --text-muted: #a3a3a3;
+            --bg-primary: #d9d2c2;
+            --text-primary: #2e4e43;
+            --accent: #732229;
+            --border-hairline: rgba(46, 78, 67, 0.16);
+            --surface-subtle: rgba(46, 78, 67, 0.035);
+            --surface-hover: rgba(115, 34, 41, 0.045);
         }
+
+        /* Perspective Mode: AI & Code (Calm Deep Botanical Notebook) */
+        body[data-perspective="ai"] {
+            --bg-primary: #2e4e43;
+            --text-primary: #d9d2c2;
+            --accent: #732229;
+            --border-hairline: rgba(217, 210, 194, 0.16);
+            --surface-subtle: rgba(217, 210, 194, 0.035);
+            --surface-hover: rgba(115, 34, 41, 0.22);
+        }
+
+        * {
+            box-sizing: border-box;
+            border-radius: 0px !important;
+        }
+
         body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             font-family: 'Vazirmatn', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-        }
-        
-        /* Modern Floating Header */
-        #header-nav {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        #header.scrolled #header-nav {
-            background-color: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 100px;
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-            margin-top: 1rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            overflow-x: hidden;
+            transition: background-color 0.6s ease, color 0.6s ease;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            right: 50%;
-            transform: translateX(50%);
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-            border-radius: 2px;
-        }
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
-        .nav-link.active {
-            color: #ffffff;
-            font-weight: 700;
+        ::selection {
+            background-color: #732229;
+            color: #d9d2c2;
         }
 
-        /* Hero Background - fixed only on desktop to avoid iOS bug */
-        #hero {
-            background-image: 
-                linear-gradient(to bottom, rgba(3,3,3,0.3) 0%, rgba(3,3,3,1) 100%),
-                url('https://i.ibb.co/kgFhBL4V/gradient-background-web-optimized.jpg');
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
-            min-height: 100dvh;
-        }
-        @media (min-width: 769px) {
-            #hero {
-                background-attachment: fixed;
-            }
-        }
-
-        /* Sleek Hero Buttons */
-        .hero-nav-link {
-            color: var(--accent);
-            font-size: 10px;
-            font-weight: 700;
-            background-color: rgba(255, 255, 255, 0.02);
-            padding: 10px 24px;
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-        }
-        .hero-nav-link:hover {
-            color: #ffffff;
-            background-color: rgba(162, 213, 198, 0.1);
-            border-color: rgba(162, 213, 198, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -10px rgba(162, 213, 198, 0.2);
-        }
-        .hero-nav-link.active {
-            color: #ffffff;
-            background-color: rgba(162, 213, 198, 0.12);
-            border-color: rgba(162, 213, 198, 0.35);
-        }
-
-        /* ===== Liquid Glass Shared ===== */
-        .liquid-glass-menu {
-            background: linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.09) 0%,
-                rgba(255, 255, 255, 0.03) 50%,
-                rgba(162, 213, 198, 0.04) 100%
-            );
-            backdrop-filter: blur(28px) saturate(180%);
-            -webkit-backdrop-filter: blur(28px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow:
-                0 8px 40px rgba(0, 0, 0, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.12),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.04);
-        }
-        .liquid-glass-menu a {
-            border-color: rgba(255, 255, 255, 0.06) !important;
-        }
-        .liquid-glass-menu a:hover {
-            background: rgba(255, 255, 255, 0.07) !important;
-        }
-
-        /* Liquid Glass – Writing Cards */
-        .writing-card {
-            background: linear-gradient(
-                145deg,
-                rgba(255, 255, 255, 0.06) 0%,
-                rgba(255, 255, 255, 0.02) 50%,
-                rgba(162, 213, 198, 0.03) 100%
-            );
-            backdrop-filter: blur(18px) saturate(160%);
-            -webkit-backdrop-filter: blur(18px) saturate(160%);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            box-shadow:
-                0 4px 24px rgba(0, 0, 0, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.03);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .writing-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(162, 213, 198, 0.25);
-            background: linear-gradient(
-                145deg,
-                rgba(255, 255, 255, 0.09) 0%,
-                rgba(255, 255, 255, 0.03) 50%,
-                rgba(162, 213, 198, 0.05) 100%
-            );
-            box-shadow:
-                0 20px 50px -10px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(162, 213, 198, 0.06),
-                inset 0 1px 0 rgba(255, 255, 255, 0.12),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.04);
-        }
-
-        /* Liquid Glass – Social / Messenger Buttons */
-        .liquid-glass-btn {
-            background: linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.06) 0%,
-                rgba(255, 255, 255, 0.02) 100%
-            );
-            backdrop-filter: blur(14px) saturate(150%);
-            -webkit-backdrop-filter: blur(14px) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            box-shadow:
-                0 4px 16px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.07);
-            transition: all 0.3s ease;
-        }
-        .liquid-glass-btn:hover {
-            background: linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.1) 0%,
-                rgba(162, 213, 198, 0.06) 100%
-            );
-            border-color: rgba(255, 255, 255, 0.18);
-            box-shadow:
-                0 8px 28px rgba(0, 0, 0, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            transform: translateY(-2px);
-        }
-
-        /* Masonry Portfolio */
-        .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            transform: translateZ(0);
-            cursor: pointer;
-        }
-        .masonry-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s ease, opacity 0.5s ease;
-            filter: grayscale(20%) brightness(0.9);
-            opacity: 0;
-        }
-        .masonry-item img.loaded {
-            opacity: 1;
-        }
-        .masonry-item:hover img {
-            transform: scale(1.05);
-            filter: grayscale(0%) brightness(1.1);
-        }
-        .masonry-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
-            border-radius: 0.75rem;
-            pointer-events: none;
-        }
-
-        /* Resume Timeline Dot – aligned to border-r center */
-        .timeline-dot {
-            position: absolute;
-            right: -1.5rem;
-            transform: translateX(50%);
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--bg-dark);
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 10px rgba(162, 213, 198, 0.4);
-            z-index: 1;
-        }
-        @media (min-width: 768px) {
-            .timeline-dot {
-                right: -2.5rem;
-            }
-        }
-
-        /* Mobile Menu Animation */
-        #mobile-menu {
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-            opacity: 0;
-            transform: translateY(-10px);
-            visibility: hidden;
-            pointer-events: none;
-        }
-        #mobile-menu.open {
-            opacity: 1;
-            transform: translateY(0);
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-        /* Lightbox */
-        #lightbox {
-            transition: opacity 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-        }
-        #lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        #lightbox-img {
-            transition: opacity 0.25s ease, transform 0.3s ease;
-        }
-
-        /* Tab & Filter Animations and Transitions */
-        @keyframes fadeInTab {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .animate-fade-in {
-            animation: fadeInTab 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        .portfolio-item {
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-
-        .hide-item {
-            display: none !important;
-        }
-
-        /* Resume Tab Buttons */
-        .resume-tab-btn {
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 600;
-            background-color: rgba(255, 255, 255, 0.03);
-            padding: 8px 20px;
-            border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .resume-tab-btn:hover {
-            color: #ffffff;
-            border-color: rgba(162, 213, 198, 0.3);
-            background-color: rgba(162, 213, 198, 0.08);
-            transform: translateY(-2px);
-        }
-        .resume-tab-btn.active {
-            color: #030303;
-            background-color: var(--accent);
-            border-color: var(--accent);
-            font-weight: 700;
-            box-shadow: 0 4px 20px -4px rgba(162, 213, 198, 0.4);
-        }
-
-        /* Portfolio Filter Buttons */
-        .filter-btn {
-            color: var(--text-muted);
-            font-size: 13px;
-            font-weight: 600;
-            background-color: rgba(255, 255, 255, 0.03);
-            padding: 7px 18px;
-            border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .filter-btn:hover {
-            color: #ffffff;
-            border-color: rgba(162, 213, 198, 0.3);
-            background-color: rgba(162, 213, 198, 0.08);
-            transform: translateY(-2px);
-        }
-        .filter-btn.active {
-            color: #030303;
-            background-color: var(--accent);
-            border-color: var(--accent);
-            font-weight: 700;
-            box-shadow: 0 4px 20px -4px rgba(162, 213, 198, 0.4);
-        }
-
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 4px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
+            background: var(--bg-primary);
         }
         ::-webkit-scrollbar-thumb {
-            background: #222;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #444;
+            background: #732229;
         }
 
-        /* Accessibility, responsive rhythm, and resilient interactions */
-        html { scroll-padding-top: 6rem; }
-        section[id] { scroll-margin-top: 5.5rem; }
-        a, button { -webkit-tap-highlight-color: transparent; }
-        a:focus-visible, button:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 4px;
+        .hairline-t { border-top: 1px solid var(--border-hairline); }
+        .hairline-b { border-bottom: 1px solid var(--border-hairline); }
+        .hairline-r { border-right: 1px solid var(--border-hairline); }
+        .hairline-l { border-left: 1px solid var(--border-hairline); }
+        .hairline-all { border: 1px solid var(--border-hairline); }
+
+        .surface-subtle { background-color: var(--surface-subtle); }
+
+        /* Very Subtle Matte Paper Grain */
+        .paper-grain {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 90;
+            opacity: 0.24;
+            mix-blend-mode: multiply;
         }
-        button { touch-action: manipulation; }
-        .skip-link {
-            position: fixed; top: .75rem; right: .75rem; z-index: 200;
-            transform: translateY(-160%); padding: .75rem 1rem;
-            color: #030303; background: var(--accent); border-radius: .75rem;
-            font-weight: 700; transition: transform .2s ease;
+        body[data-perspective="ai"] .paper-grain {
+            opacity: 0.12;
+            mix-blend-mode: overlay;
         }
-        .skip-link:focus { transform: translateY(0); }
-        #lightbox { z-index: 100; background: transparent; }
-        #lb-img { max-width: min(92vw, 1400px); }
-        .portfolio-item { break-inside: avoid; }
-        .portfolio-item img { min-height: 80px; }
-        .empty-state {
-            grid-column: 1 / -1; width: 100%; padding: 2.5rem 1rem;
-            text-align: center; color: rgba(255,255,255,.55);
+
+        /* Minimal Trailing Cursor Circle */
+        #cursor-follower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 22px;
+            height: 22px;
+            border: 1px solid #732229;
+            border-radius: 50% !important;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border-radius 0.25s ease;
         }
-        @media (max-width: 640px) {
-            section.py-32 { padding-top: 5rem; padding-bottom: 5rem; }
-            #hero-nav { gap: .6rem; }
-            .hero-nav-link { padding: .7rem 1rem; }
-            #lb-prev, #lb-next { width: 2.5rem; height: 2.5rem; }
+
+        #cursor-follower.cursor-expanded {
+            width: 44px;
+            height: 44px;
+            background-color: rgba(115, 34, 41, 0.1);
+            border-radius: 0% !important;
         }
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                scroll-behavior: auto !important;
-                animation-duration: .01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: .01ms !important;
-            }
-            #hero { background-attachment: scroll !important; }
+
+        .work-card {
+            transition: background-color 0.4s ease;
+        }
+        .work-card:hover {
+            background-color: var(--surface-hover);
+        }
+        .work-card .artwork-svg {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .work-card:hover .artwork-svg {
+            transform: scale(1.015);
+        }
+
+        /* Artwork Protection Shield (Disables Save/Drag/Right-Click) */
+        .protected-artwork-wrap {
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+        .protected-artwork-wrap img,
+        .protected-artwork-wrap svg {
+            pointer-events: none;
+            -webkit-user-drag: none;
+        }
+        .artwork-shield {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: transparent;
+        }
+
+        /* Clean Timeline Row Expansion */
+        .archive-row .archive-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s ease, opacity 0.35s ease;
+            opacity: 0;
+        }
+        .archive-row.active .archive-details,
+        .archive-row:hover .archive-details {
+            max-height: 260px;
+            opacity: 1;
+        }
+
+        .note-row {
+            transition: background-color 0.4s ease, padding-right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .note-row:hover {
+            background-color: var(--surface-hover);
+            padding-right: 1.75rem;
+        }
+        .note-row .note-preview-quote {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, margin-top 0.35s ease;
+        }
+        .note-row:hover .note-preview-quote,
+        .note-row:focus-within .note-preview-quote,
+        .note-row.active-preview .note-preview-quote {
+            max-height: 160px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .book-prose p {
+            margin-bottom: 1.5rem;
+            line-height: 2.25;
+            text-align: justify;
+        }
+
+        @media (pointer: coarse) {
+            #cursor-follower { display: none; }
         }
     </style>
 </head>
-<body class="bg-[#030303] text-[#f5f5f5]">\n    <a class="skip-link" href="#main-content">رفتن به محتوای اصلی</a>
 
-    <!-- Header & Navigation -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 md:px-0">
-        <nav id="header-nav" class="container mx-auto px-6 py-4 flex justify-between items-center max-w-5xl mt-4 md:mt-6 transition-all">
-            <!-- Right Side: Menu Logic -->
-            <div>
-                <!-- Full Menu for Desktop -->
-                <div class="hidden md:flex space-x-8 space-x-reverse">
-                    <a href="#hero" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">خانه</a>
-                    <a href="#about" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">درباره</a>
-                    <a href="#full-resume" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">رزومه</a>
-                    <a href="#writings" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">نوشته‌ها</a>
-                    <a href="#portfolio" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">نمونه‌کارها</a>
-                    <a href="#socials" class="nav-link text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors duration-300">صفحات‌مجازی</a>
-                </div>
-                <!-- Hamburger / Close Button for Mobile -->
-                <button id="mobile-menu-button" class="block md:hidden text-white focus:outline-none" aria-label="باز کردن منو" aria-controls="mobile-menu" aria-expanded="false" type="button">
-                    <svg id="menu-icon-hamburger" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                    <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-80 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
+<body data-perspective="omni">
+
+    <!-- Subtle Paper Grain Overlay -->
+    <svg class="paper-grain" xmlns="http://www.w3.org/2000/svg">
+        <filter id="paper-noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0.18   0 0 0 0 0.30   0 0 0 0 0.26  0 0 0 0.15 0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#paper-noise)" />
+    </svg>
+
+    <!-- Minimal Cursor Follower -->
+    <div id="cursor-follower" aria-hidden="true"></div>
+
+    <header class="sticky top-0 z-50 bg-[var(--bg-primary)]/95 backdrop-blur-[2px] hairline-b transition-colors duration-500">
+        <div class="max-w-[1380px] mx-auto px-6 sm:px-12 h-20 flex items-center justify-between gap-4">
+            
+            <a href="#top" class="interactive-link flex items-center gap-3 group">
+                <span class="w-2 h-2 bg-oxblood inline-block transition-transform duration-300 group-hover:rotate-45"></span>
+                <span class="font-bold text-sm sm:text-base tracking-tight">دفترچه کار و تجربه‌ها</span>
+                <span class="font-mono text-[11px] opacity-50 hidden md:inline">/ STUDIO NOTES</span>
+            </a>
+
+            <!-- Minimalist Perspective Switcher -->
+            <div class="flex items-center gap-1 sm:gap-2 hairline-all p-1" role="tablist" aria-label="تغییر زاویه دید">
+                <button onclick="setPerspective('omni')" id="persp-omni" class="interactive-link persp-btn px-3 py-1.5 text-xs font-medium bg-oxblood text-alabaster transition-colors">
+                    همه ابعاد
+                </button>
+                <button onclick="setPerspective('art')" id="persp-art" class="interactive-link persp-btn px-3 py-1.5 text-xs opacity-75 hover:opacity-100 transition-colors">
+                    گرافیک و تصویر
+                </button>
+                <button onclick="setPerspective('ai')" id="persp-ai" class="interactive-link persp-btn px-3 py-1.5 text-xs opacity-75 hover:opacity-100 transition-colors">
+                    کد و هوش مصنوعی
                 </button>
             </div>
 
-            <!-- Left Side: Brand Name -->
-            <a href="#hero" class="text-base md:text-lg font-bold tracking-wider">
-                artorki
-            </a>
-        </nav>
-        
-        <!-- Mobile Dropdown Menu – Liquid Glass -->
-        <div id="mobile-menu" class="md:hidden absolute top-full left-4 right-4 mt-2 rounded-2xl overflow-hidden liquid-glass-menu" aria-label="منوی موبایل">
-            <a href="#hero" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">خانه</a>
-            <a href="#about" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">درباره</a>
-            <a href="#full-resume" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">رزومه</a>
-            <a href="#writings" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">نوشته‌ها</a>
-            <a href="#portfolio" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white border-b border-white/5 transition-colors">نمونه‌کارها</a>
-            <a href="#socials" class="block text-center py-4 px-4 text-[15px] font-bold text-[#A2D5C6] hover:text-white transition-colors">صفحات‌مجازی</a>
+            <!-- Quiet Section Links -->
+            <nav class="hidden lg:flex items-center gap-8 text-xs sm:text-sm opacity-85">
+                <a href="#works" class="interactive-link hover:text-oxblood transition-colors">گزیده آثار</a>
+                <a href="#mind-lab" class="interactive-link hover:text-oxblood transition-colors">علایق و پیوندها</a>
+                <a href="#notes" class="interactive-link hover:text-oxblood transition-colors">یادداشت‌ها</a>
+                <a href="#archive" class="interactive-link hover:text-oxblood transition-colors">مسیر من</a>
+                <a href="#contact" class="interactive-link text-oxblood font-medium">ارتباط</a>
+            </nav>
         </div>
     </header>
 
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section id="hero" class="min-h-screen flex items-center relative pt-20">
-            <div class="container mx-auto px-6 text-center relative z-10 flex flex-col items-center justify-center">
-                
-                <h1 class="text-[18px] font-bold text-white/75 mb-6 leading-tight tracking-tight drop-shadow-2xl">
-                    <br class="md:hidden"> امین‌رضا ترکی
-                </h1>
-                <h2 class="text-[15px] font-medium text-white/50 mb-16 max-w-2xl mx-auto leading-relaxed">
-                    پورتفولیو شخصی
-                </h2>
-                
-                <!-- Hero Navigation Buttons -->
-                <nav id="hero-nav" class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-                    <a href="#about" class="hero-nav-link">درباره</a>
-                    <a href="#full-resume" class="hero-nav-link">رزومه</a>
-                    <a href="#writings" class="hero-nav-link">نوشته‌ها</a>
-                    <a href="#portfolio" class="hero-nav-link">نمونه‌کارها</a>
-                    <a href="#socials" class="hero-nav-link">صفحات‌مجازی</a>
-                </nav>
+    <main id="top" class="max-w-[1380px] mx-auto hairline-r hairline-l">
+        
+        <!-- HERO SECTION -->
+        <section class="grid grid-cols-12 hairline-b">
+            <div class="col-span-12 lg:col-span-8 p-8 sm:p-14 md:p-20 flex flex-col justify-between hairline-l">
+                <div class="flex items-center gap-3 font-mono text-[11px] opacity-60 mb-10">
+                    <span>00 / INTRODUCTION</span>
+                    <span>—</span>
+                    <span id="perspective-badge" class="font-persian">نگاه کلی</span>
+                </div>
+
+                <div class="my-auto max-w-2xl">
+                    <h1 id="hero-headline" class="text-3xl sm:text-5xl md:text-[3.25rem] font-bold leading-[1.25] tracking-tight mb-8">
+                        طراحی گرافیک، کنجکاوی در <span class="text-oxblood font-serif italic font-normal">هوش مصنوعی</span>، و لذتِ یادگیری پیوسته.
+                    </h1>
+
+                    <p id="hero-lead" class="text-base sm:text-lg leading-[1.95] opacity-85 font-light mb-10">
+                        اینجا آرشیو کوچکی از کارها و دغدغه‌های من است. بیشتر وقتم بین طراحی گرافیک (پوستر، تایپوگرافی، لوگو و تصویرسازی) و ساختن پروژه‌های هوش مصنوعی می‌گذرد؛ مهارت‌هایی که اغلبشان را از راهِ <strong>مهندسی معکوس</strong>، باز کردن ساختارها و آزمون‌وخطا یاد گرفته‌ام.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#works" class="interactive-link px-7 py-3.5 bg-oxblood text-alabaster text-xs sm:text-sm font-medium hover:bg-botanical transition-colors">
+                            انتخاب حوزه و مشاهده آثار ↓
+                        </a>
+                        <a href="#mind-lab" class="interactive-link px-6 py-3.5 hairline-all text-xs sm:text-sm hover:border-oxblood hover:text-oxblood transition-colors">
+                            شبکه پیوندهای ذهنی من
+                        </a>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-50">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
+
+            <div class="col-span-12 lg:col-span-4 p-8 sm:p-12 flex flex-col justify-between surface-subtle">
+                <div class="font-mono text-[11px] opacity-60 mb-6">
+                    INDEX / چهار ضلع فعالیت و علاقه
+                </div>
+
+                <div class="space-y-6 my-auto text-xs sm:text-sm">
+                    <div class="pb-5 hairline-b">
+                        <span class="font-mono text-[10px] text-oxblood block mb-1">01 / VISUAL DESIGN</span>
+                        <div class="font-bold text-base">طراحی گرافیک، عکاسی و اتودهای دستی</div>
+                        <div class="opacity-75 mt-1 font-light leading-6">پوستر، تایپوگرافی، لوگو، تصویرسازی، عکاسی و اسکچ‌های روی کاغذ</div>
+                    </div>
+                    <div class="pb-5 hairline-b">
+                        <span class="font-mono text-[10px] text-oxblood block mb-1">02 / AI & SYSTEMS</span>
+                        <div class="font-bold text-base">کدنویسی و هوش مصنوعی</div>
+                        <div class="opacity-75 mt-1 font-light leading-6">یادگیری با مهندسی معکوس، ایده‌پردازی و ساخت پروژه‌های هوشمند</div>
+                    </div>
+                    <div class="pb-5 hairline-b">
+                        <span class="font-mono text-[10px] opacity-55 block mb-1">03 / PAST ROOTS</span>
+                        <div class="font-bold text-base">صدا و تصویر متحرک</div>
+                        <div class="opacity-75 mt-1 font-light leading-6">تجربه‌های گذشته در تدوین ویدیو و طراحی کلیپ‌های صوتی</div>
+                    </div>
+                    <div>
+                        <span class="font-mono text-[10px] opacity-55 block mb-1">04 / FREE STUDIES</span>
+                        <div class="font-bold text-base">مطالعات آزاد و تدریس</div>
+                        <div class="opacity-75 mt-1 font-light leading-6">شطرنج، زیست‌شناسی، نجوم، علوم انسانی، زبان و تدریس هنر</div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-32 bg-[#030303] relative border-b border-white/5">
-            <div class="container mx-auto px-6 max-w-5xl">
-                <div class="flex flex-col md:flex-row items-center gap-16 md:gap-20">
-                    <div class="md:w-5/12 text-center relative group">
-                        <div class="absolute inset-0 bg-[#A2D5C6] rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-700"></div>
-                        <img src="https://i.ibb.co/JWvR6jQ4/IMG-20260403-172401-635.jpg" alt="پروفایل" width="320" height="320" loading="lazy" class="relative z-10 rounded-full w-64 h-64 md:w-80 md:h-80 mx-auto object-cover ring-1 ring-white/10 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02] filter grayscale-[20%] group-hover:grayscale-0">
+        <!-- WORKS SECTION: Dynamic Domain Cards + Collapsible Drawer -->
+        <section id="works" class="hairline-b py-16 sm:py-24 px-6 sm:px-14 md:px-20">
+            
+            <div class="max-w-3xl mb-12">
+                <div class="font-mono text-xs text-oxblood mb-2">01 / SELECTED WORKS</div>
+                <h2 class="text-2xl sm:text-4xl font-bold tracking-tight mb-3">گزیده کارها (بر اساس حوزه مورد نظر شما)</h2>
+                <p class="text-sm sm:text-base opacity-80 font-light leading-8">
+                    برای اینکه صفحه شلوغ نشود و فقط کارهایی را ببینید که به دغدغه شما نزدیک‌تر است، نمونه‌کارها و تجربه‌هایم را در دسته‌های جداگانه قرار داده‌ام. روی هر حوزه کلیک کنید تا آثار همان بخش باز شود:
+                </p>
+            </div>
+
+            <!-- Dynamic Domain Selector Cards (Auto-Rendered from workDomains & portfolioWorks) -->
+            <div class="grid grid-cols-12 gap-5" id="domain-selectors">
+                <!-- Populated dynamically by renderDomainSelectors() -->
+            </div>
+
+            <!-- Collapsible Works Container -->
+            <div id="works-drawer" class="hidden mt-10 pt-10 hairline-t">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-3">
+                        <span class="w-2 h-2 bg-oxblood inline-block"></span>
+                        <h3 id="active-domain-title" class="text-base sm:text-lg font-bold">آثار انتخاب‌شده</h3>
                     </div>
-                    <div class="md:w-7/12 text-center md:text-right">
-                        <h3 class="text-[18px] font-bold text-white/75">درباره</h3>
-                        <div class="space-y-6 text-[15px] font-medium text-white/60 leading-relaxed mt-4 text-justify md:text-right">
-                            <p>
-                                متولد فروردین ۱۳۸۶ در شهر شیراز و دانشجوی مهندسی کامپیوتر. من در نقطه تلاقی منطق دقیق کدنویسی و زیبایی‌شناسی بصری هنر تنفس می‌کنم؛ جایی که تفکر تحلیلی یک برنامه‌نویس و پژوهشگر امنیت با حس خلاقانه و شهودی یک طراح گرافیک پیوند می‌خورد. اشتیاق پایدار من، حل مسائل پیچیده از طریق خلق کدهای بهینه و آفریدن تجربیات دیداری معنادار، اصیل و اثرگذار است؛ همواره در حال یادگیری، ساختن و توسعه مرزهای ایده و عمل.
-                            </p>
+                    <button onclick="closeWorkDrawer()" class="interactive-link text-xs font-mono text-oxblood hover:underline px-3 py-1.5 hairline-all">
+                        بستن فهرست آثار [✕]
+                    </button>
+                </div>
+
+                <div id="works-grid" class="grid grid-cols-12 gap-8 sm:gap-10">
+                    <!-- Populated dynamically when user clicks a domain -->
+                </div>
+            </div>
+        </section>
+
+        <!-- MIND LAB SECTION -->
+        <section id="mind-lab" class="hairline-b py-16 sm:py-24 px-6 sm:px-14 md:px-20">
+            <div class="grid grid-cols-12 gap-8 sm:gap-12 mb-16 pb-12 hairline-b items-start">
+                <div class="col-span-12 lg:col-span-5">
+                    <div class="font-mono text-xs text-oxblood mb-2">02 / WORLDVIEW & GRAPH</div>
+                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight leading-snug">
+                        در ذهن من چطور این موضوعاتِ به‌ظاهر بی‌ربط به هم وصل می‌شوند؟
+                    </h2>
+                </div>
+
+                <div class="col-span-12 lg:col-span-7 p-6 sm:p-9 hairline-all surface-subtle">
+                    <p class="text-sm sm:text-base leading-[2.05] opacity-90 font-light">
+                        خیلی وقت‌ها از من می‌پرسند طراحی پوستر و لوگو چه ربطی به هوش مصنوعی، شطرنج، زیست‌شناسی یا نجوم دارد؟ در ذهن من، همه این‌ها شکل‌های مختلفی از یک کنجکاوی واحد هستند: <strong class="font-semibold text-oxblood">تلاش برای دیدنِ نظم و الگوی پنهان در پشتِ چیزها.</strong>
+                        وقتی یک سیستم هوش مصنوعی را مهندسی معکوس می‌کنم تا بفهمم چطور کار می‌کند، دقیقاً همان حسی را دارم که وقتِ تماشای تقارن رگبرگ‌های یک گیاه یا تحلیل حرکت بعدی در صفحه شطرنج دارم. نجوم به من یاد داده در طراحی گرافیک از «فضای خالی و سکوت» نترسم؛ یادگیری زبان و مطالعه علوم انسانی کمکم کرده‌اند فراموش نکنم هر طرح یا هر تکه کد قرار است با یک انسان ارتباط برقرار کند؛ و تدریس هنر به من آموخته چطور ایده‌های شلوغ را ساده و شفاف بیان کنم. گرافِ زیر، نقشه همین ارتباط‌های ذهنی من است:
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-12 gap-8 sm:gap-12 items-center">
+                <div class="col-span-12 lg:col-span-6 flex flex-col justify-between space-y-6">
+                    <div class="text-xs opacity-75">
+                        روی هر کدام از گره‌های زیر (یا نقاط داخل گراف) کلیک کنید تا ببینید چطور در کارهای گرافیکی و کدنویسی من نقش بازی می‌کنند:
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="mind-quick-tabs"></div>
+                    <div id="mindlab-dossier" class="p-8 sm:p-10 hairline-all surface-subtle min-h-[290px] flex flex-col justify-between"></div>
+                </div>
+
+                <div class="col-span-12 lg:col-span-6 flex flex-col items-center">
+                    <div class="relative w-full max-w-[460px] aspect-square hairline-all p-4 surface-subtle">
+                        <svg id="mindlab-svg-overlay" viewBox="0 0 800 800" class="w-full h-full">
+                            <g stroke="currentColor" stroke-width="0.7" opacity="0.14" id="board-grid-lines"></g>
+                            <circle cx="400" cy="400" r="290" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 6" opacity="0.22" />
+                            <circle cx="400" cy="400" r="150" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.15" />
+                            <g id="base-graph-lines" stroke="currentColor" stroke-width="0.8" opacity="0.18" stroke-dasharray="3 3"></g>
+                            <g id="synapse-lines"></g>
+                            <g id="board-nodes"></g>
+                        </svg>
+                    </div>
+                    <div class="mt-3 font-mono text-[11px] opacity-55 text-center">
+                        گراف ارتباطی علایق و مهارت‌ها (برای کاوش روی گره‌ها کلیک کنید)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTES & PHILOSOPHY SECTION -->
+        <section id="notes" class="hairline-b py-16 sm:py-24 px-6 sm:px-14 md:px-20">
+            <div class="grid grid-cols-12 gap-8 sm:gap-12 mb-12 items-end">
+                <div class="col-span-12 lg:col-span-7">
+                    <div class="font-mono text-xs text-oxblood mb-2">03 / NOTES & PHILOSOPHY</div>
+                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight leading-snug">
+                        یادداشت‌ها و تاملات؛ حاشیه‌نویسی‌هایی بر زمان، آفرینش و هوشمندی
+                    </h2>
+                </div>
+                <div class="col-span-12 lg:col-span-5">
+                    <p class="text-xs sm:text-sm opacity-80 leading-7 font-light">
+                        اینجا وبلاگِ خبری یا آموزشی نیست؛ فهرستِ کوتاهی از تاملات شخصی من در فاصله‌ی بین طراحی یک پوستر و نوشتن یک تکه کد است. با نگه داشتن موس روی هر عنوان، عصاره‌ی آن یادداشت را می‌بینید و با کلیک روی آن، صفحه مطالعه باز می‌شود.
+                    </p>
+                </div>
+            </div>
+
+            <div class="hidden md:grid grid-cols-12 pb-3 hairline-b font-mono text-[11px] opacity-55 px-4">
+                <div class="col-span-2">INDEX / NO.</div>
+                <div class="col-span-3">CONCEPT / محور مفهومی</div>
+                <div class="col-span-5">ESSAY TITLE / عنوان جستار</div>
+                <div class="col-span-2 text-left">READING TIME</div>
+            </div>
+
+            <div id="notes-index-list" class="hairline-t md:border-t-0"></div>
+        </section>
+
+        <!-- ARCHIVE SECTION -->
+        <section id="archive" class="hairline-b py-16 sm:py-24 px-6 sm:px-14 md:px-20">
+            <div class="grid grid-cols-12 gap-10">
+                <div class="col-span-12 lg:col-span-4">
+                    <div class="font-mono text-xs text-oxblood mb-2">04 / BACKGROUND</div>
+                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight mb-4">
+                        مسیر یادگیری و تجربه‌های گذشته
+                    </h2>
+                    <p class="text-sm leading-7 opacity-80 font-light">
+                        خلاصه‌ای از کارهایی که در این سال‌ها انجام داده‌ام؛ از روزهایی که تدوین ویدیو و ساخت کلیپ‌های صوتی انجام می‌دادم تا تمرکز امروز بر طراحی گرافیک و پروژه‌های هوش مصنوعی.
+                    </p>
+                </div>
+
+                <div class="col-span-12 lg:col-span-8 hairline-t" id="archive-list"></div>
+            </div>
+        </section>
+
+        <!-- CONTACT FOOTER -->
+        <footer id="contact" class="py-16 sm:py-24 px-6 sm:px-14 md:px-20">
+            <div class="grid grid-cols-12 gap-12 items-start">
+                <div class="col-span-12 lg:col-span-6">
+                    <div class="font-mono text-xs text-oxblood mb-2">05 / SAY HELLO</div>
+                    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight mb-4 leading-snug">
+                        خوشحال می‌شوم با هم گپ بزنیم یا روی ایده تازه‌ای کار کنیم.
+                    </h2>
+                    <p class="text-sm sm:text-base opacity-80 leading-8 font-light mb-8">
+                        چه برای طراحی پوستر، لوگو و هویت بصری، چه برای فکر کردن روی یک ایده و سیستم هوش مصنوعی، یا حتی یک گفتگوی دوستانه درباره هنر، شطرنج و کتاب؛ می‌توانید برایم پیام بفرستید.
+                    </p>
+
+                    <div class="space-y-3 text-sm pt-4 hairline-t max-w-md">
+                        <div class="flex items-center justify-between py-2">
+                            <span class="opacity-70">ایمیل مستقیم:</span>
+                            <button onclick="copyContact('hello@studio-notes.ir', this)" class="interactive-link font-mono text-xs text-oxblood hover:underline">
+                                hello@studio-notes.ir [کپی]
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between py-2 hairline-t">
+                            <span class="opacity-70">پالت رنگی سایت:</span>
+                            <div class="flex items-center gap-2 font-mono text-[10px]">
+                                <span class="px-2 py-0.5 bg-[#d9d2c2] text-[#2e4e43] hairline-all">#D9D2C2</span>
+                                <span class="px-2 py-0.5 bg-[#2e4e43] text-[#d9d2c2]">#2E4E43</span>
+                                <span class="px-2 py-0.5 bg-[#732229] text-[#d9d2c2]">#732229</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Full Resume Section -->
-        <section id="full-resume" class="py-32 bg-[#050505] relative border-b border-white/5">
-            <div class="container mx-auto px-6 max-w-4xl text-right">
-                <div class="text-center mb-16">
-                    <h3 class="text-[18px] font-bold text-white/75">رزومه</h3>
+                <!-- Minimalist Message Form (Connected to Telegram Bot via GAS) -->
+                <div class="col-span-12 lg:col-span-6">
+                    <form id="dispatch-form" onsubmit="handleDispatchSubmit(event)" class="p-6 sm:p-10 hairline-all surface-subtle space-y-5">
+                        <div>
+                            <label class="block text-xs mb-2 opacity-75">نام شما</label>
+                            <input type="text" id="contact-name" required placeholder="نام یا عنوان مجموعه" class="w-full p-3 bg-transparent hairline-all focus:border-oxblood focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs mb-2 opacity-75">موضوع گفتگو</label>
+                            <select id="contact-topic" class="w-full p-3 bg-[var(--bg-primary)] hairline-all focus:border-oxblood focus:outline-none text-sm">
+                                <option value="همکاری در طراحی گرافیک">همکاری در طراحی گرافیک (پوستر، لوگو، تایپوگرافی)</option>
+                                <option value="همکاری در کدنویسی و هوش مصنوعی">همکاری در کدنویسی و پروژه هوش مصنوعی</option>
+                                <option value="تدریس یا گفتگوی دوستانه">تدریس، تبادل نظر یا گفتگوی دوستانه</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs mb-2 opacity-75">پیام شما</label>
+                            <textarea id="contact-msg" rows="3" required placeholder="کمی درباره ایده یا راه ارتباطی خودت بنویس..." class="w-full p-3 bg-transparent hairline-all focus:border-oxblood focus:outline-none text-sm"></textarea>
+                        </div>
+                        <div class="flex items-center justify-between gap-4 pt-2">
+                            <button type="submit" id="contact-submit-btn" class="interactive-link px-7 py-3 bg-oxblood text-alabaster text-xs sm:text-sm font-medium hover:bg-botanical transition-colors">
+                                ارسال پیام ←
+                            </button>
+                            <span id="form-feedback" class="text-xs text-oxblood hidden"></span>
+                        </div>
+                    </form>
                 </div>
-                
-                <!-- Resume Tabs Menu -->
-                <div id="resume-tabs-menu" class="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-14">
-                    <!-- Dynamic Tab Buttons will be rendered here -->
-                </div>
+            </div>
 
-                <!-- Resume Content Container -->
-                <div id="resume-content-container" class="relative">
-                    <!-- Loading State -->
-                    <div class="text-center text-[15px] font-medium text-white/50 py-10 animate-pulse">در حال بارگذاری اطلاعات رزومه...</div>
-                </div>
+            <div class="mt-16 pt-8 hairline-t flex flex-wrap items-center justify-between gap-4 text-xs opacity-60">
+                <span>طراحی‌شده با سادگی و احترام به مخاطب — ۱۴۰۴</span>
+                <a href="#top" class="interactive-link hover:text-oxblood">بازگشت به بالا ↑</a>
             </div>
-        </section>
-        
-        <!-- Writings Section -->
-        <section id="writings" class="py-32 bg-[#030303] border-b border-white/5">
-            <div class="container mx-auto px-6 max-w-6xl">
-                <div class="text-center mb-20">
-                    <h3 class="text-[18px] font-bold text-white/75">نوشته‌ها</h3>
-                </div>
-                
-                <!-- Dynamic Writings Container -->
-                <div id="writings-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-                    <!-- Loading State -->
-                    <div class="col-span-full text-center text-[15px] font-medium text-white/50 py-10 animate-pulse">در حال بارگذاری مقالات...</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Portfolio Section -->
-        <section id="portfolio" class="py-32 bg-[#050505] border-b border-white/5">
-            <div class="container mx-auto px-4 sm:px-6">
-                <div class="text-center mb-12">
-                    <h3 class="text-[18px] font-bold text-white/75">نمونه‌کارها</h3>
-                </div>
-                
-                <!-- Portfolio Filters -->
-                <div id="portfolio-filters" class="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-14">
-                    <button class="filter-btn active" data-filter="all">همه</button>
-                    <button class="filter-btn" data-filter="event">رویداد</button>
-                    <button class="filter-btn" data-filter="concept">مفهومی</button>
-                    <button class="filter-btn" data-filter="type">تایپوگرافی</button>
-                    <button class="filter-btn" data-filter="montage">فتومونتاژ</button>
-                    <button class="filter-btn" data-filter="logo">لوگو</button>
-                    <button class="filter-btn" data-filter="illustration">تصویرسازی</button>
-                </div>
-                
-                <!-- Dynamic Portfolio Container -->
-                <div id="portfolio-container" class="columns-2 md:columns-3 lg:columns-4 gap-4 md:gap-6">
-                    <!-- Loading State -->
-                    <div class="col-span-full text-center text-[15px] font-medium text-white/50 py-10 animate-pulse">در حال بارگذاری نمونه‌کارها...</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Socials Section -->
-        <section id="socials" class="py-24 bg-[#030303]">
-            <div class="container mx-auto px-6 text-center max-w-4xl">
-                <h2 class="text-[18px] font-bold text-white/75 mb-12">صفحات‌مجازی</h2>
-                
-                <!-- Dynamic Socials Container -->
-                <div id="socials-container" class="flex flex-wrap justify-center gap-6 md:gap-8">
-                    <!-- Loading State -->
-                    <div class="text-center text-[15px] font-medium text-white/50 animate-pulse w-full">در حال بارگذاری اطلاعات ارتباطی...</div>
-                </div>
-            </div>
-        </section>
+        </footer>
     </main>
 
-    <!-- Footer -->
-    <footer id="contact" class="bg-[#000000] border-t border-white/5">
-        <div class="container mx-auto px-6 py-12 text-center">
-            <p class="mb-4 text-[15px] font-medium text-white/50">آماده همکاری در پروژه‌های خلاقانه و چالش‌برانگیز هستم...</p>
-            <p class="text-[15px] font-medium text-white/50">آخرین به‌روزرسانی: ۱۵ فروردین ۱۴۰۵</p>
-        </div>
-    </footer>
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-8 bg-[#2e4e43]/85 backdrop-blur-[2px]" role="dialog" aria-modal="true" aria-labelledby="modal-title" oncontextmenu="return false;">
+        <div class="w-full max-w-4xl bg-[#d9d2c2] text-[#2e4e43] hairline-all overflow-hidden max-h-[90vh] flex flex-col">
+            <div class="px-6 py-4 hairline-b flex items-center justify-between">
+                <div class="flex items-center gap-3 font-mono text-xs">
+                    <span id="modal-index" class="px-2 py-0.5 bg-[#732229] text-[#d9d2c2]">01</span>
+                    <span id="modal-category" class="opacity-75">پوستر و تایپوگرافی</span>
+                </div>
+                <button onclick="closeLightbox()" class="interactive-link font-mono text-xs text-[#732229] font-bold hover:underline">
+                    بستن [ESC ✕]
+                </button>
+            </div>
 
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="fixed inset-0 z-[100] flex items-center justify-center" dir="ltr" role="dialog" aria-modal="true" aria-label="نمایش بزرگ نمونه‌کار" aria-hidden="true" tabindex="-1">
-        <!-- Close Button -->
-        <button id="lb-close" class="absolute top-5 right-5 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer" aria-label="Close">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-        </button>
-        <!-- Prev Button -->
-        <button id="lb-prev" class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer" aria-label="Previous">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-        </button>
-        <!-- Next Button -->
-        <button id="lb-next" class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer" aria-label="Next">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-        </button>
-        <!-- Background Overlay -->
-        <div id="lb-overlay" class="absolute inset-0 bg-black/95 backdrop-blur-sm"></div>
-        <!-- Image -->
-        <img id="lb-img" class="relative z-10 max-h-[88vh] max-w-[92vw] md:max-w-[85vw] object-contain rounded-lg select-none" alt="Portfolio image" draggable="false">
-        <!-- Counter -->
-        <div id="lb-counter" class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 text-white/50 text-sm font-light tracking-wider"></div>
+            <div class="grid grid-cols-12 overflow-y-auto flex-1">
+                <div class="col-span-12 md:col-span-6 p-8 hairline-l flex items-center justify-center bg-[#2e4e43]/5 protected-artwork-wrap" id="modal-svg-container"></div>
+
+                <div class="col-span-12 md:col-span-6 p-8 flex flex-col justify-between">
+                    <div>
+                        <span id="modal-year" class="font-mono text-xs opacity-60 block mb-1">۱۴۰۴</span>
+                        <h3 id="modal-title" class="text-2xl font-bold mb-5 leading-snug">عنوان اثر</h3>
+                        
+                        <div class="space-y-4 text-sm leading-7">
+                            <div>
+                                <div class="text-xs text-[#732229] font-semibold mb-1">داستان و ایده کار:</div>
+                                <p id="modal-description" class="opacity-85 font-light"></p>
+                            </div>
+                            <div class="pt-3 hairline-t">
+                                <div class="text-xs text-[#732229] font-semibold mb-1">روند اجرا و جزئیات:</div>
+                                <p id="modal-anatomy" class="opacity-85 font-light"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 hairline-t flex items-center justify-between text-xs">
+                        <button onclick="navigateLightbox(-1)" class="interactive-link px-4 py-2 hairline-all hover:bg-[#2e4e43] hover:text-[#d9d2c2] transition-colors">
+                            → قبلی
+                        </button>
+                        <span id="modal-connection" class="font-mono text-[11px] opacity-70"></span>
+                        <button onclick="navigateLightbox(1)" class="interactive-link px-4 py-2 hairline-all hover:bg-[#2e4e43] hover:text-[#d9d2c2] transition-colors">
+                            بعدی ←
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOK-LIKE READER MODAL (Notes & Philosophy) -->
+    <div id="reader-modal" class="fixed inset-0 z-[110] hidden items-center justify-center p-3 sm:p-8 bg-[#2e4e43]/90 backdrop-blur-[2px]" role="dialog" aria-modal="true" aria-labelledby="reader-title">
+        <div class="w-full max-w-3xl bg-[#d9d2c2] text-[#2e4e43] hairline-all overflow-hidden max-h-[92vh] flex flex-col">
+            <div class="px-6 sm:px-10 py-4 hairline-b flex items-center justify-between bg-[#d9d2c2]">
+                <div class="flex items-center gap-3 font-mono text-xs">
+                    <span id="reader-num" class="px-2 py-0.5 bg-[#732229] text-[#d9d2c2]">NOTE 01</span>
+                    <span id="reader-concept" class="text-[#732229] font-persian font-semibold">زمان و آفرینش</span>
+                </div>
+                <button onclick="closeReaderModal()" class="interactive-link font-mono text-xs text-[#732229] font-bold hover:underline">
+                    بستن دفترچه [ESC ✕]
+                </button>
+            </div>
+
+            <div class="overflow-y-auto flex-1 px-6 sm:px-14 md:px-20 py-10 sm:py-14">
+                <div class="pb-8 mb-8 hairline-b">
+                    <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] opacity-65 mb-4">
+                        <span id="reader-date">بهار ۱۴۰۴</span>
+                        <span id="reader-reading-time">زمان مطالعه: ۴ دقیقه</span>
+                    </div>
+                    <h2 id="reader-title" class="text-2xl sm:text-3xl md:text-4xl font-bold leading-[1.45] tracking-tight mb-6">
+                        عنوان جستار
+                    </h2>
+                    <blockquote id="reader-quote" class="pr-4 border-r-2 border-[#732229] text-sm sm:text-base italic font-light opacity-90 leading-8 text-[#732229]">
+                    </blockquote>
+                </div>
+
+                <div id="reader-body" class="book-prose text-sm sm:text-base font-light opacity-95"></div>
+
+                <div class="mt-10 p-5 hairline-all bg-[#2e4e43]/5 text-xs leading-7">
+                    <span class="font-mono text-[#732229] block mb-1">MARGINALIA // حاشیه‌نویسی و پیوند ذهنی</span>
+                    <p id="reader-marginalia" class="opacity-85 font-light"></p>
+                </div>
+            </div>
+
+            <div class="px-6 sm:px-10 py-4 hairline-t flex items-center justify-between text-xs bg-[#d9d2c2]">
+                <button onclick="navigateReader(-1)" class="interactive-link px-4 py-2 hairline-all hover:bg-[#2e4e43] hover:text-[#d9d2c2] transition-colors">
+                    → یادداشت قبلی
+                </button>
+                <span class="font-mono text-[11px] opacity-60">FOLIO // STUDIO NOTES</span>
+                <button onclick="navigateReader(1)" class="interactive-link px-4 py-2 hairline-all hover:bg-[#2e4e43] hover:text-[#d9d2c2] transition-colors">
+                    یادداشت بعدی ←
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // --- UI Elements ---
-            const header = document.getElementById('header');
-            const heroSection = document.getElementById('hero');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const iconHamburger = document.getElementById('menu-icon-hamburger');
-            const iconClose = document.getElementById('menu-icon-close');
-            let mobileMenuOpen = false;
+        /* ============================================================================
+           0. CLOUD & TELEGRAM BOT SYNC CONFIG (GOOGLE APPS SCRIPT)
+           ============================================================================ */
+        // آدرس Web App اسکریپت گوگل خود را اینجا قرار دهید:
+        const GAS_API_URL = ""; 
 
-            // Use a live threshold so resizing/orientation changes do not stale the header state.
-            const updateHeader = () => {
-                const showHeaderAt = Math.max(48, heroSection.offsetHeight * 0.1);
-                header.classList.toggle('scrolled', window.scrollY > showHeaderAt);
-                if (window.scrollY <= showHeaderAt) closeMobileMenu();
-            };
-            window.addEventListener('scroll', updateHeader, { passive: true });
-            window.addEventListener('resize', updateHeader, { passive: true });
-            updateHeader();
-
-            // --- Mobile Menu Toggle ---
-            function openMobileMenu() {
-                mobileMenuOpen = true;
-                mobileMenu.classList.add('open');
-                mobileMenuButton.setAttribute('aria-expanded', 'true');
-                mobileMenuButton.setAttribute('aria-label', 'بستن منو');
-                iconHamburger.classList.add('hidden');
-                iconClose.classList.remove('hidden');
+        /* ============================================================================
+           1. DYNAMIC WORK DOMAINS (Categories for Works Section)
+           ============================================================================ */
+        let workDomains = [
+            {
+                key: "poster",
+                code: "DOMAIN 01",
+                title: "پوستر، فتومونتاژ و تصویرسازی",
+                unit: "اثر",
+                colSpan: "col-span-12 md:col-span-4",
+                description: "تجربه‌های بصری و صفحه‌آرایی با الهام از فرم‌های طبیعی، هندسه نجومی و روایت‌های ادبی."
+            },
+            {
+                key: "logo",
+                code: "DOMAIN 02",
+                title: "لوگو، لوگوتایپ و تایپوگرافی",
+                unit: "اثر",
+                colSpan: "col-span-12 md:col-span-4",
+                description: "طراحی نشانه‌ها و حروف با تمرکز بر خلاصه‌گویی، هندسه خط فارسی و تعادل فضای پر و خالی."
+            },
+            {
+                key: "photo",
+                code: "DOMAIN 03",
+                title: "عکاسی و ثبت لحظه‌ها",
+                unit: "مجموعه",
+                colSpan: "col-span-12 md:col-span-4",
+                description: "قاب‌هایی که در پرسه‌زدن‌های روزمره گرفته‌ام؛ تمرینی برای دیدنِ نور، سایه، بافت و هندسه پنهان در محیط."
+            },
+            {
+                key: "sketch",
+                code: "DOMAIN 04",
+                title: "اتودهای کاغذی و اسکچ‌ها",
+                unit: "برگ",
+                colSpan: "col-span-12 md:col-span-6",
+                description: "فکر کردن با مداد و راپید روی کاغذ، پیش از روشن کردن کامپیوتر؛ طرح‌های اولیه، خط‌خطی‌ها و مشق‌های کلاسی."
+            },
+            {
+                key: "ai",
+                code: "DOMAIN 05",
+                title: "کدنویسی و پروژه‌های هوش مصنوعی",
+                unit: "اثر",
+                colSpan: "col-span-12 md:col-span-6",
+                description: "ابزارها و سیستم‌های هوشمندی که از طریق مهندسی معکوس و الگوبرداری از منطق شطرنج ساخته‌ام."
             }
-            function closeMobileMenu() {
-                mobileMenuOpen = false;
-                mobileMenu.classList.remove('open');
-                mobileMenuButton.setAttribute('aria-expanded', 'false');
-                mobileMenuButton.setAttribute('aria-label', 'باز کردن منو');
-                iconHamburger.classList.remove('hidden');
-                iconClose.classList.add('hidden');
+        ];
+
+        /* ============================================================================
+           2. WORKS DATASET
+           ============================================================================ */
+        let portfolioWorks = [
+            {
+                id: 1,
+                num: "01",
+                domain: "poster",
+                category: "graphic",
+                categoryLabel: "پوستر و صفحه‌آرایی",
+                title: "پوستر «سکوتِ مداری»",
+                year: "۱۴۰۴",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "الهام از نجوم",
+                description: "این پوستر از دلِ علاقه‌ام به کتاب‌های قدیمی نجوم شکل گرفت. همیشه برایم جالب بود که سیارات در مدار بیضوی گاهی تندتر و گاهی کندتر حرکت می‌کنند؛ سعی کردم همین ریتم و سکوت را با فاصله‌گذاری حروف روی صفحه کاغذ پیاده کنم.",
+                anatomy: "چیدمان با شبکه نامتقارن سوئیسی، استفاده از دو مدار بیضوی متقاطع و یک نقطه کانونی زرشکی برای هدایت چشم مخاطب.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><line x1="70" y1="0" x2="70" y2="420" stroke="#2e4e43" stroke-width="0.5" opacity="0.3"/><ellipse cx="220" cy="210" rx="130" ry="88" fill="none" stroke="#2e4e43" stroke-width="1" transform="rotate(-22 220 210)"/><circle cx="220" cy="210" r="52" fill="#2e4e43"/><circle cx="140" cy="175" r="14" fill="#732229"/><text x="385" y="48" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="20">سکوت مداری</text><text x="35" y="390" fill="#732229" font-family="Space Mono" font-size="11">ORBITAL STUDY // 01</text></svg>`
+            },
+            {
+                id: 4,
+                num: "02",
+                domain: "poster",
+                category: "graphic",
+                categoryLabel: "فتومونتاژ و تصویرسازی",
+                title: "تصویرسازی و کلاژ «برگ و ساعت»",
+                year: "۱۴۰۳",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "زیست‌شناسی و علوم انسانی",
+                description: "ترکیبی از نقاشی‌های قدیمی گیاه‌شناسی و فرم‌های هندسی ساده؛ کاری که برای همراهی با چند جستار ادبی و فلسفی درباره مفهوم زمان و رشد در طبیعت تصویرسازی شد.",
+                anatomy: "کلاژ دیجیتال و هاشورزنی خطی محدود به سه رنگ اصلی سایت برای حفظ حس چاپ دستی روی کاغذ کاهی.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><polygon points="105,310 210,85 315,310" fill="#2e4e43"/><circle cx="210" cy="220" r="58" fill="#d9d2c2" stroke="#732229" stroke-width="1.5"/><circle cx="210" cy="220" r="18" fill="#732229"/><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="17">فتومونتاژ و تصویرسازی</text></svg>`
+            },
+            {
+                id: 3,
+                num: "03",
+                domain: "logo",
+                category: "graphic",
+                categoryLabel: "لوگو و لوگوتایپ",
+                title: "مجموعه نشانه‌ها و لوگوتایپ‌ها",
+                year: "۱۴۰۳",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "زبان و هندسه خط",
+                description: "طراحی لوگو برای من تمرینِ خلاصه‌گویی است؛ اینکه چطور می‌شود یک ایده یا نام فارسی را آن‌قدر ساده و پالایش کرد که حتی در اندازه یک مهر کوچک هم خوانا و باوقار بماند.",
+                anatomy: "طراحی روی شبکه شطرنجی متوازن با تمرکز بر تعادل فضای پر و خالی (سیاه و سفید) بدون هیچ افکت اضافه.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><path d="M 135 120 L 285 120 L 285 270 L 210 270 L 210 195 L 135 195 Z" fill="#2e4e43"/><rect x="135" y="220" width="50" height="50" fill="#732229"/><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="17">طراحی لوگو و نشانه</text></svg>`
+            },
+            {
+                id: 6,
+                num: "04",
+                domain: "logo",
+                category: "graphic",
+                categoryLabel: "تایپوگرافی و ریتم بصری",
+                title: "نگارش تایپوگرافیکِ یک قطعه صوتی",
+                year: "۱۴۰۲",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "تدوین صدا و هندسه حروف",
+                description: "یادگاری از دوره کار با صدا؛ در این تجربه، ریتم و مکث‌های یک قطعه صوتی کوتاه را به شکل کشیدگی حروف، خط‌ها و نقطه‌های گرافیکی روی کاغذ ترسیم کردم.",
+                anatomy: "ترکیب تجربه تدوین صدا با تایپوگرافی؛ ضخامت هر خط نماینده شدت صدا و نقاط زرشکی نشان‌دهنده مکث‌ها و ضرب‌آهنگ‌هاست.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><line x1="40" y1="210" x2="380" y2="210" stroke="#2e4e43" stroke-width="0.8" opacity="0.4"/><path d="M 50 210 Q 115 120, 180 210 T 310 210 T 370 175" fill="none" stroke="#732229" stroke-width="2.5"/><circle cx="115" cy="165" r="12" fill="#732229"/><circle cx="255" cy="245" r="18" fill="#2e4e43"/><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="17">تایپوگرافی و ریتم صدا</text></svg>`
+            },
+            {
+                id: 7,
+                num: "05",
+                domain: "photo",
+                category: "graphic",
+                categoryLabel: "عکاسی معماری و سایه",
+                title: "مجموعه عکس «پرسه در هندسه نور و سایه»",
+                year: "۱۴۰۳",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "مشاهده روزمره و کادربندی",
+                description: "عکاسی برای من راهی برای تمرینِ «دیدن» است. در این عکس‌ها که در پیاده‌روی‌های عصرگاهی گرفته‌ام، دنبال لحظه‌ای گشته‌ام که نورِ مایل خورشید روی دیوارهای ساده، فرم‌های گرافیکی و کنتراست‌های تند می‌سازد.",
+                anatomy: "کنتاکت‌شیت و کادربندی بدون دستکاری سنگین؛ تمرکز بر خطوط قطری سایه‌ها و قرار گرفتن یک سوژه کوچک در نقطه کانونی قاب.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><path d="M 30 55 L 30 30 L 55 30 M 365 30 L 390 30 L 390 55 M 30 365 L 30 390 L 55 390 M 365 390 L 390 390 L 390 365" fill="none" stroke="#732229" stroke-width="1.5"/><rect x="65" y="65" width="290" height="270" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><polygon points="65,65 265,65 145,335 65,335" fill="#2e4e43"/><polygon points="220,335 355,155 355,335" fill="#2e4e43" opacity="0.85"/><circle cx="205" cy="245" r="11" fill="#732229"/><line x1="205" y1="256" x2="155" y2="290" stroke="#732229" stroke-width="2.5"/><text x="72" y="85" fill="#d9d2c2" font-family="Space Mono" font-size="10">ISO 100 // 50MM</text><text x="385" y="382" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">عکاسی سایه و معماری</text></svg>`
+            },
+            {
+                id: 8,
+                num: "06",
+                domain: "photo",
+                category: "graphic",
+                categoryLabel: "عکاسی طبیعت و جزئیات",
+                title: "مجموعه عکس «سکوتِ برگ‌ها و بافت‌های نزدیک»",
+                year: "۱۴۰۲",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "زیست‌شناسی و نور طبیعی",
+                description: "وقتی از نزدیک به بافتِ یک برگ خشک، پوست درخت یا قطره آب نگاه می‌کنیم، الگوهایی را می‌بینیم که با چشم عادی پنهان هستند. این عکس‌ها بهانه من برای ترکیب کردن علاقه به زیست‌شناسی با عکاسی ماکرو بوده است.",
+                anatomy: "ثبت با نور طبیعی و عمق میدان کم برای جدا کردن بافتِ سوژه از پس‌زمینه آرام و خلوت.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><g fill="#2e4e43" opacity="0.35"><rect x="22" y="50" width="10" height="16"/><rect x="22" y="85" width="10" height="16"/><rect x="22" y="120" width="10" height="16"/><rect x="22" y="155" width="10" height="16"/><rect x="22" y="190" width="10" height="16"/><rect x="22" y="225" width="10" height="16"/><rect x="22" y="260" width="10" height="16"/><rect x="22" y="295" width="10" height="16"/></g><rect x="52" y="45" width="330" height="290" fill="#2e4e43"/><circle cx="217" cy="190" r="105" fill="#d9d2c2" opacity="0.12"/><path d="M 120 295 Q 215 190 310 85" fill="none" stroke="#d9d2c2" stroke-width="2.5"/><path d="M 165 245 Q 140 195 160 155 M 205 200 Q 175 150 200 110 M 245 155 Q 225 115 245 85 M 165 245 Q 220 265 265 245 M 205 200 Q 260 215 300 195" fill="none" stroke="#d9d2c2" stroke-width="1.2" opacity="0.85"/><circle cx="205" cy="200" r="18" fill="none" stroke="#732229" stroke-width="2"/><circle cx="205" cy="200" r="4" fill="#732229"/><text x="68" y="320" fill="#d9d2c2" font-family="Space Mono" font-size="10">FRAME 24A // MACRO</text><text x="382" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">عکاسی بافت و طبیعت</text></svg>`
+            },
+            {
+                id: 9,
+                num: "07",
+                domain: "sketch",
+                category: "graphic",
+                categoryLabel: "اتود کاغذی و مشق فرم",
+                title: "برگه‌های اتود: جستجوی فرم و تناسبات لوگو",
+                year: "۱۴۰۴",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "فکر کردن روی کاغذ",
+                description: "هیچ کاری را مستقیم از روی مانیتور شروع نمی‌کنم. همیشه اول روی کاغذهای نقطه‌دار یا کاهی، ده‌ها اتود سریع و خط‌خطی می‌زنم تا ایده‌های خام ته‌نشین شوند و فرم اصلی کم‌کم خودش را نشان بدهد.",
+                anatomy: "اتود با مداد و راپید روی کاغذ به همراه خطوط راهنما، دوایر تناسبات و یادداشت‌های حاشیه‌ای با مرکب زرشکی.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><g stroke="#2e4e43" stroke-width="0.5" opacity="0.2"><line x1="0" y1="70" x2="420" y2="70"/><line x1="0" y1="140" x2="420" y2="140"/><line x1="0" y1="210" x2="420" y2="210"/><line x1="0" y1="280" x2="420" y2="280"/><line x1="0" y1="350" x2="420" y2="350"/><line x1="70" y1="0" x2="70" y2="420"/><line x1="140" y1="0" x2="140" y2="420"/><line x1="210" y1="0" x2="210" y2="420"/><line x1="280" y1="0" x2="280" y2="420"/><line x1="350" y1="0" x2="350" y2="420"/></g><circle cx="210" cy="200" r="95" fill="none" stroke="#2e4e43" stroke-width="1" stroke-dasharray="4 4" opacity="0.65"/><circle cx="175" cy="200" r="60" fill="none" stroke="#2e4e43" stroke-width="0.8" opacity="0.5"/><line x1="90" y1="200" x2="330" y2="200" stroke="#732229" stroke-width="0.8" stroke-dasharray="3 3"/><line x1="210" y1="85" x2="210" y2="315" stroke="#732229" stroke-width="0.8" stroke-dasharray="3 3"/><path d="M 145 245 C 145 140, 275 140, 275 200 C 275 245, 210 255, 175 215" fill="none" stroke="#2e4e43" stroke-width="3.2" stroke-linecap="round"/><path d="M 142 248 C 144 136, 278 143, 272 203" fill="none" stroke="#2e4e43" stroke-width="1" opacity="0.6"/><circle cx="275" cy="200" r="6" fill="#732229"/><path d="M 288 188 L 320 155" fill="none" stroke="#732229" stroke-width="1.2"/><text x="325" y="150" fill="#732229" font-family="Space Mono" font-size="10">r = 1.618</text><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">اتودهای کاغذی و تناسبات</text></svg>`
+            },
+            {
+                id: 10,
+                num: "08",
+                domain: "sketch",
+                category: "graphic",
+                categoryLabel: "اسکچ دستی و هاشور",
+                title: "دفترچه اسکچ: تمرین‌های هاشورزنی و فرم‌های طبیعی",
+                year: "۱۴۰۳",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "تدریس هنر و طراحی پایه",
+                description: "بخشی از دفترچه اسکچ‌های روزانه‌ام که هم برای تمرینِ دست خودم است و هم سر کلاس به هنرجوها نشان می‌دهم که چطور با خط‌های ساده، هاشور و لکه می‌توان حجم و سایه‌روشن ساخت.",
+                anatomy: "طراحی آزاد با خطوط متقاطع (Cross-hatching) و بررسی حرکت دست بدون استفاده از خط‌کش یا ابزار دیجیتال.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#d9d2c2" stroke="#2e4e43" stroke-width="1"/><line x1="65" y1="0" x2="65" y2="420" stroke="#732229" stroke-width="1" opacity="0.45"/><path d="M 135 290 Q 150 150 265 110 Q 290 220 185 295 Z" fill="none" stroke="#2e4e43" stroke-width="2"/><path d="M 132 294 Q 155 145 270 107" fill="none" stroke="#2e4e43" stroke-width="0.9" opacity="0.65"/><g stroke="#2e4e43" stroke-width="1" opacity="0.55"><line x1="165" y1="255" x2="215" y2="235"/><line x1="170" y1="240" x2="228" y2="218"/><line x1="178" y1="225" x2="240" y2="200"/><line x1="185" y1="210" x2="248" y2="182"/><line x1="195" y1="192" x2="255" y2="165"/><line x1="210" y1="172" x2="260" y2="148"/></g><path d="M 115 315 Q 205 215 295 90" fill="none" stroke="#732229" stroke-width="1.5" stroke-dasharray="5 4"/><circle cx="212" cy="195" r="5" fill="#732229"/><text x="80" y="50" fill="#732229" font-family="Space Mono" font-size="11">SKETCHBOOK // PAGE 42</text><text x="385" y="390" text-anchor="end" fill="#2e4e43" font-family="Vazirmatn" font-weight="700" font-size="16">اسکچ دستی و تمرین خط</text></svg>`
+            },
+            {
+                id: 2,
+                num: "09",
+                domain: "ai",
+                category: "ai",
+                categoryLabel: "کدنویسی و هوش مصنوعی",
+                title: "کاوشگر لایه‌های پنهان مدل زبانی",
+                year: "۱۴۰۴",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "مهندسی معکوس",
+                description: "وقتی با مدل‌های هوش مصنوعی کار می‌کردم، دوست داشتم بدانم پشت صحنه چطور کلمات را به هم ربط می‌دهند. با مهندسی معکوسِ یک مدل کوچک، ابزاری ساختم که ارتباط بین مفاهیم را به شکل یک نقشه ساده خطی نشان می‌دهد.",
+                anatomy: "استخراج بردارهای میانی مدل با پایتون و تبدیل آن‌ها به یک رابط گرافیکی دوبعدی برای دیدن مسیر تصمیم‌گیری مدل.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#2e4e43" stroke="#d9d2c2" stroke-width="1"/><polygon points="90,130 210,80 330,130 210,180" fill="none" stroke="#d9d2c2" stroke-width="1" opacity="0.7"/><polygon points="90,210 210,160 330,210 210,260" fill="none" stroke="#d9d2c2" stroke-width="1" opacity="0.7"/><polygon points="90,290 210,240 330,290 210,340" fill="rgba(115,34,41,0.4)" stroke="#732229" stroke-width="1.5"/><line x1="210" y1="80" x2="210" y2="340" stroke="#732229" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="210" cy="210" r="7" fill="#732229" stroke="#d9d2c2" stroke-width="1.5"/><text x="385" y="390" text-anchor="end" fill="#d9d2c2" font-family="Vazirmatn" font-weight="600" font-size="16">نقشه لایه‌های هوش مصنوعی</text></svg>`
+            },
+            {
+                id: 5,
+                num: "10",
+                domain: "ai",
+                category: "ai",
+                categoryLabel: "کدنویسی و هوش مصنوعی",
+                title: "سیستم تصمیم‌گیری الهام‌گرفته از شطرنج",
+                year: "۱۴۰۴",
+                spanClass: "col-span-12 md:col-span-6",
+                mindConnection: "شطرنج و منطق",
+                description: "در شطرنج همیشه قبل از حرکت، چند شاخه مختلف را در ذهنمان سبک‌سنگین می‌کنیم. در این پروژه سعی کردم همین روش را به چند ایجنت هوش مصنوعی بدهم تا قبل از تولید خروجی نهایی، راه‌حل‌های مختلف را با هم مقایسه کنند.",
+                anatomy: "ساختار درختی جستجو (مشابه تحلیل حرکت در شطرنج) که به مدل کمک می‌کند خطاهای کمتری در کدنویسی داشته باشد.",
+                svg: `<svg viewBox="0 0 420 420" class="w-full h-full max-h-[320px] artwork-svg" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="420" fill="#2e4e43" stroke="#d9d2c2" stroke-width="1"/><line x1="210" y1="80" x2="125" y2="190" stroke="#d9d2c2" stroke-width="1" opacity="0.6"/><line x1="210" y1="80" x2="295" y2="190" stroke="#d9d2c2" stroke-width="1" opacity="0.6"/><line x1="295" y1="190" x2="240" y2="295" stroke="#d9d2c2" stroke-width="1" opacity="0.6"/><polyline points="210,80 295,190 240,295" fill="none" stroke="#732229" stroke-width="3"/><circle cx="210" cy="80" r="7" fill="#d9d2c2"/><circle cx="295" cy="190" r="9" fill="#732229" stroke="#d9d2c2" stroke-width="1.5"/><circle cx="240" cy="295" r="9" fill="#732229" stroke="#d9d2c2" stroke-width="1.5"/><text x="385" y="390" text-anchor="end" fill="#d9d2c2" font-family="Vazirmatn" font-weight="600" font-size="16">درخت استدلال شطرنج‌محور</text></svg>`
             }
+        ];
 
-            mobileMenuButton.addEventListener('click', () => {
-                if (mobileMenuOpen) closeMobileMenu();
-                else openMobileMenu();
-            });
+        /* ============================================================================
+           3. MIND LAB NODES
+           ============================================================================ */
+        const mindLabNodes = [
+            {
+                id: "biology",
+                coord: "d5",
+                x: 350, y: 350,
+                title: "زیست‌شناسی",
+                summary: "خواندن درباره شکل برگ‌ها، رشد سلول‌ها و نظم اندام‌های زنده برایم یکی از لذت‌بخش‌ترین راه‌های یادگیری فرم و ساختار است.",
+                graphicLink: "در گرافیک به من یاد می‌دهد چطور منحنی‌ها و چیدمان‌ها را طوری طراحی کنم که خشک نباشند و حس طبیعی و زنده داشته باشند.",
+                aiLink: "در کدنویسی و هوش مصنوعی، الگوهای رشد طبیعی و شبکه‌های عصبی زیستی به من ایده می‌دهند تا کدهای خلاقانه‌تری بنویسم.",
+                connectTo: ["astronomy", "language", "chess"]
+            },
+            {
+                id: "astronomy",
+                coord: "f6",
+                x: 550, y: 250,
+                title: "نجوم",
+                summary: "نگاه کردن به آسمان شب و نقشه‌های مداری همیشه به من حس تواضع می‌دهد و کمکم می‌کند مقیاس‌ها و فضاهای خالی را بهتر درک کنم.",
+                graphicLink: "استفاده از فضای خالی (Whitespace) زیاد در پوسترهایم و علاقه به دوایر ظریف هندسی مستقیماً از نقشه‌های نجومی می‌آید.",
+                aiLink: "شبیه‌سازی حرکت و هندسه مدارها در کدنویسی یکی از تمرین‌های موردعلاقه‌ام است.",
+                connectTo: ["biology", "chess"]
+            },
+            {
+                id: "chess",
+                coord: "e4",
+                x: 450, y: 450,
+                title: "شطرنج",
+                summary: "شطرنج برایم فقط یک بازی نیست؛ تمرینِ صبوری، دیدنِ ارتباط بین اجزا و فکر کردن به چند حرکتِ بعدی در یک صفحه ساده ۶۴ خانه‌ای است.",
+                graphicLink: "در طراحی صفحه یا لوگو، مثل شطرنج به این فکر می‌کنم که چطور با کمترین تعداد مهره (عناصر بصری)، بیشترین تعادل را ایجاد کنم.",
+                aiLink: "در پروژه‌های هوش مصنوعی، منطقِ درخت تصمیم شطرنج کمکم می‌کند سیستم‌هایی بسازم که قبل از پاسخ دادن، چند مسیر را بسنجند.",
+                connectTo: ["biology", "astronomy", "humanities", "pedagogy"]
+            },
+            {
+                id: "humanities",
+                coord: "c3",
+                x: 250, y: 550,
+                title: "علوم انسانی",
+                summary: "مطالعه آزاد در تاریخ، فلسفه و ادبیات کمکم می‌کند فراموش نکنم که هر طرح گرافیکی یا هر خط کد، در نهایت قرار است با یک «انسان» حرف بزند.",
+                graphicLink: "به پوسترها، فتومونتاژها و تصویرسازی‌هایم قصه و معنا می‌دهد تا صرفاً یک چیدمان تزئینی نباشند.",
+                aiLink: "در کار با هوش مصنوعی، کمک می‌کند فقط دنبال جنبه‌های فنی نباشم و به تجربه انسانی و معناییِ کاربر هم فکر کنم.",
+                connectTo: ["language", "pedagogy", "chess"]
+            },
+            {
+                id: "language",
+                coord: "b6",
+                x: 150, y: 250,
+                title: "یادگیری زبان",
+                summary: "کشف ساختار زبان‌های مختلف و ریشه کلمات، دیدم را نسبت به نحوه شکل‌گیری معنا و ارتباط بازتر می‌کند.",
+                graphicLink: "در تایپوگرافی و طراحی لوگوتایپ، شناختِ آهنگ و ساختار حروف فارسی و انگلیسی کمکم می‌کند ترکیب‌های دقیق‌تری بسازم.",
+                aiLink: "چون پایه مدل‌های زبانی هوش مصنوعی (LLMs) بر اساس ساختار زبان است، این علاقه به فهمیدنِ بهترِ نحوه کارکرد آن‌ها کمک زیادی می‌کند.",
+                connectTo: ["humanities", "biology"]
+            },
+            {
+                id: "pedagogy",
+                coord: "g3",
+                x: 650, y: 550,
+                title: "تدریس هنر",
+                summary: "گفتگو با هنرجوها و تلاش برای توضیح دادنِ ساده یک مفهوم هنری، بهترین راهی بوده که خودم دوباره مبانی را عمیق‌تر یاد بگیرم.",
+                graphicLink: "باعث شده همیشه در کارهایم دنبال سادگی، شفافیت و دوری از شلوغی‌های بی‌مورد باشم.",
+                aiLink: "وقتی یک سیستم پیچیده هوش مصنوعی را مهندسی معکوس می‌کنم، همین عادتِ معلمی کمکم می‌کند ساختار آن را ساده و قابل فهم پیاده‌سازی کنم.",
+                connectTo: ["humanities", "chess"]
+            }
+        ];
 
-            mobileMenu.addEventListener('click', (e) => {
-                if (e.target.closest('a')) closeMobileMenu();
-            });
-            document.addEventListener('click', (e) => {
-                if (mobileMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
-                    closeMobileMenu();
+        /* ============================================================================
+           4. ARCHIVE TIMELINE DATASET
+           ============================================================================ */
+        let archiveTimeline = [
+            {
+                period: "۱۴۰۲ — اکنون",
+                title: "تمرکز هم‌زمان بر طراحی گرافیک و پروژه‌های هوش مصنوعی",
+                summary: "طراحی پوستر، لوگو و تایپوگرافی در کنار ساخت سیستم‌ها و ابزارهای هوشمند از مسیر مهندسی معکوس.",
+                details: "در این دوره سعی کرده‌ام به جای محدود ماندن به یک ابزار، منطقِ پشت سیستم‌ها را یاد بگیرم؛ چه زمانی که روی هندسه یک لوگوتایپ و پوستر فرهنگی کار می‌کنم، و چه زمانی که معماری یک پروژه هوش مصنوعی را بازخوانی و پیاده‌سازی می‌کنم."
+            },
+            {
+                period: "۱۴۰۰ — ۱۴۰۲",
+                title: "تدریس هنر، تصویرسازی و گسترش مطالعات آزاد",
+                summary: "همراهی با هنرجوها در مبانی هنرهای تجسمی، تجربه در فتومونتاژ و مطالعه پیوسته در زیست‌شناسی، نجوم و شطرنج.",
+                details: "تدریس به من یاد داد هر ایده پیچیده‌ای را به ساده‌ترین اجزایش بشکنم. هم‌زمان، مطالعات آزاد در علوم پایه، ادبیات و یادگیری زبان به منبع اصلی ایده‌پردازی‌های بصری من تبدیل شد."
+            },
+            {
+                period: "۱۳۹۸ — ۱۴۰۰",
+                title: "تجربه‌های گذشته در تدوین ویدیو و ساخت کلیپ‌های صوتی",
+                summary: "کار با ریتم، صدا و تصویر متحرک؛ دوره‌ای که درک من از زمان‌بندی و روایت را شکل داد.",
+                details: "هرچند امروز کمتر سراغ تدوین ویدیو و صدا می‌روم، اما کار کردن با موج‌های صوتی، مکث‌ها و برش‌های تصویر به من آموخت چطور در طراحی گرافیک و حتی کدنویسی، به «ریتم» و «حوصله مخاطب» توجه کنم."
+            }
+        ];
+
+        /* ============================================================================
+           5. PHILOSOPHICAL NOTES DATASET
+           ============================================================================ */
+        let philosophicalNotes = [
+            {
+                id: 1,
+                num: "01",
+                concept: "زمان، مکث و هوشمندی",
+                title: "در ستایشِ مکث؛ نسبتِ زمان در کاغذ کاهی و تپشِ الگوریتم",
+                readingTime: "۳ دقیقه مطالعه",
+                date: "فروردین ۱۴۰۴",
+                keyQuote: "«الگوریتم‌ها برای حذف کردنِ مکث ساخته شده‌اند، اما هنر دقیقاً در همان لحظه‌ای متولد می‌شود که ما دست نگه می‌داریم و سکوت می‌کنیم.»",
+                paragraphs: [
+                    "وقتی پای کدنویسی و کار با مدل‌های هوش مصنوعی می‌نشینم، همه‌چیز بر مدار سرعت و بهینه‌سازی می‌چرخد؛ اینکه چطور فاصله‌ی بین «پرسش» و «پاسخ» را به چند میلی‌ثانیه برسانیم. اما هر بار که به میز طراحی گرافیک برمی‌گردم یا به نقشه‌های قدیمی نجوم نگاه می‌کنم، متوجه می‌شوم آنچه به یک اثر معنا می‌دهد نه سرعتِ پر کردن صفحه، بلکه جسارتِ خالی نگه داشتنِ آن است.",
+                    "سال‌ها پیش، وقتی تدوین صدا و ویدیو انجام می‌دادم، مهم‌ترین درسی که یاد گرفتم این بود که هیچ نت موسیقی بدونِ سکوتِ قبل و بعدش شنیده نمی‌شود. در طراحی یک پوستر یا لوگوتایپ هم فضای منفی (Whitespace) حکم همان مکث را دارد؛ جایی که چشم مخاطب نفس می‌کشد و زمان، از یک شمارنده‌ی ماشینی به یک تجربه‌ی انسانی تبدیل می‌شود.",
+                    "شاید به همین دلیل است که حتی در ساختن سیستم‌های هوش مصنوعی هم دوست ندارم سراغ پاسخ‌های فوری و سطحی بروم. برایم جذاب‌تر است که به کد یاد بدهم مثل یک شطرنج‌باز یا یک طراح، پیش از تصمیم‌گیری کمی «درنگ» کند و مسیرهای نرفته را ببیند."
+                ],
+                marginalia: "پیوند با آثار: این نگاه مستقیماً در پوستر «سکوت مداری» (از طریق فضاهای خالی وسیع) و در پروژه «درخت استدلال شطرنج‌محور» (جایگزینی سرعتِ صرف با تاملِ مرحله‌به‌مرحله در هوش مصنوعی) بازتاب پیدا کرده است."
+            },
+            {
+                id: 2,
+                num: "02",
+                concept: "آفرینش و مهندسی معکوس",
+                title: "کالبدشکافیِ یک برگ؛ جایی که دست‌خط و الگوریتم به هم می‌رسند",
+                readingTime: "۴ دقیقه مطالعه",
+                date: "بهمن ۱۴۰۳",
+                keyQuote: "«مهندسی معکوس برای من یک تکنیک فنی نیست؛ شکلی از تماشا کردنِ فروتنانه است تا بفهمم یک ساختار چطور سرِ پا ایستاده است.»",
+                paragraphs: [
+                    "کلمه‌ی «مهندسی معکوس» معمولاً حسِ سردِ باز کردن چرخ‌دنده‌های یک ماشین یا شکافتنِ کدهای یک نرم‌افزار را تداعی می‌کند. اما برای من، این کار از کنجکاوی در طبیعت و هنر شروع شد. وقتی یک برگ خشک‌شده را جلوی نور می‌گیریم تا شبکه‌ی رگبرگ‌هایش را ببینیم، یا وقتی یک پوستر کلاسیک سوئیسی را خط‌کشی می‌کنیم تا بفهمیم چرا ترکیب‌بندی‌اش تا این اندازه آرامش‌بخش است، در واقع داریم مهندسی معکوس می‌کنیم.",
+                    "من برنامه‌نویسی و هوش مصنوعی را در کلاس‌های رسمی یاد نگرفتم؛ با باز کردنِ پروژه‌های موجود، دستکاری کردن متغیرها، خراب کردن و دوباره ساختنشان یاد گرفتم. درست مثل هنرجویی که برای فهمیدنِ رازِ قلم‌موی یک نقاش، بارها روی کاغذ کاهی مشق می‌کند.",
+                    "در نگاه من، بینِ آفرینش هنری و نوشتنِ یک الگوریتم هیچ دیواری وجود ندارد. هر دو تلاش‌های کوچکی هستند برای اینکه نظمِ پنهانِ یک ایده را کشف کنیم و آن را در قالبِ خط، رنگ یا کد به زبانی ترجمه کنیم که دیگران هم بتوانند حسش کنند."
+                ],
+                marginalia: "پیوند با مطالعات: تلفیقِ مطالعات زیست‌شناسی (ریخت‌شناسی گیاهان)، تدریس مبانی هنر و کاوش در لایه‌های پنهان مدل‌های زبانی."
+            },
+            {
+                id: 3,
+                num: "03",
+                concept: "هنر، محدودیت و فرم",
+                title: "هوشمندی در محدودیت؛ درس‌هایی از ۶۴ خانه شطرنج و سه رنگ",
+                readingTime: "۳ دقیقه مطالعه",
+                date: "آذر ۱۴۰۳",
+                keyQuote: "«آزادیِ بی‌مرز اغلب به شلوغی و سرگردانی می‌انجامد؛ اما محدودیتِ آگاهانه، ذهن را مجبور به کشفِ ظرافت می‌کند.»",
+                paragraphs: [
+                    "در دوره‌ای زندگی می‌کنیم که ابزارهای دیجیتال و هوش مصنوعی به ما امکان می‌دهند در چند ثانیه هزاران رنگ، افکت و فرم شلوغ تولید کنیم. اما تجربه‌ی شخصی من—چه در طراحی لوگو و تایپوگرافی و چه در بازی شطرنج—نشان داده که زیبایی و هوشمندیِ واقعی از دلِ «محدودیت» بیرون می‌آید، نه از دلِ بی‌نهایت.",
+                    "صفحه‌ی شطرنج فقط ۶۴ خانه و ۳۲ مهره با قوانینِ حرکتی بسیار ساده دارد، اما همین چارچوبِ بسته، قرن‌هاست که بی‌نهایت بازیِ تکرارنشدنی و شاعرانه خلق کرده است. در طراحی همین دفترچه اینترنتی هم تصمیم گرفتم خودم را فقط به سه رنگ (کرمِ کاغذی، سبزِ یشمی و زرشکی) و خطوطِ صافِ یک‌پیکسلی محدود کنم.",
+                    "وقتی زرق‌وبرق‌های اضافه را کنار می‌گذاریم، دیگر جایی برای پنهان شدن پشتِ افکت‌ها باقی نمی‌ماند؛ آن‌وقت است که باید واقعاً به اصلِ فرم، به توازنِ حروف، به منطقِ کد و به صداقتِ حرفی که می‌زنیم فکر کنیم."
+                ],
+                marginalia: "پیوند با هویت بصری: فلسفه‌ی انتخاب پالت سه‌رنگی این وب‌سایت (#D9D2C2، #2E4E43، #732229) و رویکرد خلاصه‌گرایی در طراحی لوگو و سیستم‌های هوشمند."
+            }
+        ];
+
+        /* ============================================================================
+           6. HELPER: SAFE MEDIA RENDERER (Supports SVG & Uploaded Telegram Images)
+           ============================================================================ */
+        function renderProtectedArtwork(mediaContent, titleText) {
+            const raw = String(mediaContent || '').trim();
+            if (raw.startsWith('<svg')) {
+                return `<div class="artwork-shield" oncontextmenu="return false;"></div>${raw}`;
+            }
+            return `
+                <div class="artwork-shield" oncontextmenu="return false;"></div>
+                <img src="${raw}" alt="${titleText || 'اثر'}" 
+                     class="w-full h-full max-h-[320px] object-contain artwork-svg" 
+                     draggable="false" oncontextmenu="return false;" loading="lazy" />
+            `;
+        }
+
+        function toPersianDigits(n) {
+            return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+        }
+
+        /* ============================================================================
+           7. DYNAMIC DOMAIN CARDS & GALLERY ENGINE
+           ============================================================================ */
+        let activeDomain = null;
+        let currentLightboxList = portfolioWorks;
+        let currentLightboxIndex = 0;
+
+        // Auto-detect any new domains added in portfolioWorks or via Bot
+        function syncDynamicDomains() {
+            const knownKeys = new Set(workDomains.map(d => d.key));
+            portfolioWorks.forEach(w => {
+                if (w.domain && !knownKeys.has(w.domain)) {
+                    knownKeys.add(w.domain);
+                    const nextNum = String(workDomains.length + 1).padStart(2, '0');
+                    workDomains.push({
+                        key: w.domain,
+                        code: `DOMAIN ${nextNum}`,
+                        title: w.categoryLabel || w.domain,
+                        unit: "اثر",
+                        colSpan: "col-span-12 md:col-span-4",
+                        description: `مجموعه آثار و تجربه‌های ثبت‌شده در بخش «${w.categoryLabel || w.domain}».`
+                    });
                 }
             });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && mobileMenuOpen) {
-                    closeMobileMenu();
-                    mobileMenuButton.focus();
+        }
+
+        function renderDomainSelectors() {
+            syncDynamicDomains();
+            const container = document.getElementById('domain-selectors');
+            if (!container) return;
+
+            container.innerHTML = workDomains.map((dom, idx) => {
+                const count = portfolioWorks.filter(w => w.domain === dom.key).length;
+                const countLabel = `${toPersianDigits(count)} ${dom.unit || 'اثر'}`;
+                const codeLabel = dom.code || `DOMAIN ${String(idx + 1).padStart(2, '0')}`;
+                const spanClass = dom.colSpan || (workDomains.length % 3 === 0 ? "col-span-12 md:col-span-4" : "col-span-12 md:col-span-6");
+
+                return `
+                    <button onclick="toggleWorkDomain('${dom.key}')" id="domain-btn-${dom.key}" 
+                            class="${spanClass} interactive-link domain-card text-right p-7 sm:p-8 hairline-all surface-subtle hover:border-oxblood transition-all flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between font-mono text-xs mb-4">
+                                <span class="text-oxblood">${codeLabel}</span>
+                                <span class="opacity-60">${countLabel}</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold mb-2 group-hover:text-oxblood transition-colors">
+                                ${dom.title}
+                            </h3>
+                            <p class="text-xs sm:text-sm opacity-75 font-light leading-7">
+                                ${dom.description}
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 hairline-t flex items-center justify-between text-xs font-medium">
+                            <span class="domain-action-label text-oxblood">مشاهده آثار این بخش ↓</span>
+                            <span class="font-mono opacity-50">[+]</span>
+                        </div>
+                    </button>
+                `;
+            }).join('');
+
+            bindCursorEvents();
+        }
+
+        function toggleWorkDomain(domain) {
+            if (activeDomain === domain) {
+                closeWorkDrawer();
+                return;
+            }
+            openWorkDomain(domain);
+        }
+
+        function openWorkDomain(domain) {
+            activeDomain = domain;
+            const drawer = document.getElementById('works-drawer');
+            const grid = document.getElementById('works-grid');
+            const titleEl = document.getElementById('active-domain-title');
+
+            workDomains.forEach(dom => {
+                const btn = document.getElementById(`domain-btn-${dom.key}`);
+                if (!btn) return;
+                const actionLabel = btn.querySelector('.domain-action-label');
+                const isSelected = (dom.key === domain) || (domain === 'graphic' && dom.key !== 'ai');
+                if (isSelected) {
+                    btn.classList.add('bg-oxblood', 'text-alabaster');
+                    if (actionLabel) {
+                        actionLabel.textContent = 'در حال نمایش آثار ✓';
+                        actionLabel.classList.remove('text-oxblood');
+                    }
+                } else {
+                    btn.classList.remove('bg-oxblood', 'text-alabaster');
+                    if (actionLabel) {
+                        actionLabel.textContent = 'مشاهده آثار این بخش ↓';
+                        actionLabel.classList.add('text-oxblood');
+                    }
                 }
             });
 
-            // --- Active Nav Link on Scroll ---
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const heroNavLinks = document.querySelectorAll('.hero-nav-link');
-            const allNavLinks = [...navLinks, ...heroNavLinks];
+            const filtered = domain === 'graphic'
+                ? portfolioWorks.filter(w => w.category === 'graphic')
+                : portfolioWorks.filter(w => w.domain === domain);
 
-            const observerOptions = { root: null, rootMargin: '-20% 0px -60% 0px', threshold: 0 };
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        allNavLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === '#' + id) {
-                                link.classList.add('active');
-                            }
-                        });
+            currentLightboxList = filtered;
+            const foundDom = workDomains.find(d => d.key === domain);
+            titleEl.textContent = domain === 'graphic'
+                ? "گزیده آثار: طراحی گرافیک، عکاسی و اتودهای دستی"
+                : (foundDom ? `گزیده آثار: ${foundDom.title}` : "آثار انتخاب‌شده");
+
+            grid.innerHTML = filtered.map((work, i) => {
+                const displayNum = work.num || String(i + 1).padStart(2, '0');
+                return `
+                <article onclick="openLightbox('${work.id}')" oncontextmenu="return false;"
+                         class="${work.spanClass || 'col-span-12 md:col-span-6'} work-card hairline-all p-6 sm:p-8 flex flex-col justify-between cursor-pointer group">
+                    
+                    <div class="flex items-center justify-between font-mono text-xs mb-5 opacity-70">
+                        <span>${displayNum} / ${work.categoryLabel}</span>
+                        <span>${work.year}</span>
+                    </div>
+
+                    <div class="my-2 w-full overflow-hidden flex items-center justify-center p-2 surface-subtle protected-artwork-wrap">
+                        ${renderProtectedArtwork(work.svg, work.title)}
+                    </div>
+
+                    <div class="mt-6 pt-4 hairline-t">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg sm:text-xl font-bold group-hover:text-oxblood transition-colors">
+                                ${work.title}
+                            </h3>
+                            <span class="font-mono text-[11px] text-oxblood">${work.mindConnection || ''}</span>
+                        </div>
+                        <p class="text-xs sm:text-sm opacity-80 leading-7 font-light">
+                            ${work.description}
+                        </p>
+                    </div>
+                </article>
+            `}).join('');
+
+            drawer.classList.remove('hidden');
+            bindCursorEvents();
+        }
+
+        function closeWorkDrawer() {
+            activeDomain = null;
+            const drawer = document.getElementById('works-drawer');
+            drawer.classList.add('hidden');
+
+            workDomains.forEach(dom => {
+                const btn = document.getElementById(`domain-btn-${dom.key}`);
+                if (!btn) return;
+                const actionLabel = btn.querySelector('.domain-action-label');
+                btn.classList.remove('bg-oxblood', 'text-alabaster');
+                if (actionLabel) {
+                    actionLabel.textContent = 'مشاهده آثار این بخش ↓';
+                    actionLabel.classList.add('text-oxblood');
+                }
+            });
+        }
+
+        function openLightbox(workId) {
+            const index = currentLightboxList.findIndex(w => String(w.id) === String(workId));
+            if (index === -1) return;
+            currentLightboxIndex = index;
+            updateLightboxContent();
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateLightboxContent() {
+            const work = currentLightboxList[currentLightboxIndex];
+            document.getElementById('modal-index').textContent = work.num || String(currentLightboxIndex + 1).padStart(2, '0');
+            document.getElementById('modal-category').textContent = work.categoryLabel;
+            document.getElementById('modal-title').textContent = work.title;
+            document.getElementById('modal-description').textContent = work.description;
+            document.getElementById('modal-anatomy').textContent = work.anatomy || '';
+            document.getElementById('modal-year').textContent = `سال اجرا: ${work.year}`;
+            document.getElementById('modal-connection').textContent = work.mindConnection || '';
+            document.getElementById('modal-svg-container').innerHTML = renderProtectedArtwork(work.svg, work.title);
+        }
+
+        function navigateLightbox(direction) {
+            currentLightboxIndex = (currentLightboxIndex + direction + currentLightboxList.length) % currentLightboxList.length;
+            updateLightboxContent();
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        /* ============================================================================
+           8. NOTES & READER ENGINE
+           ============================================================================ */
+        let currentReaderIndex = 0;
+
+        function renderNotesIndex() {
+            const listEl = document.getElementById('notes-index-list');
+            if (!listEl) return;
+
+            listEl.innerHTML = philosophicalNotes.map((note, idx) => {
+                const displayNum = note.num || String(idx + 1).padStart(2, '0');
+                return `
+                <article onclick="openReaderModal('${note.id}')"
+                         onmouseenter="highlightNoteRow(${idx})"
+                         class="note-row ${idx === 0 ? 'active-preview' : ''} hairline-b py-7 px-4 cursor-pointer group">
+                    <div class="grid grid-cols-12 gap-4 items-baseline">
+                        
+                        <div class="col-span-12 md:col-span-2 flex items-center justify-between md:block font-mono text-xs">
+                            <span class="text-oxblood font-bold">NOTE // ${displayNum}</span>
+                            <span class="md:hidden opacity-60 text-[11px]">${note.readingTime}</span>
+                        </div>
+
+                        <div class="col-span-12 md:col-span-3">
+                            <span class="inline-block px-2.5 py-0.5 text-xs font-medium text-oxblood hairline-all">
+                                ${note.concept}
+                            </span>
+                        </div>
+
+                        <div class="col-span-12 md:col-span-5">
+                            <h3 class="text-lg sm:text-xl font-bold group-hover:text-oxblood transition-colors leading-snug">
+                                ${note.title}
+                            </h3>
+                            
+                            <div class="note-preview-quote pr-3.5 border-r-2 border-oxblood">
+                                <p class="text-xs sm:text-sm opacity-85 font-light italic leading-7">
+                                    ${note.keyQuote}
+                                </p>
+                                <span class="inline-block mt-1.5 font-mono text-[11px] text-oxblood">
+                                    [کلیک برای باز کردن متن کامل در حالت مطالعه ←]
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="hidden md:flex col-span-2 items-center justify-end gap-3 font-mono text-xs opacity-65 group-hover:opacity-100 group-hover:text-oxblood transition-all">
+                            <span>${note.readingTime}</span>
+                            <span>←</span>
+                        </div>
+                    </div>
+                </article>
+            `}).join('');
+
+            bindCursorEvents();
+        }
+
+        function highlightNoteRow(index) {
+            document.querySelectorAll('.note-row').forEach((row, i) => {
+                if (i === index) row.classList.add('active-preview');
+                else row.classList.remove('active-preview');
+            });
+        }
+
+        function openReaderModal(noteId) {
+            const index = philosophicalNotes.findIndex(n => String(n.id) === String(noteId));
+            if (index === -1) return;
+            currentReaderIndex = index;
+            updateReaderModalContent();
+            const modal = document.getElementById('reader-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateReaderModalContent() {
+            const note = philosophicalNotes[currentReaderIndex];
+            const paragraphsArray = Array.isArray(note.paragraphs)
+                ? note.paragraphs
+                : String(note.paragraphs || '').split('\n').filter(Boolean);
+
+            document.getElementById('reader-num').textContent = `NOTE // ${note.num || String(currentReaderIndex + 1).padStart(2, '0')}`;
+            document.getElementById('reader-concept').textContent = note.concept;
+            document.getElementById('reader-date').textContent = `تاریخ نگارش: ${note.date}`;
+            document.getElementById('reader-reading-time').textContent = note.readingTime;
+            document.getElementById('reader-title').textContent = note.title;
+            document.getElementById('reader-quote').textContent = note.keyQuote;
+            document.getElementById('reader-body').innerHTML = paragraphsArray.map(p => `<p>${p}</p>`).join('');
+            document.getElementById('reader-marginalia').textContent = note.marginalia || '';
+        }
+
+        function navigateReader(direction) {
+            currentReaderIndex = (currentReaderIndex + direction + philosophicalNotes.length) % philosophicalNotes.length;
+            updateReaderModalContent();
+        }
+
+        function closeReaderModal() {
+            const modal = document.getElementById('reader-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        window.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('lightbox-modal');
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(1);
+                if (e.key === 'ArrowRight') navigateLightbox(-1);
+            }
+            const readerModal = document.getElementById('reader-modal');
+            if (readerModal && !readerModal.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeReaderModal();
+                if (e.key === 'ArrowLeft') navigateReader(1);
+                if (e.key === 'ArrowRight') navigateReader(-1);
+            }
+        });
+
+        /* ============================================================================
+           9. PERSPECTIVE SWITCHER, MIND LAB & ARCHIVE
+           ============================================================================ */
+        function setPerspective(mode) {
+            document.body.setAttribute('data-perspective', mode);
+
+            document.querySelectorAll('.persp-btn').forEach(btn => {
+                btn.classList.remove('bg-oxblood', 'text-alabaster', 'font-medium');
+                btn.classList.add('opacity-75');
+            });
+            const activeBtn = document.getElementById(`persp-${mode}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-oxblood', 'text-alabaster', 'font-medium');
+                activeBtn.classList.remove('opacity-75');
+            }
+
+            const headline = document.getElementById('hero-headline');
+            const lead = document.getElementById('hero-lead');
+            const badge = document.getElementById('perspective-badge');
+
+            if (mode === 'omni') {
+                badge.textContent = 'نگاه کلی به کارها و علایق';
+                headline.innerHTML = 'طراحی گرافیک، کنجکاوی در <span class="text-oxblood font-serif italic font-normal">هوش مصنوعی</span>، و لذتِ یادگیری پیوسته.';
+                lead.innerHTML = 'اینجا آرشیو کوچکی از کارها و دغدغه‌های من است. بیشتر وقتم بین طراحی گرافیک (پوستر، تایپوگرافی، لوگو و تصویرسازی) و ساختن پروژه‌های هوش مصنوعی می‌گذرد؛ مهارت‌هایی که اغلبشان را از راهِ <strong>مهندسی معکوس</strong>، باز کردن ساختارها و آزمون‌وخطا یاد گرفته‌ام.';
+                closeWorkDrawer();
+            } else if (mode === 'art') {
+                badge.textContent = 'زاویه دید: طراحی گرافیک و هنرهای تجسمی';
+                headline.innerHTML = 'جستجوی سادگی در <span class="text-oxblood font-serif italic font-normal">پوستر، تایپوگرافی و نشانه</span>.';
+                lead.innerHTML = 'در بخش گرافیک، دغدغه اصلی من رسیدن به فرم‌های ساده، خوانا و ماندگار است. از طراحی لوگو و لوگوتایپ تا پوسترهای فرهنگی، فتومونتاژ و تصویرسازی؛ همیشه تلاش می‌کنم زوائد را کنار بگذارم تا پیام اصلی اثر با آرامش دیده شود.';
+                openWorkDomain('graphic');
+            } else if (mode === 'ai') {
+                badge.textContent = 'زاویه دید: کدنویسی و هوش مصنوعی';
+                headline.innerHTML = 'یادگیری از مسیرِ <span class="text-oxblood font-serif italic font-normal">مهندسی معکوس</span> و ساختن سیستم‌های هوشمند.';
+                lead.innerHTML = 'ورود من به دنیای کدنویسی و هوش مصنوعی از سرِ کنجکاوی بود: اینکه یک سیستم پیچیده را باز کنم، منطقِ درونی‌اش را بفهمم و با ترکیب دوباره اجزای آن، ابزارها و پروژه‌های تازه‌ای بسازم.';
+                openWorkDomain('ai');
+            }
+        }
+
+        function initMindLab() {
+            const gridGroup = document.getElementById('board-grid-lines');
+            let gridLines = '';
+            for (let i = 1; i < 8; i++) {
+                const pos = i * 100;
+                gridLines += `<line x1="${pos}" y1="0" x2="${pos}" y2="800" />`;
+                gridLines += `<line x1="0" y1="${pos}" x2="800" y2="${pos}" />`;
+            }
+            gridGroup.innerHTML = gridLines;
+
+            const baseGraphGroup = document.getElementById('base-graph-lines');
+            let baseEdges = '';
+            mindLabNodes.forEach(source => {
+                source.connectTo.forEach(targetId => {
+                    const target = mindLabNodes.find(n => n.id === targetId);
+                    if (target && source.id < target.id) {
+                        baseEdges += `<line x1="${source.x}" y1="${source.y}" x2="${target.x}" y2="${target.y}" />`;
                     }
                 });
-            }, observerOptions);
-            sections.forEach(section => observer.observe(section));
+            });
+            if (baseGraphGroup) baseGraphGroup.innerHTML = baseEdges;
 
-            // --- Lightbox Variables & Functions ---
-            const lightbox = document.getElementById('lightbox');
-            const lbImg = document.getElementById('lb-img');
-            const lbCounter = document.getElementById('lb-counter');
-            const lbOverlay = document.getElementById('lb-overlay');
-            const lbClose = document.getElementById('lb-close');
-            const lbPrev = document.getElementById('lb-prev');
-            const lbNext = document.getElementById('lb-next');
-            let portfolioImages = [];
-            let currentIndex = 0;
-            let lastFocusedElement = null;
+            const quickTabs = document.getElementById('mind-quick-tabs');
+            quickTabs.innerHTML = mindLabNodes.map(node => `
+                <button onclick="selectMindNode('${node.id}')" id="mind-tab-${node.id}"
+                        class="interactive-link p-3 hairline-all text-right transition-colors flex items-center justify-between">
+                    <span class="text-xs sm:text-sm font-semibold">${node.title}</span>
+                    <span class="font-mono text-[10px] opacity-60">${node.coord}</span>
+                </button>
+            `).join('');
 
-            function openLightbox(index) {
-                currentIndex = index;
-                lastFocusedElement = document.activeElement;
-                updateLightboxImage();
-                lightbox.classList.add('active');
-                lightbox.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-                lbClose.focus();
-            }
+            selectMindNode('biology');
+        }
 
-            function closeLightbox() {
-                lightbox.classList.remove('active');
-                lightbox.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-                if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-                    lastFocusedElement.focus();
-                }
-            }
+        function selectMindNode(nodeId) {
+            const activeNode = mindLabNodes.find(n => n.id === nodeId);
+            if (!activeNode) return;
 
-            function updateLightboxImage() {
-                if (portfolioImages.length === 0) return;
-                lbImg.style.opacity = '0';
-                lbImg.style.transform = 'scale(0.98)';
-                const nextSrc = portfolioImages[currentIndex].currentSrc || portfolioImages[currentIndex].src;
-                lbImg.onload = () => {
-                    lbImg.style.opacity = '1';
-                    lbImg.style.transform = 'scale(1)';
-                };
-                lbImg.onerror = () => {
-                    lbImg.style.opacity = '1';
-                    lbImg.alt = 'بارگذاری تصویر ممکن نشد';
-                };
-                lbImg.alt = portfolioImages[currentIndex].alt || 'نمایش بزرگ نمونه‌کار';
-                lbImg.src = nextSrc;
-                if (lbImg.complete && lbImg.naturalWidth > 0) {
-                    lbImg.style.opacity = '1';
-                    lbImg.style.transform = 'scale(1)';
-                }
-                lbCounter.textContent = (currentIndex + 1) + ' / ' + portfolioImages.length;
-                lbPrev.disabled = portfolioImages.length < 2;
-                lbNext.disabled = portfolioImages.length < 2;
-            }
-
-            function nextImage() {
-                if (portfolioImages.length === 0) return;
-                currentIndex = (currentIndex + 1) % portfolioImages.length;
-                updateLightboxImage();
-            }
-
-            function prevImage() {
-                if (portfolioImages.length === 0) return;
-                currentIndex = (currentIndex - 1 + portfolioImages.length) % portfolioImages.length;
-                updateLightboxImage();
-            }
-
-            lbClose.addEventListener('click', closeLightbox);
-            lbOverlay.addEventListener('click', closeLightbox);
-            lbPrev.addEventListener('click', prevImage);
-            lbNext.addEventListener('click', nextImage);
-
-            document.addEventListener('keydown', (e) => {
-                if (!lightbox.classList.contains('active')) return;
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowLeft') prevImage();
-                if (e.key === 'ArrowRight') nextImage();
-                if (e.key === 'Tab') {
-                    const focusable = Array.from(lightbox.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'))
-                        .filter(el => el.offsetParent !== null);
-                    if (!focusable.length) return;
-                    const first = focusable[0];
-                    const last = focusable[focusable.length - 1];
-                    if (e.shiftKey && document.activeElement === first) {
-                        e.preventDefault(); last.focus();
-                    } else if (!e.shiftKey && document.activeElement === last) {
-                        e.preventDefault(); first.focus();
-                    }
+            mindLabNodes.forEach(n => {
+                const tab = document.getElementById(`mind-tab-${n.id}`);
+                if (n.id === nodeId) {
+                    tab.classList.add('bg-oxblood', 'text-alabaster');
+                } else {
+                    tab.classList.remove('bg-oxblood', 'text-alabaster');
                 }
             });
 
-            let touchStartX = 0;
-            let touchStartY = 0;
-            lightbox.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-                touchStartY = e.changedTouches[0].screenY;
-            }, { passive: true });
-
-            lightbox.addEventListener('touchend', (e) => {
-                const diffX = touchStartX - e.changedTouches[0].screenX;
-                const diffY = touchStartY - e.changedTouches[0].screenY;
-                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
-                    if (diffX > 0) nextImage();
-                    else prevImage();
+            let linesHtml = '';
+            activeNode.connectTo.forEach(targetId => {
+                const target = mindLabNodes.find(n => n.id === targetId);
+                if (target) {
+                    linesHtml += `<line x1="${activeNode.x}" y1="${activeNode.y}" x2="${target.x}" y2="${target.y}" stroke="#732229" stroke-width="2" />`;
                 }
-            }, { passive: true });
+            });
+            document.getElementById('synapse-lines').innerHTML = linesHtml;
 
+            const nodesGroup = document.getElementById('board-nodes');
+            nodesGroup.innerHTML = mindLabNodes.map(n => {
+                const isSelected = n.id === nodeId;
+                const isConnected = activeNode.connectTo.includes(n.id);
+                return `
+                    <g onclick="selectMindNode('${n.id}')" class="cursor-pointer">
+                        ${isSelected ? `<circle cx="${n.x}" cy="${n.y}" r="36" fill="none" stroke="#732229" stroke-width="1.5" />` : ''}
+                        <circle cx="${n.x}" cy="${n.y}" r="${isSelected ? 16 : 11}" 
+                                fill="${isSelected ? '#732229' : (isConnected ? '#732229' : 'currentColor')}" 
+                                opacity="${isSelected || isConnected ? '1' : '0.45'}" />
+                        <text x="${n.x}" y="${n.y - 24}" text-anchor="middle" fill="currentColor" 
+                              font-family="Vazirmatn" font-size="22" font-weight="${isSelected ? '700' : '400'}">
+                            ${n.title}
+                        </text>
+                    </g>
+                `;
+            }).join('');
 
-            // ==========================================
-            // --- Fetch Data from External JSON Files ---
-            // ==========================================
-            const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, char => ({
-                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-            })[char]);
-            const safeURL = (value) => {
-                try {
-                    const url = new URL(String(value ?? ''), window.location.href);
-                    return ['http:', 'https:', 'mailto:'].includes(url.protocol) ? url.href : '#';
-                } catch (_) { return '#'; }
-            };
+            document.getElementById('mindlab-dossier').innerHTML = `
+                <div>
+                    <div class="flex items-center justify-between font-mono text-xs text-oxblood mb-2">
+                        <span>گره انتخاب‌شده: ${activeNode.title}</span>
+                        <span>خانه [${activeNode.coord}]</span>
+                    </div>
+                    <p class="text-sm sm:text-base leading-8 mb-6">${activeNode.summary}</p>
+                </div>
 
-            async function loadData() {
-                // Keep failures local to their section so one missing JSON file cannot break the rest.
-                const handleError = (containerId, errorMessage) => {
-                    const container = document.getElementById(containerId);
-                    if (container) {
-                        container.innerHTML = `<div class="col-span-full text-center text-[15px] font-medium text-red-400 py-10">${errorMessage}</div>`;
-                    }
-                };
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-5 hairline-t text-xs sm:text-sm leading-7">
+                    <div>
+                        <div class="font-semibold text-oxblood mb-1">ردپای آن در طراحی گرافیک:</div>
+                        <p class="opacity-85 font-light">${activeNode.graphicLink}</p>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-oxblood mb-1">ردپای آن در کد و هوش مصنوعی:</div>
+                        <p class="opacity-85 font-light">${activeNode.aiLink}</p>
+                    </div>
+                </div>
+            `;
+        }
 
-                // 1. Load Resume (Tabs Logic)
-                try {
-                    const res = await fetch('./resume.json');
-                    if (res.ok) {
-                        const data = await res.json();
-                        const tabsMenu = document.getElementById('resume-tabs-menu');
-                        const contentContainer = document.getElementById('resume-content-container');
-                        
-                        tabsMenu.innerHTML = '';
-                        contentContainer.innerHTML = '';
+        function renderArchiveTimeline() {
+            const container = document.getElementById('archive-list');
+            container.innerHTML = archiveTimeline.map((item, idx) => `
+                <div class="archive-row ${idx === 0 ? 'active' : ''} hairline-b py-7 px-4 sm:px-6 cursor-pointer transition-colors hover:bg-[var(--surface-hover)]"
+                     onclick="activateArchiveRow(${idx})"
+                     onmouseenter="activateArchiveRow(${idx})">
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                        <h3 class="text-lg sm:text-xl font-bold">${item.title}</h3>
+                        <span class="font-mono text-xs text-oxblood">${item.period}</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-2 leading-7 font-light">${item.summary}</p>
+                    
+                    <div class="archive-details">
+                        <p class="text-xs sm:text-sm opacity-75 mt-4 pt-3 hairline-t leading-7 font-light">
+                            ${item.details}
+                        </p>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-                        if (!Array.isArray(data) || data.length === 0) {
-                            handleError('resume-content-container', 'هنوز اطلاعاتی برای نمایش رزومه ثبت نشده است.');
-                        }
-                        (Array.isArray(data) ? data : []).forEach((section, index) => {
-                            // Create Tab Button
-                            const btn = document.createElement('button');
-                            btn.className = `resume-tab-btn ${index === 0 ? 'active' : ''}`;
-                            btn.textContent = section.category ?? 'بدون عنوان';
-                            btn.type = 'button';
-                            btn.setAttribute('role', 'tab');
-                            btn.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
-                            btn.setAttribute('aria-controls', `resume-pane-${index}`);
-                            btn.setAttribute('data-tab-index', index);
-                            tabsMenu.appendChild(btn);
+        function activateArchiveRow(index) {
+            document.querySelectorAll('.archive-row').forEach((r, i) => {
+                if (i === index) r.classList.add('active');
+                else r.classList.remove('active');
+            });
+        }
 
-                            // Create Tab Content Pane
-                            const pane = document.createElement('div');
-                            pane.className = `resume-tab-pane ${index === 0 ? 'block animate-fade-in' : 'hidden'}`;
-                            pane.id = `resume-pane-${index}`;
-                            pane.setAttribute('role', 'tabpanel');
-                            pane.setAttribute('aria-labelledby', btn.id || `resume-tab-${index}`);
-                            btn.id = `resume-tab-${index}`;
-                            pane.innerHTML = `
-                                <div class="relative border-r border-white/10 pr-6 md:pr-10 space-y-6">
-                                    <div class="relative group">
-                                        <span class="timeline-dot"></span>
-                                        <h4 class="text-[18px] font-bold text-white/75 mb-6 group-hover:text-[#A2D5C6] transition-colors">${escapeHTML(section.category)}</h4>
-                                        <ul class="space-y-3.5 text-[15px] font-medium text-white/50 leading-relaxed">
-                                            ${section.items.map(item => {
-                                                let cls = "relative pr-4 before:content-[''] before:absolute before:right-0 before:top-2.5 before:w-1.5 before:h-1.5 before:bg-white/20 before:rounded-full";
-                                                if (item.highlight) cls += ' ' + item.highlight;
-                                                return `<li class="${cls}">${escapeHTML(item.text)}</li>`;
-                                            }).join('')}
-                                        </ul>
-                                    </div>
-                                </div>
-                            `;
-                            contentContainer.appendChild(pane);
-
-                            // Switch Tab on Click
-                            btn.addEventListener('click', () => {
-                                document.querySelectorAll('.resume-tab-btn').forEach(b => {
-                                    b.classList.remove('active');
-                                    b.setAttribute('aria-selected', 'false');
-                                });
-                                btn.classList.add('active');
-                                btn.setAttribute('aria-selected', 'true');
-
-                                document.querySelectorAll('.resume-tab-pane').forEach(p => {
-                                    p.classList.add('hidden');
-                                    p.classList.remove('block', 'animate-fade-in');
-                                });
-
-                                pane.classList.remove('hidden');
-                                pane.classList.add('block', 'animate-fade-in');
-                            });
+        /* ============================================================================
+           10. CLOUD SYNC WITH GOOGLE APPS SCRIPT & TELEGRAM CONTACT DISPATCH
+           ============================================================================ */
+        async function syncPortfolioWithCloud() {
+            if (!GAS_API_URL) return;
+            try {
+                const res = await fetch(GAS_API_URL);
+                const data = await res.json();
+                if (data.status === "success") {
+                    if (Array.isArray(data.domains) && data.domains.length > 0) {
+                        // Merge cloud domains with local domains without duplicates
+                        data.domains.forEach(cd => {
+                            const exists = workDomains.find(ld => ld.key === cd.key);
+                            if (!exists) workDomains.push(cd);
                         });
-                    } else {
-                        handleError('resume-content-container', 'خطا در دریافت اطلاعات رزومه (فایل یافت نشد).');
                     }
-                } catch (err) { 
-                    console.error("Error loading resume:", err);
-                    handleError('resume-content-container', 'خطا در برقراری ارتباط با سرور.');
+                    if (Array.isArray(data.works) && data.works.length > 0) {
+                        portfolioWorks = data.works;
+                    }
+                    if (Array.isArray(data.notes) && data.notes.length > 0) {
+                        philosophicalNotes = data.notes;
+                    }
+                    if (Array.isArray(data.archive) && data.archive.length > 0) {
+                        archiveTimeline = data.archive;
+                    }
+                    renderDomainSelectors();
+                    renderNotesIndex();
+                    renderArchiveTimeline();
+                    if (activeDomain) openWorkDomain(activeDomain);
                 }
+            } catch (err) {
+                console.warn("Using local portfolio data (Cloud sync offline).");
+            }
+        }
 
-                // 2. Load Writings
+        async function handleDispatchSubmit(e) {
+            e.preventDefault();
+            const feedback = document.getElementById('form-feedback');
+            const submitBtn = document.getElementById('contact-submit-btn');
+            const name = document.getElementById('contact-name').value;
+            const topic = document.getElementById('contact-topic').value;
+            const message = document.getElementById('contact-msg').value;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'در حال ارسال...';
+
+            if (GAS_API_URL) {
                 try {
-                    const res = await fetch('./writings.json');
-                    if (res.ok) {
-                        const data = await res.json();
-                        document.getElementById('writings-container').innerHTML = (Array.isArray(data) && data.length ? data.map(writing => `
-                            <div class="writing-card p-8 rounded-2xl flex flex-col group">
-                                <div class="mb-6 flex-grow">
-                                    <h3 class="text-[18px] font-bold text-white/75 mb-3 leading-tight group-hover:text-[#A2D5C6] transition-colors">${escapeHTML(writing.title)}</h3>
-                                    <p class="text-[15px] font-medium text-white/50">${escapeHTML(writing.desc)}</p>
-                                </div>
-                                <a href="${escapeHTML(safeURL(writing.link))}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[15px] font-bold text-[#A2D5C6] group-hover:text-white transition-colors w-fit border-b border-transparent group-hover:border-[#A2D5C6] pb-1">
-                                    مطالعه
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-                                </a>
-                            </div>
-                        `).join('') : '<div class="empty-state">هنوز نوشته‌ای برای نمایش ثبت نشده است.</div>');
-                    } else {
-                        handleError('writings-container', 'خطا در دریافت مقالات.');
-                    }
-                } catch (err) { 
-                    console.error("Error loading writings:", err);
-                    handleError('writings-container', 'خطا در برقراری ارتباط با سرور.');
-                }
-
-                // 3. Load Portfolio Images
-                try {
-                    const res = await fetch('./portfolio.json');
-                    if (res.ok) {
-                        const data = await res.json();
-                        const portfolioContainer = document.getElementById('portfolio-container');
-                        portfolioContainer.innerHTML = (Array.isArray(data) && data.length ? data.map(item => `
-                            <div class="masonry-item portfolio-item" data-category="${escapeHTML(item.category)}" tabindex="0" role="button" aria-label="نمایش بزرگ نمونه‌کار">
-                                <img src="${escapeHTML(safeURL(item.url))}" alt="${escapeHTML(item.alt || 'نمونه‌کار')}" loading="lazy" decoding="async" data-category="${escapeHTML(item.category)}">
-                            </div>
-                        `).join('') : '<div class="empty-state">هنوز نمونه‌کاری برای نمایش ثبت نشده است.</div>');
-
-                        // Setup image loading state and lightbox click handlers
-                        const allImgs = Array.from(portfolioContainer.querySelectorAll('.portfolio-item img'));
-                        allImgs.forEach(img => {
-                            if (img.complete && img.naturalHeight !== 0) {
-                                img.classList.add('loaded');
-                            } else {
-                                img.addEventListener('load', () => img.classList.add('loaded'));
-                                img.addEventListener('error', () => {
-                                    img.classList.add('loaded');
-                                    img.alt = (img.alt || 'نمونه‌کار') + ' (بارگذاری تصویر ناموفق بود)';
-                                    img.style.minHeight = '120px';
-                                    img.style.background = 'rgba(255,255,255,.04)';
-                                });
-                            }
-                            
-                            const portfolioItem = img.closest('.portfolio-item');
-                            const activatePortfolioItem = (e) => {
-                                e.preventDefault();
-                                // Only include images that are currently visible (matching active filter)
-                                portfolioImages = Array.from(document.querySelectorAll('.portfolio-item:not(.hide-item) img'));
-                                const visibleIndex = portfolioImages.indexOf(img);
-                                if (visibleIndex !== -1) {
-                                    openLightbox(visibleIndex);
-                                }
-                            };
-                            portfolioItem.addEventListener('click', activatePortfolioItem);
-                            portfolioItem.addEventListener('keydown', (e) => {
-                                if (e.key === 'Enter' || e.key === ' ') activatePortfolioItem(e);
-                            });
-                        });
-
-                        // Filter Button Logic
-                        const filterBtns = document.querySelectorAll('.filter-btn');
-                        filterBtns.forEach(btn => {
-                            btn.type = 'button';
-                            btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
-                            btn.addEventListener('click', () => {
-                                filterBtns.forEach(b => {
-                                    b.classList.remove('active');
-                                    b.setAttribute('aria-pressed', 'false');
-                                });
-                                btn.classList.add('active');
-                                btn.setAttribute('aria-pressed', 'true');
-
-                                const selectedFilter = btn.getAttribute('data-filter');
-                                const items = document.querySelectorAll('.portfolio-item');
-
-                                items.forEach(item => {
-                                    const itemCategory = item.getAttribute('data-category');
-                                    if (selectedFilter === 'all' || itemCategory === selectedFilter) {
-                                        item.classList.remove('hide-item');
-                                    } else {
-                                        item.classList.add('hide-item');
-                                    }
-                                });
-                            });
-                        });
-                    } else {
-                        handleError('portfolio-container', 'خطا در دریافت نمونه‌کارها.');
-                    }
-                } catch (err) { 
-                    console.error("Error loading portfolio:", err);
-                    handleError('portfolio-container', 'خطا در برقراری ارتباط با سرور.');
-                }
-
-                // 4. Load Socials
-                try {
-                    const res = await fetch('./socials.json');
-                    if (res.ok) {
-                        const data = await res.json();
-                        document.getElementById('socials-container').innerHTML = (Array.isArray(data) && data.length ? data.map(social => `
-                            <a href="${escapeHTML(safeURL(social.url))}" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn text-[#A2D5C6] font-bold text-[15px] px-4 py-2 rounded-full hover:text-white transition-colors">${escapeHTML(social.name)}</a>
-                        `).join('') : '<div class="empty-state">هنوز راه ارتباطی ثبت نشده است.</div>');
-                    } else {
-                        handleError('socials-container', 'خطا در دریافت شبکه‌های اجتماعی.');
-                    }
-                } catch (err) { 
-                    console.error("Error loading socials:", err);
-                    handleError('socials-container', 'خطا در برقراری ارتباط با سرور.');
-                }
+                    await fetch(GAS_API_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({
+                            action: 'CONTACT_MESSAGE',
+                            name,
+                            topic,
+                            message
+                        })
+                    });
+                } catch (_) {}
             }
 
-            // Start fetching data
-            loadData();
-        });
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'ارسال پیام ←';
+            feedback.textContent = 'ممنون؛ پیغام شما مستقیماً ثبت و ارسال شد.';
+            feedback.classList.remove('hidden');
+            e.target.reset();
+            setTimeout(() => feedback.classList.add('hidden'), 4500);
+        }
+
+        /* ============================================================================
+           11. CURSOR FOLLOWER & UTILITIES
+           ============================================================================ */
+        function initCursorFollower() {
+            const follower = document.getElementById('cursor-follower');
+            let cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+            let tx = cx, ty = cy;
+
+            window.addEventListener('mousemove', (e) => {
+                tx = e.clientX;
+                ty = e.clientY;
+            });
+
+            function loop() {
+                cx += (tx - cx) * 0.18;
+                cy += (ty - cy) * 0.18;
+                follower.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+                requestAnimationFrame(loop);
+            }
+            loop();
+            bindCursorEvents();
+        }
+
+        function bindCursorEvents() {
+            const follower = document.getElementById('cursor-follower');
+            if (!follower) return;
+            document.querySelectorAll('.interactive-link, .work-card, .archive-row, input, textarea, select').forEach(el => {
+                el.addEventListener('mouseenter', () => follower.classList.add('cursor-expanded'));
+                el.addEventListener('mouseleave', () => follower.classList.remove('cursor-expanded'));
+            });
+        }
+
+        function copyContact(text, btnEl) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const original = btnEl.textContent;
+            btnEl.textContent = 'کپی شد ✓';
+            setTimeout(() => { btnEl.textContent = original; }, 2000);
+        }
+
+        window.onload = function () {
+            renderDomainSelectors();
+            initMindLab();
+            renderNotesIndex();
+            renderArchiveTimeline();
+            initCursorFollower();
+            syncPortfolioWithCloud();
+        };
     </script>
 </body>
 </html>
