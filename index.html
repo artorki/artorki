@@ -541,7 +541,10 @@
                     <div class="flex flex-wrap items-center justify-between gap-4 mb-12">
                         <div class="flex items-center gap-2.5">
                             <span class="text-oxblood font-mono text-xs leading-none select-none">×</span>
-                            <h2 class="text-sm sm:text-base font-medium tracking-widest uppercase opacity-75">نمونه‌کارها</h2>
+                            <h2 id="node-works-heading" class="text-sm sm:text-base font-medium tracking-widest uppercase opacity-75">نمونه‌کارها</h2>
+                            <button onclick="openWorksHeadingModal()" class="admin-only px-2.5 py-0.5 hairline-all text-[11px] text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                                ✎ ویرایش عنوان
+                            </button>
                         </div>
 
                         <!-- Admin: Add New Content Box -->
@@ -558,17 +561,29 @@
 
                 <!-- 3. Order / Conversation Section (ثبت‌سفارش / گفتگو - Ruled Correspondence Sheet) -->
                 <div class="pt-16 hairline-t" id="node-order-section">
+                    
+                    <!-- Admin Bar for Editing the Entire Order & Form Section -->
+                    <div class="admin-only w-full items-center justify-between gap-4 mb-8 p-3 hairline-all surface-subtle">
+                        <span class="text-xs text-oxblood font-medium">مدیریت بخش مکاتبه، ثبت‌سفارش و فیلدهای فرم:</span>
+                        <button onclick="openOrderConfigModal()" class="px-4 py-1.5 bg-oxblood text-alabaster text-xs font-medium hover:bg-botanical transition-colors">
+                            ✎ ویرایش کامل عنوان‌ها، توضیحات و فیلدهای فرم
+                        </button>
+                    </div>
+
                     <div class="grid grid-cols-12 gap-10 sm:gap-16 items-start">
                         
                         <div class="col-span-12 lg:col-span-4">
                             <div class="flex items-center gap-2 mb-4">
                                 <span class="text-oxblood font-mono text-xs leading-none select-none">×</span>
-                                <span class="text-xs opacity-60 font-light">مکاتبه و همکاری</span>
+                                <span id="order-section-badge" class="text-xs opacity-60 font-light">مکاتبه و همکاری</span>
+                                <button onclick="openOrderConfigModal()" class="admin-only px-2 py-0.5 hairline-all text-[10px] text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                                    ✎ ویرایش متن‌ها
+                                </button>
                             </div>
-                            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-4 leading-snug">
+                            <h2 id="order-section-title" class="text-2xl sm:text-3xl font-bold tracking-tight mb-4 leading-snug">
                                 ثبت‌سفارش / گفتگو
                             </h2>
-                            <p class="text-xs sm:text-sm opacity-75 font-light leading-8 text-justify">
+                            <p id="order-section-desc" class="text-xs sm:text-sm opacity-75 font-light leading-8 text-justify">
                                 چنانچه برای ثبت سفارش، همکاری تخصصی یا گفتگو پیرامونِ «<span id="order-node-name" class="font-normal text-oxblood">این حوزه</span>» نکته‌ای در ذهن دارید، یادداشت خود را در این برگ ثبت کنید.
                             </p>
                         </div>
@@ -579,40 +594,37 @@
                                 
                                 <!-- Custom Typographic Radio Selector Instead of Cliché Browser Dropdown -->
                                 <div class="pb-2">
-                                    <span class="block text-xs opacity-60 font-light mb-3">موضوع یادداشت:</span>
-                                    <input type="hidden" id="order-request-type" value="ثبت سفارش و همکاری">
+                                    <div class="flex items-center justify-between gap-2 mb-3">
+                                        <span id="order-topic-label" class="block text-xs opacity-60 font-light">موضوع یادداشت:</span>
+                                        <button type="button" onclick="openOrderConfigModal()" class="admin-only px-2 py-0.5 hairline-all text-[10px] text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                                            ✎ ویرایش گزینه‌ها و فیلدها
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="order-request-type" value="ثبت سفارش پروژه">
                                     <div class="flex flex-wrap items-center gap-6 text-xs sm:text-sm" id="order-type-tabs">
-                                        <button type="button" onclick="selectOrderType('ثبت سفارش و همکاری', this)" class="order-type-btn interactive-link py-1 border-b border-oxblood text-oxblood font-medium transition-all">
-                                            ثبت سفارش پروژه
-                                        </button>
-                                        <button type="button" onclick="selectOrderType('گفتگو و تبادل نظر', this)" class="order-type-btn interactive-link py-1 border-b border-transparent opacity-60 hover:opacity-100 transition-all">
-                                            گفتگو و تبادل نظر
-                                        </button>
-                                        <button type="button" onclick="selectOrderType('پیشنهاد پروژه مشترک', this)" class="order-type-btn interactive-link py-1 border-b border-transparent opacity-60 hover:opacity-100 transition-all">
-                                            پیشنهاد همکاری مشترک
-                                        </button>
+                                        <!-- Populated dynamically from node/global form config -->
                                     </div>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                     <div>
-                                        <label class="block text-[11px] opacity-60 font-light">نام شما یا مجموعه</label>
+                                        <label id="order-name-label" class="block text-[11px] opacity-60 font-light">نام شما یا مجموعه</label>
                                         <input type="text" id="order-sender-name" required placeholder="نام خود را بنویسید..." class="editorial-input">
                                     </div>
                                     <div>
-                                        <label class="block text-[11px] opacity-60 font-light">راه ارتباطی (تلگرام، شماره تماس یا ایمیل)</label>
+                                        <label id="order-contact-label" class="block text-[11px] opacity-60 font-light">راه ارتباطی (تلگرام، شماره تماس یا ایمیل)</label>
                                         <input type="text" id="order-sender-contact" required placeholder="مثلاً @username یا شماره همراه..." class="editorial-input">
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label class="block text-[11px] opacity-60 font-light">شرح سفارش یا پیام</label>
+                                    <label id="order-msg-label" class="block text-[11px] opacity-60 font-light">شرح سفارش یا پیام</label>
                                     <textarea id="order-message-body" rows="3" required placeholder="جزئیات ایده، پروژه یا موضوع گفتگوی خودتان را بنویسید..." class="editorial-input leading-8 resize-y"></textarea>
                                 </div>
 
                                 <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
                                     <button type="submit" id="order-submit-btn" class="interactive-link editorial-cta group">
-                                        <span class="text-sm sm:text-base font-normal">ارسال یادداشت</span>
+                                        <span id="order-submit-label" class="text-sm sm:text-base font-normal">ارسال یادداشت</span>
                                     </button>
                                     <span id="order-form-feedback" class="text-xs text-oxblood font-medium hidden"></span>
                                 </div>
@@ -915,6 +927,127 @@
         </div>
     </div>
 
+    <!-- =====================================================================
+         MODAL 8: ADMIN EDIT "نمونه‌کارها" SECTION HEADING
+         ===================================================================== -->
+    <div id="admin-works-heading-modal" class="fixed inset-0 z-[130] hidden items-center justify-center p-4 bg-[#2e4e43]/85 backdrop-blur-[2px]">
+        <div class="w-full max-w-md bg-[#d9d2c2] text-[#2e4e43] hairline-all p-6 sm:p-8">
+            <div class="flex items-center justify-between pb-4 hairline-b mb-6">
+                <h3 class="font-bold text-lg">ویرایش عنوان بخش «نمونه‌کارها»</h3>
+                <button onclick="closeModal('admin-works-heading-modal')" class="font-mono text-xs text-oxblood">بستن [✕]</button>
+            </div>
+            <form onsubmit="saveWorksHeading(event)" class="space-y-4 text-xs sm:text-sm">
+                <div>
+                    <label class="block mb-1.5 font-medium">عنوان این بخش (مثلاً: نمونه‌کارها، گزیده آثار، پروژه‌ها و...):</label>
+                    <input type="text" id="edit-works-heading-input" required class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                </div>
+                <div>
+                    <label class="block mb-1.5 font-medium">اعمال تغییرات برای:</label>
+                    <select id="edit-works-heading-scope" class="w-full p-2.5 bg-[#d9d2c2] hairline-all focus:border-oxblood focus:outline-none">
+                        <option value="node">فقط همین حوزه فعلی</option>
+                        <option value="all">همه حوزه‌ها (پیش‌فرض کل سایت)</option>
+                    </select>
+                </div>
+                <div class="pt-4 hairline-t flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeModal('admin-works-heading-modal')" class="px-4 py-2 hairline-all text-xs">انصراف</button>
+                    <button type="submit" class="px-6 py-2 bg-oxblood text-alabaster text-xs font-medium">ذخیره عنوان</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         MODAL 9: ADMIN EDIT ORDER / CONVERSATION SECTION & FORM FIELDS
+         ===================================================================== -->
+    <div id="admin-order-config-modal" class="fixed inset-0 z-[130] hidden items-center justify-center p-4 bg-[#2e4e43]/85 backdrop-blur-[2px]">
+        <div class="w-full max-w-2xl bg-[#d9d2c2] text-[#2e4e43] hairline-all p-6 sm:p-8 max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-4 hairline-b mb-6">
+                <h3 class="font-bold text-lg">ویرایش کامل بخش «ثبت‌سفارش / گفتگو» و فرم</h3>
+                <button onclick="closeModal('admin-order-config-modal')" class="font-mono text-xs text-oxblood">بستن [✕]</button>
+            </div>
+            <form onsubmit="saveOrderConfig(event)" class="space-y-4 text-xs sm:text-sm">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block mb-1.5 font-medium">سرتیتر کوچک (کنار علامت ×):</label>
+                        <input type="text" id="edit-order-badge" required placeholder="مکاتبه و همکاری" class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block mb-1.5 font-medium">عنوان اصلی بخش:</label>
+                        <input type="text" id="edit-order-title" required placeholder="ثبت‌سفارش / گفتگو" class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block mb-1.5 font-medium">متن توضیحات زیر عنوان (از عبارت <code class="text-oxblood font-mono">{node}</code> برای درج خودکار نام حوزه استفاده کنید):</label>
+                    <textarea id="edit-order-desc" rows="3" required class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none leading-7"></textarea>
+                </div>
+
+                <div class="pt-3 hairline-t grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="sm:col-span-1">
+                        <label class="block mb-1.5 font-medium">برچسب بالای گزینه‌ها:</label>
+                        <input type="text" id="edit-order-topic-label" required placeholder="موضوع یادداشت:" class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block mb-1.5 font-medium">گزینه‌های موضوع یادداشت (با ویرگول جدا کنید):</label>
+                        <input type="text" id="edit-order-topics" required placeholder="ثبت سفارش پروژه، گفتگو و تبادل نظر، پیشنهاد همکاری مشترک" class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="pt-3 hairline-t grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block mb-1.5 font-medium">عنوان فیلد اول (نام):</label>
+                        <input type="text" id="edit-order-name-label" required class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block mb-1.5 font-medium">متن راهنمای داخل فیلد اول (Placeholder):</label>
+                        <input type="text" id="edit-order-name-ph" required class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block mb-1.5 font-medium">عنوان فیلد دوم (راه ارتباطی):</label>
+                        <input type="text" id="edit-order-contact-label" required class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block mb-1.5 font-medium">متن راهنمای داخل فیلد دوم (Placeholder):</label>
+                        <input type="text" id="edit-order-contact-ph" required class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block mb-1.5 font-medium">عنوان فیلد سوم (شرح پیام):</label>
+                        <input type="text" id="edit-order-msg-label" required class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block mb-1.5 font-medium">متن راهنمای داخل فیلد سوم (Placeholder):</label>
+                        <input type="text" id="edit-order-msg-ph" required class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="pt-3 hairline-t grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block mb-1.5 font-medium">متن دکمه ارسال:</label>
+                        <input type="text" id="edit-order-submit-label" required placeholder="ارسال یادداشت" class="w-full p-2.5 bg-transparent hairline-all focus:border-oxblood focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block mb-1.5 font-medium">اعمال این تغییرات برای:</label>
+                        <select id="edit-order-scope" class="w-full p-2.5 bg-[#d9d2c2] hairline-all focus:border-oxblood focus:outline-none">
+                            <option value="node">فقط همین حوزه فعلی</option>
+                            <option value="all">همه حوزه‌ها (پیش‌فرض کل سایت)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-4 hairline-t flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeModal('admin-order-config-modal')" class="px-4 py-2 hairline-all text-xs">انصراف</button>
+                    <button type="submit" class="px-6 py-2 bg-oxblood text-alabaster text-xs font-medium">ذخیره تغییرات فرم و بخش</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         /* ============================================================================
            0. CLOUD & TELEGRAM BOT SYNC CONFIG (GOOGLE APPS SCRIPT)
@@ -935,6 +1068,23 @@
             },
             path: {
                 oneLineDescription: "هر نقطه در این شبکه یکی از حوزه‌های فعالیت، تجربه یا مطالعه‌ی من است؛ برای مشاهده‌ی نمونه‌کارها و گفتگو، روی حوزه‌ی مورد نظرتان ضربه بزنید."
+            },
+            nodeDefaults: {
+                worksHeading: "نمونه‌کارها",
+                orderConfig: {
+                    badge: "مکاتبه و همکاری",
+                    title: "ثبت‌سفارش / گفتگو",
+                    description: "چنانچه برای ثبت سفارش، همکاری تخصصی یا گفتگو پیرامونِ «{node}» نکته‌ای در ذهن دارید، یادداشت خود را در این برگ ثبت کنید.",
+                    topicLabel: "موضوع یادداشت:",
+                    topics: ["ثبت سفارش پروژه", "گفتگو و تبادل نظر", "پیشنهاد همکاری مشترک"],
+                    nameLabel: "نام شما یا مجموعه",
+                    namePlaceholder: "نام خود را بنویسید...",
+                    contactLabel: "راه ارتباطی (تلگرام، شماره تماس یا ایمیل)",
+                    contactPlaceholder: "مثلاً @username یا شماره همراه...",
+                    msgLabel: "شرح سفارش یا پیام",
+                    msgPlaceholder: "جزئیات ایده، پروژه یا موضوع گفتگوی خودتان را بنویسید...",
+                    submitLabel: "ارسال یادداشت"
+                }
             },
             categories: [
                 { id: "cat1", code: "CLUSTER 01", title: "دسته اول", shortTitle: "دسته اول" },
@@ -1683,6 +1833,32 @@
         /* ============================================================================
            6. RENDER VIEW 3: NODE DETAIL PAGE (توضیح یک‌خطی + نمونه‌کارها + ثبت‌سفارش/گفتگو)
            ============================================================================ */
+        function getEffectiveWorksHeading(node) {
+            if (node && node.worksHeading) return node.worksHeading;
+            if (siteData.nodeDefaults && siteData.nodeDefaults.worksHeading) return siteData.nodeDefaults.worksHeading;
+            return "نمونه‌کارها";
+        }
+
+        function getEffectiveOrderConfig(node) {
+            const fallback = {
+                badge: "مکاتبه و همکاری",
+                title: "ثبت‌سفارش / گفتگو",
+                description: "چنانچه برای ثبت سفارش، همکاری تخصصی یا گفتگو پیرامونِ «{node}» نکته‌ای در ذهن دارید، یادداشت خود را در این برگ ثبت کنید.",
+                topicLabel: "موضوع یادداشت:",
+                topics: ["ثبت سفارش پروژه", "گفتگو و تبادل نظر", "پیشنهاد همکاری مشترک"],
+                nameLabel: "نام شما یا مجموعه",
+                namePlaceholder: "نام خود را بنویسید...",
+                contactLabel: "راه ارتباطی (تلگرام، شماره تماس یا ایمیل)",
+                contactPlaceholder: "مثلاً @username یا شماره همراه...",
+                msgLabel: "شرح سفارش یا پیام",
+                msgPlaceholder: "جزئیات ایده، پروژه یا موضوع گفتگوی خودتان را بنویسید...",
+                submitLabel: "ارسال یادداشت"
+            };
+            const globalCfg = (siteData.nodeDefaults && siteData.nodeDefaults.orderConfig) ? siteData.nodeDefaults.orderConfig : {};
+            const nodeCfg = (node && node.orderConfig) ? node.orderConfig : {};
+            return Object.assign({}, fallback, globalCfg, nodeCfg);
+        }
+
         function renderNodeDetailView(nodeId) {
             const node = siteData.nodes.find(n => n.id === nodeId);
             if (!node) return;
@@ -1690,8 +1866,49 @@
             document.getElementById('node-detail-title').textContent = node.title;
             document.getElementById('node-detail-oneline').textContent = node.oneLine;
 
-            // Update Order / Conversation contextual label
-            document.getElementById('order-node-name').textContent = node.title;
+            // Render customizable "نمونه‌کارها" heading
+            const worksHeadingEl = document.getElementById('node-works-heading');
+            if (worksHeadingEl) {
+                worksHeadingEl.textContent = getEffectiveWorksHeading(node);
+            }
+
+            // Render customizable Order / Conversation Section & Form
+            const orderCfg = getEffectiveOrderConfig(node);
+            document.getElementById('order-section-badge').textContent = orderCfg.badge;
+            document.getElementById('order-section-title').textContent = orderCfg.title;
+
+            const descEl = document.getElementById('order-section-desc');
+            const rawDesc = String(orderCfg.description || '');
+            if (rawDesc.includes('{node}')) {
+                const escaped = rawDesc.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                descEl.innerHTML = escaped.replace(/\{node\}/g, `<span class="font-normal text-oxblood">${node.title}</span>`);
+            } else {
+                descEl.textContent = rawDesc;
+            }
+
+            document.getElementById('order-topic-label').textContent = orderCfg.topicLabel;
+            document.getElementById('order-name-label').textContent = orderCfg.nameLabel;
+            document.getElementById('order-sender-name').placeholder = orderCfg.namePlaceholder;
+            document.getElementById('order-contact-label').textContent = orderCfg.contactLabel;
+            document.getElementById('order-sender-contact').placeholder = orderCfg.contactPlaceholder;
+            document.getElementById('order-msg-label').textContent = orderCfg.msgLabel;
+            document.getElementById('order-message-body').placeholder = orderCfg.msgPlaceholder;
+            document.getElementById('order-submit-label').textContent = orderCfg.submitLabel;
+
+            const topicsList = Array.isArray(orderCfg.topics) && orderCfg.topics.length > 0
+                ? orderCfg.topics
+                : ["ثبت سفارش پروژه", "گفتگو و تبادل نظر", "پیشنهاد همکاری مشترک"];
+            const hiddenTopicInput = document.getElementById('order-request-type');
+            hiddenTopicInput.value = topicsList[0];
+
+            const tabsContainer = document.getElementById('order-type-tabs');
+            tabsContainer.innerHTML = topicsList.map((t, idx) => `
+                <button type="button"
+                        onclick="selectOrderType('${t.replace(/'/g, "\\'")}', this)"
+                        class="order-type-btn interactive-link py-1 border-b ${idx === 0 ? 'border-oxblood text-oxblood font-medium' : 'border-transparent opacity-60 hover:opacity-100'} transition-all">
+                    ${t}
+                </button>
+            `).join('');
 
             const boxesContainer = document.getElementById('node-boxes-container');
             const boxes = node.boxes || [];
@@ -1730,6 +1947,9 @@
                         <div class="flex items-baseline gap-2.5">
                             <span class="text-oxblood font-mono text-xs leading-none select-none">×</span>
                             <h3 class="text-lg sm:text-2xl font-bold tracking-tight">${box.title}</h3>
+                            <button onclick="openBoxModal('${box.id}')" class="admin-only px-2 py-0.5 hairline-all text-[11px] text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                                ✎ ویرایش عنوان و پوشه‌ها
+                            </button>
                         </div>
 
                         <!-- Editorial Typographic Folder Tabs (Underline Style Instead of Cliché Buttons) -->
@@ -1757,7 +1977,7 @@
                                 + آیتم جدید
                             </button>
                             <button onclick="openBoxModal('${box.id}')" class="px-2.5 py-1 hairline-all text-xs hover:border-oxblood">
-                                ✎ ویرایش پوشه‌ها
+                                ✎ ویرایش عنوان و پوشه‌ها
                             </button>
                             <button onclick="deleteContentBox('${box.id}')" class="px-2.5 py-1 hairline-all text-xs text-oxblood hover:bg-oxblood hover:text-alabaster">
                                 حذف
@@ -2299,6 +2519,96 @@
             renderNodeDetailView(currentNodeId);
         }
 
+        /* --- Edit "نمونه‌کارها" Heading & Order/Form Section Config --- */
+        function openWorksHeadingModal() {
+            const node = siteData.nodes.find(n => n.id === currentNodeId);
+            if (!node) return;
+            document.getElementById('edit-works-heading-input').value = getEffectiveWorksHeading(node);
+            document.getElementById('edit-works-heading-scope').value = 'node';
+            openModal('admin-works-heading-modal');
+        }
+
+        function saveWorksHeading(e) {
+            e.preventDefault();
+            const node = siteData.nodes.find(n => n.id === currentNodeId);
+            const val = document.getElementById('edit-works-heading-input').value.trim();
+            const scope = document.getElementById('edit-works-heading-scope').value;
+
+            if (!siteData.nodeDefaults) siteData.nodeDefaults = {};
+
+            if (scope === 'all') {
+                siteData.nodeDefaults.worksHeading = val;
+                siteData.nodes.forEach(n => { delete n.worksHeading; });
+            } else if (node) {
+                node.worksHeading = val;
+            }
+
+            saveSiteData();
+            closeModal('admin-works-heading-modal');
+            renderNodeDetailView(currentNodeId);
+        }
+
+        function openOrderConfigModal() {
+            const node = siteData.nodes.find(n => n.id === currentNodeId);
+            if (!node) return;
+            const cfg = getEffectiveOrderConfig(node);
+
+            document.getElementById('edit-order-badge').value = cfg.badge || '';
+            document.getElementById('edit-order-title').value = cfg.title || '';
+            document.getElementById('edit-order-desc').value = cfg.description || '';
+            document.getElementById('edit-order-topic-label').value = cfg.topicLabel || '';
+            document.getElementById('edit-order-topics').value = (cfg.topics || []).join('، ');
+            document.getElementById('edit-order-name-label').value = cfg.nameLabel || '';
+            document.getElementById('edit-order-name-ph').value = cfg.namePlaceholder || '';
+            document.getElementById('edit-order-contact-label').value = cfg.contactLabel || '';
+            document.getElementById('edit-order-contact-ph').value = cfg.contactPlaceholder || '';
+            document.getElementById('edit-order-msg-label').value = cfg.msgLabel || '';
+            document.getElementById('edit-order-msg-ph').value = cfg.msgPlaceholder || '';
+            document.getElementById('edit-order-submit-label').value = cfg.submitLabel || '';
+            document.getElementById('edit-order-scope').value = 'node';
+
+            openModal('admin-order-config-modal');
+        }
+
+        function saveOrderConfig(e) {
+            e.preventDefault();
+            const node = siteData.nodes.find(n => n.id === currentNodeId);
+            const scope = document.getElementById('edit-order-scope').value;
+
+            const topics = document.getElementById('edit-order-topics').value
+                .split(/[,،]/)
+                .map(s => s.trim())
+                .filter(Boolean);
+
+            const newConfig = {
+                badge: document.getElementById('edit-order-badge').value.trim(),
+                title: document.getElementById('edit-order-title').value.trim(),
+                description: document.getElementById('edit-order-desc').value.trim(),
+                topicLabel: document.getElementById('edit-order-topic-label').value.trim(),
+                topics: topics.length > 0 ? topics : ["ثبت سفارش پروژه"],
+                nameLabel: document.getElementById('edit-order-name-label').value.trim(),
+                namePlaceholder: document.getElementById('edit-order-name-ph').value.trim(),
+                contactLabel: document.getElementById('edit-order-contact-label').value.trim(),
+                contactPlaceholder: document.getElementById('edit-order-contact-ph').value.trim(),
+                msgLabel: document.getElementById('edit-order-msg-label').value.trim(),
+                msgPlaceholder: document.getElementById('edit-order-msg-ph').value.trim(),
+                submitLabel: document.getElementById('edit-order-submit-label').value.trim()
+            };
+
+            if (!siteData.nodeDefaults) siteData.nodeDefaults = {};
+
+            if (scope === 'all') {
+                siteData.nodeDefaults.orderConfig = newConfig;
+                siteData.nodes.forEach(n => { delete n.orderConfig; });
+            } else if (node) {
+                node.orderConfig = newConfig;
+            }
+
+            saveSiteData();
+            closeModal('admin-order-config-modal');
+            renderNodeDetailView(currentNodeId);
+        }
+
         /* --- Add / Edit Item inside a Box --- */
         function openItemModal(boxId, itemId) {
             const node = siteData.nodes.find(n => n.id === currentNodeId);
@@ -2531,6 +2841,8 @@
                 closeModal('admin-node-modal');
                 closeModal('admin-box-modal');
                 closeModal('admin-item-modal');
+                closeModal('admin-works-heading-modal');
+                closeModal('admin-order-config-modal');
             }
         });
 
@@ -2571,4 +2883,3 @@
     </script>
 </body>
 </html>
-
