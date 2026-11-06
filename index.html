@@ -155,6 +155,37 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Z-Axis 3D Depth Stage for Home <-> Path Scroll Transition */
+        #z-depth-stage {
+            position: relative;
+            width: 100%;
+            flex: 1;
+            min-height: calc(100vh - 8.5rem);
+            perspective: 1200px;
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+        }
+        .z-depth-layer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            will-change: transform, opacity, filter;
+            transform-origin: center center;
+        }
+
+        /* Subtle Scroll Indicator Pulse */
+        @keyframes scrollDepthPulse {
+            0%, 100% { transform: translateY(0); opacity: 0.45; }
+            50% { transform: translateY(6px); opacity: 0.95; }
+        }
+        .scroll-depth-cue {
+            animation: scrollDepthPulse 2.6s ease-in-out infinite;
+        }
+
         /* Pinterest Exhibition Masonry (Unboxed Editorial Plates) */
         .pinterest-masonry {
             column-count: 1;
@@ -200,20 +231,28 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+        @keyframes slowCelestialSpinReverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
         .celestial-orbit-slow {
-            transform-origin: 600px 360px;
-            animation: slowCelestialSpin 140s linear infinite;
+            transform-origin: 600px 340px;
+            animation: slowCelestialSpin 150s linear infinite;
+        }
+        .celestial-orbit-reverse {
+            transform-origin: 600px 340px;
+            animation: slowCelestialSpinReverse 110s linear infinite;
         }
 
         /* Pulse ring for level 3 specialist nodes */
         @keyframes subtlePulse {
-            0%, 100% { opacity: 0.22; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.1); }
+            0%, 100% { opacity: 0.25; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.14); }
         }
         .specialist-halo {
             transform-box: fill-box;
             transform-origin: center;
-            animation: subtlePulse 5s infinite ease-in-out;
+            animation: subtlePulse 4.2s infinite ease-in-out;
         }
 
         /* Ruled Correspondence Form Inputs (Bottom Line Only, No Cliché Boxes) */
@@ -385,122 +424,164 @@
         <!-- MAIN SPA CONTAINER -->
         <main class="w-full flex-1 flex flex-col">
 
-            <!-- =================================================================
-                 VIEW 1: HOME VIEW (ONLY LOGOTYPE + DESCRIPTION + "مسیر من" BUTTON)
-                 Designed as a Museum Book Title Page (صفحه عنوان کتاب نفیس)
-                 ================================================================= -->
-            <section id="view-home" class="view-section flex-1 flex flex-col justify-between px-6 sm:px-16 md:px-24 py-14 sm:py-20 relative">
+            <!-- 3D Z-AXIS DEPTH STAGE (Holds View 1: Home & View 2: Path simultaneously for Z-scroll) -->
+            <div id="z-depth-stage">
 
-                <!-- Top Spacer for Classical Vertical Proportions (Golden Ratio) -->
-                <div class="hidden sm:block"></div>
+                <!-- =================================================================
+                     VIEW 1: HOME VIEW (LOGOTYPE + DESCRIPTION + Z-SCROLL CUE)
+                     ================================================================= -->
+                <section id="view-home" class="z-depth-layer flex flex-col justify-between items-center px-6 sm:px-16 md:px-24 py-10 sm:py-16">
 
-                <!-- Central Title-Page Composition -->
-                <div class="w-full max-w-3xl mx-auto my-auto">
-                    
-                    <!-- 1. The Logotype (aminreza.png in exact #2e4e43 Botanical Green) -->
-                    <div class="w-full max-w-[290px] sm:max-w-[430px] mr-auto ml-auto sm:mr-0 mb-12 sm:mb-16 relative">
-                        <img id="home-logotype-img" 
-                             src="https://i.ibb.co/LXPnr7Rt/aminreza.png" 
-                             alt="امین‌رضا" 
-                             style="filter: url(#botanical-green-ink);"
-                             class="w-full h-auto object-contain select-none transition-opacity duration-700"
-                             onload="document.getElementById('home-logotype-svg-fallback').classList.add('hidden'); this.classList.remove('hidden');"
-                             onerror="this.classList.add('hidden'); document.getElementById('home-logotype-svg-fallback').classList.remove('hidden');" />
+                    <!-- Top Spacer for Classical Vertical Proportions -->
+                    <div class="hidden sm:block"></div>
 
-                        <!-- High-Precision Vector Fallback of aminreza.png in #2e4e43 -->
-                        <svg id="home-logotype-svg-fallback" viewBox="0 0 1000 380" class="w-full h-auto select-none hidden" xmlns="http://www.w3.org/2000/svg" aria-label="امین‌رضا">
-                            <g fill="#2e4e43" mask="url(#stamp-distress-mask)">
-                                <polygon points="862,72 932,72 932,320 902,320 902,118" />
-                                <path fill-rule="evenodd" d="M 740,210 A 72,72 0 0,1 884,210 L 884,320 L 696,320 L 696,262 L 678,262 L 678,290 A 106,96 0 0,1 466,290 L 466,184 L 538,242 L 678,150 L 678,225 L 696,225 L 696,150 L 722,130 L 722,190 L 740,190 Z M 812,188 A 14,14 0 1,0 812,216 A 14,14 0 1,0 812,188 Z" />
-                                <polygon points="695,332 715,352 695,372 675,352" />
-                                <polygon points="731,332 751,352 731,372 711,352" />
-                                <polygon points="536,104 560,128 536,152 512,128" />
-                                <polygon points="420,136 450,166 450,320 294,320 294,298 420,212" />
-                                <path fill-rule="evenodd" d="M 68,62 L 140,62 L 140,224 L 156,224 L 156,162 L 184,142 L 184,224 L 204,224 A 68,68 0 0,1 340,224 L 340,264 L 244,320 L 180,320 L 180,292 L 158,292 L 158,320 L 106,320 L 106,108 Z M 270,188 A 13,13 0 1,0 270,214 A 13,13 0 1,0 270,188 Z" />
-                                <polygon points="272,62 296,86 272,110 248,86" />
-                            </g>
-                        </svg>
+                    <!-- Central Title-Page Composition (Centered Logotype + Right-Edge Aligned Bio) -->
+                    <div class="w-full max-w-[310px] sm:max-w-[470px] mx-auto my-auto flex flex-col items-center">
+                        
+                        <!-- 1. The Logotype (aminreza.png Centered in Viewport) -->
+                        <div class="w-full mx-auto mb-8 sm:mb-10 relative">
+                            <img id="home-logotype-img" 
+                                 src="https://i.ibb.co/LXPnr7Rt/aminreza.png" 
+                                 alt="امین‌رضا" 
+                                 style="filter: url(#botanical-green-ink);"
+                                 class="w-full h-auto object-contain select-none mx-auto transition-opacity duration-700"
+                                 onload="document.getElementById('home-logotype-svg-fallback').classList.add('hidden'); this.classList.remove('hidden');"
+                                 onerror="this.classList.add('hidden'); document.getElementById('home-logotype-svg-fallback').classList.remove('hidden');" />
 
-                        <button onclick="openAdminSettingsModal()" class="admin-only mt-3 px-2.5 py-1 hairline-all text-[11px] text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
-                            [تغییر تصویر لوگوتایپ]
-                        </button>
+                            <!-- High-Precision Vector Fallback of aminreza.png in #2e4e43 -->
+                            <svg id="home-logotype-svg-fallback" viewBox="0 0 1000 380" class="w-full h-auto select-none mx-auto hidden" xmlns="http://www.w3.org/2000/svg" aria-label="امین‌رضا">
+                                <g fill="#2e4e43" mask="url(#stamp-distress-mask)">
+                                    <polygon points="862,72 932,72 932,320 902,320 902,118" />
+                                    <path fill-rule="evenodd" d="M 740,210 A 72,72 0 0,1 884,210 L 884,320 L 696,320 L 696,262 L 678,262 L 678,290 A 106,96 0 0,1 466,290 L 466,184 L 538,242 L 678,150 L 678,225 L 696,225 L 696,150 L 722,130 L 722,190 L 740,190 Z M 812,188 A 14,14 0 1,0 812,216 A 14,14 0 1,0 812,188 Z" />
+                                    <polygon points="695,332 715,352 695,372 675,352" />
+                                    <polygon points="731,332 751,352 731,372 711,352" />
+                                    <polygon points="536,104 560,128 536,152 512,128" />
+                                    <polygon points="420,136 450,166 450,320 294,320 294,298 420,212" />
+                                    <path fill-rule="evenodd" d="M 68,62 L 140,62 L 140,224 L 156,224 L 156,162 L 184,142 L 184,224 L 204,224 A 68,68 0 0,1 340,224 L 340,264 L 244,320 L 180,320 L 180,292 L 158,292 L 158,320 L 106,320 L 106,108 Z M 270,188 A 13,13 0 1,0 270,214 A 13,13 0 1,0 270,188 Z" />
+                                    <polygon points="272,62 296,86 272,110 248,86" />
+                                </g>
+                            </svg>
+
+                            <button onclick="openAdminSettingsModal()" class="admin-only mt-3 px-2.5 py-1 hairline-all text-[11px] text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                                [تغییر تصویر لوگوتایپ]
+                            </button>
+                        </div>
+
+                        <!-- 2. Editorial Description (Right-Aligned & Flush with the Right Visual Edge of Logotype) -->
+                        <div class="w-full pr-[6.8%] pl-[6.8%] text-right">
+                            <p id="home-bio-text" class="text-sm sm:text-[16.5px] leading-[2.35] opacity-90 font-light text-right mb-8">
+                                <!-- Populated from siteData.home.description -->
+                            </p>
+
+                            <button onclick="openEditHomeModal()" class="admin-only mb-4 px-3 py-1 hairline-all text-xs text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                                ✎ ویرایش متن معرفی
+                            </button>
+
+                            <!-- Subtle Z-Scroll Cue -->
+                            <div class="pt-3 flex items-center justify-start gap-2.5 text-xs opacity-60 font-light select-none">
+                                <span id="home-cta-label">مسیر من</span>
+                                <span class="opacity-70">(برای ورود به عمق اسکرول کنید)</span>
+                                <span class="scroll-depth-cue text-oxblood font-serif text-sm inline-block">↓</span>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <!-- 2. Editorial Description & 3. "مسیر من" Action (Without Vertical Line) -->
-                    <div>
-                        <p id="home-bio-text" class="text-sm sm:text-[17px] leading-[2.4] opacity-90 font-light text-justify max-w-xl mb-10">
-                            <!-- Populated from siteData.home.description -->
+                    <!-- Subtle Bottom Breathing Space -->
+                    <div class="hidden sm:block"></div>
+                </section>
+
+                <!-- =================================================================
+                     VIEW 2: MY PATH VIEW ("مسیر من" - ONE-LINE DESC + UNIFIED GRAPH)
+                     Enters from Deep -Z Space on Scroll
+                     ================================================================= -->
+                <section id="view-path" class="z-depth-layer flex flex-col justify-between pointer-events-none" style="opacity: 0; transform: translate3d(0, 0, -900px) scale(0.28);">
+                    
+                    <!-- One-Line Description Header -->
+                    <div class="px-6 sm:px-14 pt-6 pb-5 hairline-b flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#d9d2c2]/60 backdrop-blur-[1px]">
+                        <p id="path-oneline-desc" class="text-xs sm:text-[15px] opacity-85 font-light leading-8 max-w-3xl">
+                            <!-- Populated from siteData.path.oneLineDescription -->
                         </p>
 
-                        <button onclick="openEditHomeModal()" class="admin-only mb-6 px-3 py-1 hairline-all text-xs text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
-                            ✎ ویرایش متن معرفی
-                        </button>
-
-                        <div class="pt-1">
-                            <button onclick="navigateTo('path')" class="interactive-link editorial-cta group">
-                                <span id="home-cta-label" class="text-sm sm:text-base font-normal tracking-wide">مسیر من</span>
+                        <!-- Admin-Only Controls for Path Page -->
+                        <div class="admin-only items-center gap-2 shrink-0">
+                            <button onclick="openEditPathIntroModal()" class="px-3 py-1.5 hairline-all text-xs text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                                ✎ ویرایش توضیح یک‌خطی
+                            </button>
+                            <button onclick="openNodeMetaModal(null)" class="px-3.5 py-1.5 bg-oxblood text-alabaster text-xs font-medium hover:bg-botanical transition-colors">
+                                + افزودن حوزه جدید
                             </button>
                         </div>
                     </div>
 
-                </div>
+                    <!-- Unified Interactive Constellation Graph (Refined Celestial Astrolabe) -->
+                    <div class="relative w-full flex-1 flex items-center justify-center overflow-hidden py-2 px-2 sm:px-6">
+                        <svg id="unified-path-graph" viewBox="0 0 1200 680" preserveAspectRatio="xMidYMid meet" class="w-full h-auto max-h-[74vh] select-none">
+                            <defs>
+                                <!-- Subtle Radial Gradient for the Astrolabe Heart -->
+                                <radialGradient id="astrolabe-core-glow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#732229" stop-opacity="0.07" />
+                                    <stop offset="55%" stop-color="#2e4e43" stop-opacity="0.03" />
+                                    <stop offset="100%" stop-color="#d9d2c2" stop-opacity="0" />
+                                </radialGradient>
+                                <!-- Soft Paper Halo for Node Labels -->
+                                <filter id="label-halo" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#d9d2c2" flood-opacity="0.95" />
+                                </filter>
+                            </defs>
 
-                <!-- Subtle Bottom Breathing Space -->
-                <div class="hidden sm:block"></div>
-            </section>
+                            <!-- Ambient Astrolabe Center Field -->
+                            <circle cx="600" cy="340" r="320" fill="url(#astrolabe-core-glow)" />
 
-            <!-- =================================================================
-                 VIEW 2: MY PATH VIEW ("مسیر من" - ONLY ONE-LINE DESC + UNIFIED GRAPH)
-                 Designed as an Open Celestial / Botanical Lithograph Atlas
-                 ================================================================= -->
-            <section id="view-path" class="view-section hidden flex-1 flex flex-col justify-between">
-                
-                <!-- One-Line Description Header -->
-                <div class="px-6 sm:px-14 pt-8 pb-6 hairline-b flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <p id="path-oneline-desc" class="text-xs sm:text-[15px] opacity-85 font-light leading-8 max-w-3xl">
-                        <!-- Populated from siteData.path.oneLineDescription -->
-                    </p>
+                            <!-- Delicate Astrolabe & Sacred Geometry Engraving Lines -->
+                            <g stroke="#2e4e43" fill="none">
+                                <!-- Outer Architectural Frame & Corner Crosshairs -->
+                                <rect x="44" y="24" width="1112" height="632" stroke-width="0.4" opacity="0.16" />
+                                <rect x="50" y="30" width="1100" height="620" stroke-width="0.3" opacity="0.1" stroke-dasharray="3 6" />
 
-                    <!-- Admin-Only Controls for Path Page -->
-                    <div class="admin-only items-center gap-2 shrink-0">
-                        <button onclick="openEditPathIntroModal()" class="px-3 py-1.5 hairline-all text-xs text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
-                            ✎ ویرایش توضیح یک‌خطی
-                        </button>
-                        <button onclick="openNodeMetaModal(null)" class="px-3.5 py-1.5 bg-oxblood text-alabaster text-xs font-medium hover:bg-botanical transition-colors">
-                            + افزودن حوزه جدید
-                        </button>
-                    </div>
-                </div>
+                                <!-- Cardinal & Diagonal Meridian Hairlines -->
+                                <line x1="600" y1="24" x2="600" y2="656" stroke-width="0.45" opacity="0.13" stroke-dasharray="2 7" />
+                                <line x1="44" y1="340" x2="1156" y2="340" stroke-width="0.45" opacity="0.13" stroke-dasharray="2 7" />
+                                <line x1="220" y1="70" x2="980" y2="610" stroke-width="0.35" opacity="0.08" stroke-dasharray="1 9" />
+                                <line x1="220" y1="610" x2="980" y2="70" stroke-width="0.35" opacity="0.08" stroke-dasharray="1 9" />
 
-                <!-- Unified Interactive Constellation Graph (Unboxed Full-Bleed Architectural Canvas) -->
-                <div class="relative w-full flex-1 flex items-center justify-center overflow-hidden py-4 px-2 sm:px-8">
-                    <svg id="unified-path-graph" viewBox="0 0 1200 680" preserveAspectRatio="xMidYMid meet" class="w-full h-auto max-h-[75vh] select-none">
-                        <!-- Delicate Astrolabe & Geometric Engraving Lines -->
-                        <g stroke="#2e4e43" fill="none">
-                            <!-- Cardinal Axis Hairlines -->
-                            <line x1="600" y1="20" x2="600" y2="660" stroke-width="0.45" opacity="0.14" stroke-dasharray="2 8" />
-                            <line x1="40" y1="340" x2="1160" y2="340" stroke-width="0.45" opacity="0.14" stroke-dasharray="2 8" />
-                            
-                            <!-- Rotating Outer Celestial Ring -->
-                            <g class="celestial-orbit-slow" opacity="0.13">
-                                <circle cx="600" cy="340" r="295" stroke-width="0.6" stroke-dasharray="1 10" />
-                                <circle cx="600" cy="340" r="302" stroke-width="0.4" />
+                                <!-- Concentric Astrolabe Rings -->
+                                <circle cx="600" cy="340" r="95" stroke-width="0.45" opacity="0.14" />
+                                <circle cx="600" cy="340" r="195" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 8" />
+                                <circle cx="600" cy="340" r="295" stroke-width="0.55" opacity="0.18" />
+
+                                <!-- Rotating Outer Degree Ring -->
+                                <g class="celestial-orbit-slow" opacity="0.22">
+                                    <circle cx="600" cy="340" r="304" stroke-width="2.5" stroke-dasharray="0.8 7.15" />
+                                    <circle cx="600" cy="340" r="312" stroke-width="0.4" />
+                                </g>
+
+                                <!-- Counter-Rotating Inner Equatorial Ring -->
+                                <g class="celestial-orbit-reverse" opacity="0.16" stroke="#732229">
+                                    <circle cx="600" cy="340" r="145" stroke-width="1.8" stroke-dasharray="1 9.5" />
+                                    <polygon points="600,190 604,198 596,198" fill="#732229" stroke="none" />
+                                    <polygon points="600,490 604,482 596,482" fill="#732229" stroke="none" />
+                                </g>
+
+                                <!-- Intersecting Keplerian Elliptical Orbits -->
+                                <ellipse cx="600" cy="340" rx="485" ry="230" transform="rotate(-11 600 340)" stroke-width="0.55" opacity="0.14" />
+                                <ellipse cx="600" cy="340" rx="485" ry="230" transform="rotate(11 600 340)" stroke-width="0.45" opacity="0.11" stroke-dasharray="5 10" />
+
+                                <!-- Center Astrolabe Pivot -->
+                                <circle cx="600" cy="340" r="4" stroke="#732229" stroke-width="0.8" opacity="0.35" />
+                                <circle cx="600" cy="340" r="1.2" fill="#732229" opacity="0.45" />
                             </g>
 
-                            <!-- Elliptical Keplerian Orbits -->
-                            <ellipse cx="600" cy="340" rx="470" ry="235" transform="rotate(-8 600 340)" stroke-width="0.5" opacity="0.11" />
-                            <ellipse cx="600" cy="340" rx="470" ry="235" transform="rotate(8 600 340)" stroke-width="0.5" opacity="0.08" stroke-dasharray="4 12" />
-                            <circle cx="600" cy="340" r="145" stroke-width="0.45" opacity="0.1" />
-                        </g>
+                            <!-- Curved Organic Network Edges -->
+                            <g id="graph-edges-layer"></g>
 
-                        <!-- Curved Organic Network Edges -->
-                        <g id="graph-edges-layer"></g>
+                            <!-- Interactive Nodes (Sized Purely by Level without Numbers or Category Text) -->
+                            <g id="graph-nodes-layer"></g>
+                        </svg>
+                    </div>
+                </section>
 
-                        <!-- Interactive Nodes (Sized Purely by Level without Numbers or Category Text) -->
-                        <g id="graph-nodes-layer"></g>
-                    </svg>
-                </div>
-            </section>
+            </div>
 
             <!-- =================================================================
                  VIEW 3: NODE DETAIL VIEW (توضیح یک‌خطی + نمونه‌کارها با پوشه‌بندی + ثبت‌سفارش/گفتگو)
@@ -1099,7 +1180,7 @@
                     title: "هوش‌مصنوعی",
                     category: "cat1",
                     level: 3,
-                    x: 420, y: 230,
+                    x: 455, y: 245,
                     oneLine: "طراحی، ایده‌پردازی و ساخت سیستم‌ها و ایجنت‌های هوشمند برای حل مسائل پیچیده و خلاقانه.",
                     connections: ["reverse-eng", "astronomy", "logic", "chess", "language", "graphic"],
                     boxes: [
@@ -1152,7 +1233,7 @@
                     title: "مهندسی‌معکوس",
                     category: "cat1",
                     level: 2,
-                    x: 280, y: 155,
+                    x: 325, y: 145,
                     oneLine: "کالبدشکافی سیستم‌ها، کدها و فرم‌ها برای کشف منطق پنهان و بازآفرینی خلاقانه‌ی آن‌ها.",
                     connections: ["ai", "logic", "biology", "graphic"],
                     boxes: [
@@ -1179,7 +1260,7 @@
                     title: "نجوم",
                     category: "cat1",
                     level: 1,
-                    x: 210, y: 270,
+                    x: 205, y: 255,
                     oneLine: "مطالعه‌ی هندسه‌ی مدارها، مقیاس‌های کیهانی و الهام گرفتن از سکوت و فضای خالی آسمان شب.",
                     connections: ["ai", "graphic", "philosophy", "occult"],
                     boxes: [
@@ -1209,7 +1290,7 @@
                     title: "گرافیک",
                     category: "cat2",
                     level: 3,
-                    x: 780, y: 215,
+                    x: 745, y: 245,
                     oneLine: "طراحی پوستر، لوگوتایپ، نشانه و صفحه‌آرایی با تکیه بر ایجاز، هندسه‌ی حروف و فضای منفی.",
                     connections: ["illustration", "photography", "poetry", "video-edit", "ai", "astronomy"],
                     boxes: [
@@ -1255,7 +1336,7 @@
                     title: "عکاسی",
                     category: "cat2",
                     level: 2,
-                    x: 945, y: 140,
+                    x: 895, y: 140,
                     oneLine: "ثبت هندسه‌ی نور، سایه‌های معماری و بافت‌های خام طبیعت در پرسه‌زدن‌های روزمره.",
                     connections: ["graphic", "illustration", "biology"],
                     boxes: [
@@ -1292,7 +1373,7 @@
                     title: "تصویرسازی",
                     category: "cat2",
                     level: 2,
-                    x: 995, y: 245,
+                    x: 995, y: 235,
                     oneLine: "خلق تصویرسازی‌های مفهومی، فتومونتاژ و اسکچ‌های دستی روی کاغذ در پیوند با ادبیات.",
                     connections: ["graphic", "poetry", "photography"],
                     boxes: [
@@ -1320,7 +1401,7 @@
                     title: "شعر",
                     category: "cat2",
                     level: 2,
-                    x: 845, y: 115,
+                    x: 690, y: 110,
                     oneLine: "جستجوی موسیقیِ کلمات، ایجازِ شاعرانه و پیوند میانِ تصویرِ ذهنی و زبان.",
                     connections: ["graphic", "illustration", "language", "philosophy"],
                     boxes: [
@@ -1347,7 +1428,7 @@
                     title: "تدوین ویدئو",
                     category: "cat2",
                     level: 2,
-                    x: 960, y: 345,
+                    x: 965, y: 365,
                     oneLine: "معماریِ زمان و ریتم در تصویر متحرک؛ ساخت روایت‌های بصری، تیزر و مستندهای کوتاه.",
                     connections: ["graphic", "audio-edit", "photography"],
                     boxes: [
@@ -1374,7 +1455,7 @@
                     title: "تدوین پادکست و کلیپ‌صوتی",
                     category: "cat2",
                     level: 2,
-                    x: 830, y: 335,
+                    x: 830, y: 365,
                     oneLine: "طراحی فضاهای شنیداری، تدوین پادکست، میکسِ گفتار و موسیقی و خلق روایت‌های صوتی.",
                     connections: ["video-edit", "poetry", "graphic"],
                     boxes: [
@@ -1403,7 +1484,7 @@
                     title: "فلسفه",
                     category: "cat3",
                     level: 1,
-                    x: 780, y: 535,
+                    x: 725, y: 485,
                     oneLine: "تامل در چیستیِ آفرینش، نسبتِ انسان و تکنولوژی، زیبایی‌شناسی و معنای زمان.",
                     connections: ["logic", "theology", "psychology", "poetry", "ai"],
                     boxes: [
@@ -1430,7 +1511,7 @@
                     title: "منطق",
                     category: "cat3",
                     level: 1,
-                    x: 680, y: 615,
+                    x: 615, y: 580,
                     oneLine: "مطالعه‌ی ساختار استنتاج، منطقِ صوری و پایه‌های استدلال در ریاضیات، زبان و الگوریتم.",
                     connections: ["philosophy", "ai", "reverse-eng", "chess"],
                     boxes: []
@@ -1440,7 +1521,7 @@
                     title: "روان‌شناسی",
                     category: "cat3",
                     level: 1,
-                    x: 920, y: 515,
+                    x: 895, y: 495,
                     oneLine: "شناختِ سازوکار ادراک بصری، حافظه، انگیزش و نحوه‌ی تعامل ذهن انسان با اثر هنری.",
                     connections: ["philosophy", "graphic", "language"],
                     boxes: []
@@ -1450,7 +1531,7 @@
                     title: "الهیات",
                     category: "cat3",
                     level: 1,
-                    x: 895, y: 630,
+                    x: 795, y: 590,
                     oneLine: "مطالعه‌ی متون کلاسیک، حکمت، کلام و تاریخِ مواجهه‌ی انسان با امر قدسی و معنا.",
                     connections: ["philosophy", "occult", "poetry"],
                     boxes: []
@@ -1462,7 +1543,7 @@
                     title: "زیست‌شناسی",
                     category: "cat4",
                     level: 1,
-                    x: 410, y: 530,
+                    x: 455, y: 475,
                     oneLine: "الهام از ریخت‌شناسی گیاهان، تقارن‌های اندام‌وار و شبکه‌های عصبیِ زنده در طبیعت.",
                     connections: ["reverse-eng", "photography", "ai", "chess"],
                     boxes: []
@@ -1472,7 +1553,7 @@
                     title: "شطرنج",
                     category: "cat4",
                     level: 1,
-                    x: 500, y: 625,
+                    x: 485, y: 585,
                     oneLine: "تمرینِ دوراندیشی، هندسه‌ی استراتژی در ۶۴ خانه و الهام‌بخشِ درخت‌های تصمیم در کدنویسی.",
                     connections: ["ai", "logic", "biology"],
                     boxes: []
@@ -1482,7 +1563,7 @@
                     title: "زبان",
                     category: "cat4",
                     level: 1,
-                    x: 270, y: 505,
+                    x: 255, y: 445,
                     oneLine: "کاوش در ریشه‌شناسی واژگان، ساختار زبان‌های طبیعی و پیوند آن با تایپوگرافی و مدل‌های زبانی.",
                     connections: ["ai", "poetry", "graphic", "psychology"],
                     boxes: []
@@ -1492,7 +1573,7 @@
                     title: "علوم‌غریبه",
                     category: "cat4",
                     level: 1,
-                    x: 315, y: 630,
+                    x: 335, y: 565,
                     oneLine: "مطالعه‌ی تاریخچه‌ی نمادها، حروف و اعداد (ابجد و اوفاق) به عنوان بخشی از میراثِ کهنِ رمزنگاری و هندسه.",
                     connections: ["astronomy", "theology", "language"],
                     boxes: []
@@ -1503,6 +1584,26 @@
         /* ============================================================================
            2. STATE MANAGEMENT & LOCAL/CLOUD STORAGE
            ============================================================================ */
+        const HARMONIOUS_COORDS = {
+            "ai": { x: 455, y: 245 },
+            "reverse-eng": { x: 325, y: 145 },
+            "astronomy": { x: 205, y: 255 },
+            "graphic": { x: 745, y: 245 },
+            "photography": { x: 895, y: 140 },
+            "illustration": { x: 995, y: 235 },
+            "poetry": { x: 690, y: 110 },
+            "video-edit": { x: 965, y: 365 },
+            "audio-edit": { x: 830, y: 365 },
+            "philosophy": { x: 725, y: 485 },
+            "logic": { x: 615, y: 580 },
+            "psychology": { x: 895, y: 495 },
+            "theology": { x: 795, y: 590 },
+            "biology": { x: 455, y: 475 },
+            "chess": { x: 485, y: 585 },
+            "language": { x: 255, y: 445 },
+            "occult": { x: 335, y: 565 }
+        };
+
         let siteData = loadSiteData();
         let isAdmin = false;
         let sessionAdminPassword = ""; // در حافظه موقت مرورگر هنگام ورود نگه‌داری می‌شود
@@ -1511,12 +1612,27 @@
         let activeGraphCategoryFilter = 'all';
         let activeBoxFolderState = {}; // { boxId: 'folderName' }
 
+        // Z-Axis Camera Progress State (0 = Home, 1 = Path Graph)
+        let zProgress = 0;
+        let targetZProgress = 0;
+
+        function applyHarmoniousCoordinates(dataObj) {
+            if (!dataObj || !Array.isArray(dataObj.nodes)) return;
+            dataObj.nodes.forEach(n => {
+                if (HARMONIOUS_COORDS[n.id]) {
+                    n.x = HARMONIOUS_COORDS[n.id].x;
+                    n.y = HARMONIOUS_COORDS[n.id].y;
+                }
+            });
+        }
+
         function loadSiteData() {
             try {
                 const raw = localStorage.getItem(STORAGE_KEY);
                 if (raw) {
                     const parsed = JSON.parse(raw);
                     if (parsed && Array.isArray(parsed.nodes) && parsed.nodes.length > 0) {
+                        applyHarmoniousCoordinates(parsed);
                         return parsed;
                     }
                 }
@@ -1559,6 +1675,7 @@
                 const data = await res.json();
                 if (data && data.status === "success" && data.payload && Array.isArray(data.payload.nodes)) {
                     siteData = data.payload;
+                    applyHarmoniousCoordinates(siteData);
                     try {
                         localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData));
                     } catch (_) {}
@@ -1582,45 +1699,220 @@
 
         function getNodeRadius(level) {
             const lv = Number(level);
-            if (lv === 3) return 21;
-            if (lv === 2) return 13.5;
-            return 8;
+            if (lv === 3) return 22;
+            if (lv === 2) return 14;
+            return 8.5;
         }
 
         /* ============================================================================
-           3. SPA VIEW NAVIGATION (HOME <-> MY PATH <-> NODE PAGE)
+           3. SPA VIEW NAVIGATION & Z-AXIS DEPTH CAMERA ENGINE
            ============================================================================ */
-        function navigateTo(viewName, nodeId = null) {
-            currentView = viewName;
-            const homeEl = document.getElementById('view-home');
-            const pathEl = document.getElementById('view-path');
-            const nodeEl = document.getElementById('view-node');
+        function updateHeaderForZState(viewName) {
             const breadcrumb = document.getElementById('header-breadcrumb');
-
-            homeEl.classList.add('hidden');
-            pathEl.classList.add('hidden');
-            nodeEl.classList.add('hidden');
-
-            // Update header nav active states
             document.getElementById('nav-btn-home').classList.toggle('text-oxblood', viewName === 'home');
             document.getElementById('nav-btn-home').classList.toggle('font-bold', viewName === 'home');
             document.getElementById('nav-btn-path').classList.toggle('text-oxblood', viewName === 'path' || viewName === 'node');
             document.getElementById('nav-btn-path').classList.toggle('font-bold', viewName === 'path' || viewName === 'node');
 
             if (viewName === 'home') {
-                homeEl.classList.remove('hidden');
                 breadcrumb.classList.add('hidden');
                 breadcrumb.classList.remove('flex');
-                renderHomeView();
             } else if (viewName === 'path') {
-                pathEl.classList.remove('hidden');
                 breadcrumb.classList.remove('hidden');
                 breadcrumb.classList.add('flex');
                 breadcrumb.innerHTML = `<span class="text-oxblood font-medium">مسیر من</span>`;
+            }
+        }
+
+        function applyZDepthTransforms(p) {
+            const homeEl = document.getElementById('view-home');
+            const pathEl = document.getElementById('view-path');
+            if (!homeEl || !pathEl) return;
+
+            // فاز ۱ (p از 0 تا 0.48): فقط صفحه اول دیده می‌شود؛ به دوربین نزدیک شده، محو و کاملاً خارج می‌شود
+            if (p <= 0.48) {
+                const t1 = p / 0.48; // نرمال‌سازی بین 0 و 1
+                const homeZ = Math.pow(t1, 1.15) * 720;
+                const homeScale = 1 + (Math.pow(t1, 1.15) * 1.45);
+                const fadeStart = Math.max(0, (t1 - 0.35) / 0.65);
+                const homeOpacity = Math.max(0, 1 - Math.pow(fadeStart, 1.3));
+                const homeBlur = Math.pow(fadeStart, 1.4) * 8;
+
+                homeEl.style.visibility = homeOpacity <= 0.005 ? 'hidden' : 'visible';
+                homeEl.style.opacity = homeOpacity.toFixed(4);
+                homeEl.style.transform = `translate3d(0, 0, ${homeZ.toFixed(1)}px) scale(${homeScale.toFixed(4)})`;
+                homeEl.style.filter = homeBlur > 0.15 ? `blur(${homeBlur.toFixed(2)}px)` : 'none';
+                homeEl.style.pointerEvents = t1 < 0.25 ? 'auto' : 'none';
+
+                // صفحه دوم در کل فاز ۱ کاملاً مخفی است تا هیچ تداخلی رخ ندهد
+                pathEl.style.visibility = 'hidden';
+                pathEl.style.opacity = '0';
+                pathEl.style.pointerEvents = 'none';
+            } 
+            // فاز ۲ (p از 0.52 تا 1): صفحه اول کاملاً خارج شده و فقط صفحه گراف از عمق دور به جلو می‌آید
+            else if (p >= 0.52) {
+                const t2 = (p - 0.52) / 0.48; // نرمال‌سازی بین 0 و 1
+                const inv = 1 - t2;
+                const pathZ = -780 * Math.pow(inv, 1.2);
+                const pathScale = 0.34 + (0.66 * Math.pow(t2, 0.9));
+                const pathOpacity = Math.min(1, Math.pow(t2, 1.15));
+                const pathBlur = Math.pow(inv, 1.5) * 7;
+
+                // صفحه اول در کل فاز ۲ کاملاً مخفی است
+                homeEl.style.visibility = 'hidden';
+                homeEl.style.opacity = '0';
+                homeEl.style.pointerEvents = 'none';
+
+                pathEl.style.visibility = pathOpacity <= 0.005 ? 'hidden' : 'visible';
+                pathEl.style.opacity = pathOpacity.toFixed(4);
+                pathEl.style.transform = `translate3d(0, 0, ${pathZ.toFixed(1)}px) scale(${pathScale.toFixed(4)})`;
+                pathEl.style.filter = pathBlur > 0.15 ? `blur(${pathBlur.toFixed(2)}px)` : 'none';
+                pathEl.style.pointerEvents = t2 > 0.85 ? 'auto' : 'none';
+            } 
+            // مکث کوتاه میانی (0.48 تا 0.52): کاغذ خالص بدون هم‌پوشانی دو صفحه
+            else {
+                homeEl.style.visibility = 'hidden';
+                homeEl.style.opacity = '0';
+                homeEl.style.pointerEvents = 'none';
+                pathEl.style.visibility = 'hidden';
+                pathEl.style.opacity = '0';
+                pathEl.style.pointerEvents = 'none';
+            }
+
+            // همگام‌سازی وضعیت هدر بالا
+            if (currentView !== 'node') {
+                const resolvedView = p >= 0.5 ? 'path' : 'home';
+                if (currentView !== resolvedView) {
+                    currentView = resolvedView;
+                    updateHeaderForZState(resolvedView);
+                }
+            }
+        }
+
+        function initZDepthScrollEngine() {
+            let wheelAccumulator = 0;
+            let wheelResetTimer = null;
+
+            // Mouse Wheel & Trackpad Z-Scroll (حرکت کامل و یکپارچه بین دو صفحه بدون گیر کردن در میانه راه)
+            window.addEventListener('wheel', (e) => {
+                if (currentView === 'node') return;
+                const anyModalOpen = Array.from(document.querySelectorAll('[id$="-modal"]')).some(m => !m.classList.contains('hidden'));
+                if (anyModalOpen) return;
+
+                e.preventDefault();
+                wheelAccumulator += e.deltaY;
+
+                if (wheelResetTimer) clearTimeout(wheelResetTimer);
+                wheelResetTimer = setTimeout(() => { wheelAccumulator = 0; }, 180);
+
+                if (wheelAccumulator > 35 && targetZProgress === 0) {
+                    targetZProgress = 1;
+                    wheelAccumulator = 0;
+                } else if (wheelAccumulator < -35 && targetZProgress === 1) {
+                    targetZProgress = 0;
+                    wheelAccumulator = 0;
+                }
+            }, { passive: false });
+
+            // Touch Swipe Z-Scroll for Mobile / Tablet
+            let touchStartY = null;
+            window.addEventListener('touchstart', (e) => {
+                if (currentView === 'node') return;
+                if (e.touches && e.touches.length === 1) {
+                    touchStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            window.addEventListener('touchmove', (e) => {
+                if (currentView === 'node' || touchStartY === null) return;
+                const anyModalOpen = Array.from(document.querySelectorAll('[id$="-modal"]')).some(m => !m.classList.contains('hidden'));
+                if (anyModalOpen) return;
+
+                const currentY = e.touches[0].clientY;
+                const dy = touchStartY - currentY;
+                if (Math.abs(dy) > 24) {
+                    e.preventDefault();
+                    if (dy > 0 && targetZProgress === 0) {
+                        targetZProgress = 1;
+                        touchStartY = null;
+                    } else if (dy < 0 && targetZProgress === 1) {
+                        targetZProgress = 0;
+                        touchStartY = null;
+                    }
+                }
+            }, { passive: false });
+
+            window.addEventListener('touchend', () => {
+                touchStartY = null;
+            }, { passive: true });
+
+            // Keyboard ArrowDown / ArrowUp / Space Z-Scroll
+            window.addEventListener('keydown', (e) => {
+                if (currentView === 'node') return;
+                const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+                if (['input', 'textarea', 'select'].includes(activeTag)) return;
+                const anyModalOpen = Array.from(document.querySelectorAll('[id$="-modal"]')).some(m => !m.classList.contains('hidden'));
+                if (anyModalOpen) return;
+
+                if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                    e.preventDefault();
+                    targetZProgress = 1;
+                } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    targetZProgress = 0;
+                }
+            });
+
+            // Smooth 60fps animation loop for Z-depth transition
+            function zLoop() {
+                const diff = targetZProgress - zProgress;
+                if (Math.abs(diff) > 0.0008) {
+                    // حرکت یکنواخت و نرم در محور Z بدون توقف در وضعیت نیمه‌باز
+                    const step = diff * 0.065;
+                    const minStep = Math.sign(diff) * 0.008;
+                    zProgress += Math.abs(step) > Math.abs(minStep) ? step : minStep;
+                    zProgress = Math.max(0, Math.min(1, zProgress));
+                    applyZDepthTransforms(zProgress);
+                } else if (zProgress !== targetZProgress) {
+                    zProgress = targetZProgress;
+                    applyZDepthTransforms(zProgress);
+                }
+                requestAnimationFrame(zLoop);
+            }
+            applyZDepthTransforms(0);
+            requestAnimationFrame(zLoop);
+        }
+
+        function navigateTo(viewName, nodeId = null) {
+            const stageEl = document.getElementById('z-depth-stage');
+            const nodeEl = document.getElementById('view-node');
+            const breadcrumb = document.getElementById('header-breadcrumb');
+
+            if (viewName === 'home') {
+                currentView = 'home';
+                nodeEl.classList.add('hidden');
+                stageEl.classList.remove('hidden');
+                renderHomeView();
                 renderPathView();
+                targetZProgress = 0;
+                updateHeaderForZState('home');
+            } else if (viewName === 'path') {
+                currentView = 'path';
+                nodeEl.classList.add('hidden');
+                stageEl.classList.remove('hidden');
+                renderHomeView();
+                renderPathView();
+                targetZProgress = 1;
+                updateHeaderForZState('path');
             } else if (viewName === 'node' && nodeId) {
+                currentView = 'node';
                 currentNodeId = nodeId;
+                stageEl.classList.add('hidden');
                 nodeEl.classList.remove('hidden');
+
+                document.getElementById('nav-btn-home').classList.remove('text-oxblood', 'font-bold');
+                document.getElementById('nav-btn-path').classList.add('text-oxblood', 'font-bold');
+
                 const nodeObj = siteData.nodes.find(n => n.id === nodeId);
                 breadcrumb.classList.remove('hidden');
                 breadcrumb.classList.add('flex');
@@ -1630,9 +1922,9 @@
                     <span class="text-oxblood font-bold">${nodeObj ? nodeObj.title : ''}</span>
                 `;
                 renderNodeDetailView(nodeId);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             bindCursorEvents();
         }
 
@@ -1696,40 +1988,62 @@
                 }
             });
 
-            // Render Organic Curved Astrolabe Arcs Instead of Stiff Straight Lines
+            // Render Double-Layered Organic Astrolabe Filaments (Soft Aura + Crisp Core)
             edgesLayer.innerHTML = edgePairs.map(edge => {
                 const { nodeA, nodeB, isPrimary } = edge;
                 const sameCat = nodeA.category === nodeB.category;
 
-                // Calculate a subtle quadratic curve control point pulled gently toward the center (600, 340)
+                // Calculate a graceful quadratic curve control point pulled toward the astrolabe center (600, 340)
                 const midX = (nodeA.x + nodeB.x) / 2;
                 const midY = (nodeA.y + nodeB.y) / 2;
-                const pullFactor = sameCat ? 0.08 : 0.16;
+                const pullFactor = sameCat ? 0.12 : 0.22;
                 const ctrlX = midX + (600 - midX) * pullFactor;
                 const ctrlY = midY + (340 - midY) * pullFactor;
 
+                // Midpoint on the quadratic Bézier curve (t = 0.5) for a tiny ornamental星/knot on primary links
+                const qMidX = 0.25 * nodeA.x + 0.5 * ctrlX + 0.25 * nodeB.x;
+                const qMidY = 0.25 * nodeA.y + 0.5 * ctrlY + 0.25 * nodeB.y;
+
                 const baseStroke = sameCat ? '#2e4e43' : '#732229';
-                const baseWidth = isPrimary ? '0.95' : '0.65';
-                const baseOpacity = sameCat ? '0.20' : '0.15';
-                const dash = sameCat ? 'none' : '2 6';
+                const baseWidth = isPrimary ? '1.1' : '0.7';
+                const baseOpacity = sameCat ? '0.26' : '0.18';
+                const dash = sameCat ? 'none' : '3 5';
+                const pathD = `M ${nodeA.x} ${nodeA.y} Q ${ctrlX.toFixed(1)} ${ctrlY.toFixed(1)} ${nodeB.x} ${nodeB.y}`;
 
                 return `
-                    <path id="edge-${nodeA.id}-${nodeB.id}"
-                          data-a="${nodeA.id}" data-b="${nodeB.id}"
-                          data-stroke="${baseStroke}"
-                          data-width="${baseWidth}"
-                          data-opacity="${baseOpacity}"
-                          d="M ${nodeA.x} ${nodeA.y} Q ${ctrlX.toFixed(1)} ${ctrlY.toFixed(1)} ${nodeB.x} ${nodeB.y}"
-                          fill="none"
-                          stroke="${baseStroke}"
-                          stroke-width="${baseWidth}"
-                          stroke-dasharray="${dash}"
-                          opacity="${baseOpacity}"
-                          class="graph-edge" />
+                    <g class="graph-edge-group">
+                        <!-- Subtle Wide Halo Stroke -->
+                        <path data-a="${nodeA.id}" data-b="${nodeB.id}"
+                              data-stroke="${baseStroke}"
+                              data-width="3.5"
+                              data-opacity="0.04"
+                              d="${pathD}"
+                              fill="none"
+                              stroke="${baseStroke}"
+                              stroke-width="3.5"
+                              opacity="0.04"
+                              class="graph-edge-aura transition-opacity duration-300" />
+                        <!-- Crisp Engraved Filament -->
+                        <path id="edge-${nodeA.id}-${nodeB.id}"
+                              data-a="${nodeA.id}" data-b="${nodeB.id}"
+                              data-stroke="${baseStroke}"
+                              data-width="${baseWidth}"
+                              data-opacity="${baseOpacity}"
+                              d="${pathD}"
+                              fill="none"
+                              stroke="${baseStroke}"
+                              stroke-width="${baseWidth}"
+                              stroke-dasharray="${dash}"
+                              opacity="${baseOpacity}"
+                              class="graph-edge" />
+                        ${isPrimary && sameCat ? `
+                            <circle cx="${qMidX.toFixed(1)}" cy="${qMidY.toFixed(1)}" r="1.4" fill="${baseStroke}" opacity="0.3" />
+                        ` : ''}
+                    </g>
                 `;
             }).join('');
 
-            // Render Engraved Astronomical / Botanical Nodes Sized Purely by Level
+            // Render Bespoke Engraved Astronomical Medallions Sized Purely by Level (1, 2, 3)
             nodesLayer.innerHTML = siteData.nodes.map(node => {
                 const r = getNodeRadius(node.level);
                 const isSpecialist = Number(node.level) === 3;
@@ -1745,40 +2059,58 @@
                        onclick="navigateTo('node', '${node.id}')">
                         
                         <!-- Invisible Larger Hit Target for Effortless Mobile/Desktop Tap -->
-                        <circle cx="${node.x}" cy="${node.y}" r="${Math.max(r + 14, 28)}" fill="transparent" />
+                        <circle cx="${node.x}" cy="${node.y}" r="${Math.max(r + 16, 30)}" fill="transparent" />
 
-                        <!-- Subtle Classical Engravings for Level 3 & Level 2 -->
+                        <!-- LEVEL 3: Specialist Astronomical Star-Compass Medallion -->
                         ${isSpecialist ? `
-                            <circle cx="${node.x}" cy="${node.y}" r="${r + 10}" fill="none" stroke="#732229" stroke-width="0.75" class="specialist-halo" />
-                            <line x1="${node.x - r - 15}" y1="${node.y}" x2="${node.x - r - 6}" y2="${node.y}" stroke="#732229" stroke-width="0.7" opacity="0.5" />
-                            <line x1="${node.x + r + 6}" y1="${node.y}" x2="${node.x + r + 15}" y2="${node.y}" stroke="#732229" stroke-width="0.7" opacity="0.5" />
-                        ` : ''}
-                        ${isMedium ? `
-                            <circle cx="${node.x}" cy="${node.y}" r="${r + 5.5}" fill="none" stroke="#2e4e43" stroke-width="0.55" opacity="0.3" />
+                            <circle cx="${node.x}" cy="${node.y}" r="${r + 13}" fill="none" stroke="#732229" stroke-width="0.65" stroke-dasharray="2 4" class="specialist-halo" />
+                            <circle cx="${node.x}" cy="${node.y}" r="${r + 6.5}" fill="none" stroke="#732229" stroke-width="0.85" opacity="0.45" />
+                            <!-- Cardinal Compass Hairlines -->
+                            <line x1="${node.x - r - 18}" y1="${node.y}" x2="${node.x - r - 5}" y2="${node.y}" stroke="#732229" stroke-width="0.85" opacity="0.6" />
+                            <line x1="${node.x + r + 5}" y1="${node.y}" x2="${node.x + r + 18}" y2="${node.y}" stroke="#732229" stroke-width="0.85" opacity="0.6" />
+                            <line x1="${node.x}" y1="${node.y - r - 16}" x2="${node.x}" y2="${node.y - r - 5}" stroke="#732229" stroke-width="0.85" opacity="0.45" />
+                            <line x1="${node.x}" y1="${node.y + r + 5}" x2="${node.x}" y2="${node.y + r + 16}" stroke="#732229" stroke-width="0.85" opacity="0.45" />
                         ` : ''}
 
-                        <!-- Main Node Dot (Sized Strictly by Level 1, 2, 3) -->
+                        <!-- LEVEL 2: Medium Planetary Double-Ring Medallion -->
+                        ${isMedium ? `
+                            <circle cx="${node.x}" cy="${node.y}" r="${r + 6.5}" fill="none" stroke="#2e4e43" stroke-width="0.7" opacity="0.38" />
+                            <circle cx="${node.x}" cy="${node.y}" r="${r + 10}" fill="none" stroke="#2e4e43" stroke-width="0.45" stroke-dasharray="1.5 4.5" opacity="0.25" />
+                            <line x1="${node.x - r - 11}" y1="${node.y}" x2="${node.x - r - 4}" y2="${node.y}" stroke="#2e4e43" stroke-width="0.65" opacity="0.4" />
+                            <line x1="${node.x + r + 4}" y1="${node.y}" x2="${node.x + r + 11}" y2="${node.y}" stroke="#2e4e43" stroke-width="0.65" opacity="0.4" />
+                        ` : ''}
+
+                        <!-- LEVEL 1: Delicate Engraved Ring -->
+                        ${!isSpecialist && !isMedium ? `
+                            <circle cx="${node.x}" cy="${node.y}" r="${r + 4}" fill="none" stroke="#2e4e43" stroke-width="0.5" opacity="0.28" />
+                        ` : ''}
+
+                        <!-- Main Node Body (Sized Strictly by Level 1, 2, 3) -->
                         <circle cx="${node.x}" cy="${node.y}" r="${r}"
                                 fill="${fillColor}"
                                 stroke="${strokeColor}"
-                                stroke-width="1.35"
+                                stroke-width="1.4"
                                 class="graph-node-circle" />
 
-                        <!-- Inner Pinpoint Center -->
-                        ${!isSpecialist && Number(node.level) === 1 ? `
-                            <circle cx="${node.x}" cy="${node.y}" r="2.2" fill="#2e4e43" />
+                        <!-- Inner Geometric Ring & Diamond/Pinpoint Core -->
+                        ${isSpecialist ? `
+                            <circle cx="${node.x}" cy="${node.y}" r="${r * 0.55}" fill="none" stroke="#d9d2c2" stroke-width="0.75" opacity="0.65" />
+                            <polygon points="${node.x},${node.y - 4.2} ${node.x + 4.2},${node.y} ${node.x},${node.y + 4.2} ${node.x - 4.2},${node.y}" fill="#d9d2c2" />
+                        ` : (isMedium ? `
+                            <circle cx="${node.x}" cy="${node.y}" r="${r * 0.48}" fill="none" stroke="#d9d2c2" stroke-width="0.6" opacity="0.5" />
+                            <circle cx="${node.x}" cy="${node.y}" r="2.8" fill="#d9d2c2" />
                         ` : `
-                            <circle cx="${node.x}" cy="${node.y}" r="2.6" fill="#d9d2c2" />
-                        `}
+                            <polygon points="${node.x},${node.y - 3} ${node.x + 3},${node.y} ${node.x},${node.y + 3} ${node.x - 3},${node.y}" fill="#2e4e43" />
+                        `)}
 
-                        <!-- Subtle Halo Background Behind Label for Clean Legibility Over Lines -->
-                        <g transform="translate(${node.x}, ${node.y - r - 13})">
+                        <!-- Crisp Editorial Node Label -->
+                        <g transform="translate(${node.x}, ${node.y - r - (isSpecialist ? 16 : 12)})" filter="url(#label-halo)">
                             <text x="0" y="0" text-anchor="middle"
-                                  stroke="#d9d2c2" stroke-width="5" stroke-linejoin="round" paint-order="stroke"
+                                  stroke="#d9d2c2" stroke-width="5.5" stroke-linejoin="round" paint-order="stroke"
                                   fill="${isSpecialist ? '#732229' : '#2e4e43'}"
                                   font-family="Vazirmatn"
-                                  font-size="${isSpecialist ? '16' : (isMedium ? '13.5' : '12')}"
-                                  font-weight="${isSpecialist ? '700' : (isMedium ? '500' : '400')}">
+                                  font-size="${isSpecialist ? '16.5' : (isMedium ? '14' : '12.5')}"
+                                  font-weight="${isSpecialist ? '700' : (isMedium ? '600' : '500')}">
                                 ${node.title}
                             </text>
                         </g>
@@ -1801,19 +2133,30 @@
                 const b = edge.getAttribute('data-b');
                 if (a === nodeId || b === nodeId) {
                     edge.setAttribute('stroke', '#732229');
-                    edge.setAttribute('stroke-width', '1.85');
-                    edge.setAttribute('opacity', '0.85');
+                    edge.setAttribute('stroke-width', '2.1');
+                    edge.setAttribute('opacity', '0.92');
                     connectedSet.add(a);
                     connectedSet.add(b);
                 } else {
-                    edge.setAttribute('opacity', '0.05');
+                    edge.setAttribute('opacity', '0.04');
+                }
+            });
+
+            document.querySelectorAll('.graph-edge-aura').forEach(aura => {
+                const a = aura.getAttribute('data-a');
+                const b = aura.getAttribute('data-b');
+                if (a === nodeId || b === nodeId) {
+                    aura.setAttribute('stroke', '#732229');
+                    aura.setAttribute('opacity', '0.16');
+                } else {
+                    aura.setAttribute('opacity', '0');
                 }
             });
 
             siteData.nodes.forEach(n => {
                 const g = document.getElementById(`gnode-${n.id}`);
                 if (!g) return;
-                g.style.opacity = connectedSet.has(n.id) ? '1' : '0.18';
+                g.style.opacity = connectedSet.has(n.id) ? '1' : '0.16';
             });
         }
 
@@ -1823,6 +2166,10 @@
                 edge.setAttribute('stroke', edge.getAttribute('data-stroke') || '#2e4e43');
                 edge.setAttribute('stroke-width', edge.getAttribute('data-width') || '0.8');
                 edge.setAttribute('opacity', edge.getAttribute('data-opacity') || '0.2');
+            });
+            document.querySelectorAll('.graph-edge-aura').forEach(aura => {
+                aura.setAttribute('stroke', aura.getAttribute('data-stroke') || '#2e4e43');
+                aura.setAttribute('opacity', aura.getAttribute('data-opacity') || '0.04');
             });
             siteData.nodes.forEach(n => {
                 const g = document.getElementById(`gnode-${n.id}`);
@@ -2877,6 +3224,8 @@
 
         window.onload = function () {
             renderHomeView();
+            renderPathView();
+            initZDepthScrollEngine();
             initCursorFollower();
             syncSiteDataFromCloud();
         };
