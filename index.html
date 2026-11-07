@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>امین‌رضا | مسیر من، آثار و تاملات</title>
+    <title>artorki</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -48,11 +48,18 @@
             border-radius: 0px !important;
         }
 
+        html, body {
+            height: 100vh;
+            height: 100dvh;
+            width: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
+
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
             font-family: 'Vazirmatn', sans-serif;
-            overflow-x: hidden;
             margin: 0;
             padding: 0;
             -webkit-font-smoothing: antialiased;
@@ -159,13 +166,18 @@
         #z-depth-stage {
             position: relative;
             width: 100%;
+            height: 100%;
             flex: 1;
-            min-height: calc(100vh - 8.5rem);
-            perspective: 1200px;
+            min-height: 0;
+            perspective: 1100px;
             overflow: hidden;
             display: flex;
             align-items: stretch;
             justify-content: center;
+            touch-action: none;
+        }
+        #z-depth-stage.hidden {
+            display: none !important;
         }
         .z-depth-layer {
             position: absolute;
@@ -175,6 +187,7 @@
             transform-style: preserve-3d;
             will-change: transform, opacity, filter;
             transform-origin: center center;
+            backface-visibility: hidden;
         }
 
         /* Subtle Scroll Indicator Pulse */
@@ -320,7 +333,7 @@
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between p-2 sm:p-5 md:p-7">
+<body class="h-[100dvh] w-full overflow-hidden flex flex-col justify-between p-2 sm:p-4 md:p-6">
 
     <!-- Subtle Paper Grain & Green Logotype Filter -->
     <svg class="paper-grain" xmlns="http://www.w3.org/2000/svg">
@@ -358,50 +371,38 @@
     <!-- Minimal Cursor Follower -->
     <div id="cursor-follower" aria-hidden="true"></div>
 
-    <!-- ARCHITECTURAL FOLIO CONTAINER (Passepartout Sheet Framing the Site) -->
-    <div class="max-w-[1400px] w-full mx-auto flex-1 flex flex-col justify-between hairline-all relative bg-[#d9d2c2]/40">
+    <!-- ARCHITECTURAL FOLIO CONTAINER (Passepartout Sheet Locked to Exact Viewport Height) -->
+    <div class="max-w-[1400px] w-full h-full mx-auto flex-1 min-h-0 flex flex-col justify-between hairline-all relative bg-[#d9d2c2]/40 overflow-hidden">
         <span class="crop-mark-tl"></span>
         <span class="crop-mark-tr"></span>
         <span class="crop-mark-bl"></span>
         <span class="crop-mark-br"></span>
 
         <!-- TOP MARGINALIA HEADER: Weightless Archival Index Bar -->
-        <header class="z-50 hairline-b">
-            <div class="px-5 sm:px-12 h-14 sm:h-16 flex items-center justify-between gap-4">
+        <header class="z-50 hairline-b shrink-0">
+            <div class="px-5 sm:px-12 h-12 sm:h-14 flex items-center justify-between gap-4">
                 
-                <!-- Right: Minimal Archival Signature & Breadcrumb -->
-                <div class="flex items-center gap-4">
-                    <button onclick="navigateTo('home')" class="interactive-link flex items-center group text-right">
+                <!-- Right: Minimal Archival Signature & Unified Breadcrumb Path -->
+                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                    <button onclick="navigateTo('home')" class="interactive-link flex items-center group text-right shrink-0">
                         <span class="font-normal text-xs sm:text-sm tracking-widest opacity-85 group-hover:opacity-100 group-hover:text-oxblood transition-colors" id="header-site-title">امین‌رضا</span>
                     </button>
 
-                    <!-- Dynamic Breadcrumb Indicator -->
-                    <div id="header-breadcrumb" class="hidden items-center gap-2 text-xs opacity-65 pr-4 hairline-r font-light">
+                    <!-- Unified Breadcrumb / Address Bar (صفحه اول / مسیر من / ...) -->
+                    <nav id="header-breadcrumb" aria-label="مسیر صفحه" class="flex items-center gap-2 text-xs sm:text-[13px] pr-3 sm:pr-4 hairline-r font-light truncate">
                         <!-- Populated dynamically -->
-                    </div>
+                    </nav>
                 </div>
 
-                <!-- Left: Chapter-like Navigation & Discreet Admin Trigger -->
-                <div class="flex items-center gap-5 sm:gap-8">
-                    <nav class="flex items-center gap-5 sm:gap-7 text-xs sm:text-[13px] font-light">
-                        <button onclick="navigateTo('home')" id="nav-btn-home" class="interactive-link py-1 hover:text-oxblood transition-colors relative">
-                            صفحه اول
-                        </button>
-                        <button onclick="navigateTo('path')" id="nav-btn-path" class="interactive-link py-1 hover:text-oxblood transition-colors relative">
-                            مسیر من
-                        </button>
-                    </nav>
+                <!-- Left: Discreet Admin Trigger -->
+                <div class="flex items-center gap-2.5 shrink-0">
+                    <button id="admin-login-btn" onclick="handleAdminButtonClick()" class="interactive-link text-[11px] opacity-55 hover:opacity-100 hover:text-oxblood transition-all flex items-center font-light">
+                        <span id="admin-btn-label">ورود</span>
+                    </button>
 
-                    <!-- Discreet Admin Trigger -->
-                    <div class="flex items-center gap-2.5 pr-4 hairline-r">
-                        <button id="admin-login-btn" onclick="handleAdminButtonClick()" class="interactive-link text-[11px] opacity-55 hover:opacity-100 hover:text-oxblood transition-all flex items-center font-light">
-                            <span id="admin-btn-label">ورود</span>
-                        </button>
-
-                        <button onclick="openAdminSettingsModal()" class="admin-only interactive-link px-2.5 py-1 bg-botanical text-alabaster text-[11px] hover:bg-oxblood transition-colors">
-                            تنظیمات و خروجی
-                        </button>
-                    </div>
+                    <button onclick="openAdminSettingsModal()" class="admin-only interactive-link px-2.5 py-1 bg-botanical text-alabaster text-[11px] hover:bg-oxblood transition-colors">
+                        تنظیمات و خروجی
+                    </button>
                 </div>
             </div>
 
@@ -422,7 +423,7 @@
         </header>
 
         <!-- MAIN SPA CONTAINER -->
-        <main class="w-full flex-1 flex flex-col">
+        <main class="w-full flex-1 min-h-0 flex flex-col overflow-hidden relative">
 
             <!-- 3D Z-AXIS DEPTH STAGE (Holds View 1: Home & View 2: Path simultaneously for Z-scroll) -->
             <div id="z-depth-stage">
@@ -430,26 +431,23 @@
                 <!-- =================================================================
                      VIEW 1: HOME VIEW (LOGOTYPE + DESCRIPTION + Z-SCROLL CUE)
                      ================================================================= -->
-                <section id="view-home" class="z-depth-layer flex flex-col justify-between items-center px-6 sm:px-16 md:px-24 py-10 sm:py-16">
-
-                    <!-- Top Spacer for Classical Vertical Proportions -->
-                    <div class="hidden sm:block"></div>
+                <section id="view-home" class="z-depth-layer flex flex-col justify-center items-center px-5 sm:px-16 md:px-24 py-4 sm:py-8 overflow-hidden">
 
                     <!-- Central Title-Page Composition (Centered Logotype + Right-Edge Aligned Bio) -->
-                    <div class="w-full max-w-[310px] sm:max-w-[470px] mx-auto my-auto flex flex-col items-center">
+                    <div class="w-full max-w-[290px] sm:max-w-[450px] mx-auto my-auto flex flex-col items-center">
                         
                         <!-- 1. The Logotype (aminreza.png Centered in Viewport) -->
-                        <div class="w-full mx-auto mb-8 sm:mb-10 relative">
+                        <div class="w-full mx-auto mb-5 sm:mb-8 relative">
                             <img id="home-logotype-img" 
                                  src="https://i.ibb.co/LXPnr7Rt/aminreza.png" 
                                  alt="امین‌رضا" 
                                  style="filter: url(#botanical-green-ink);"
-                                 class="w-full h-auto object-contain select-none mx-auto transition-opacity duration-700"
+                                 class="w-full max-h-[24vh] sm:max-h-[30vh] object-contain select-none mx-auto transition-opacity duration-700"
                                  onload="document.getElementById('home-logotype-svg-fallback').classList.add('hidden'); this.classList.remove('hidden');"
                                  onerror="this.classList.add('hidden'); document.getElementById('home-logotype-svg-fallback').classList.remove('hidden');" />
 
                             <!-- High-Precision Vector Fallback of aminreza.png in #2e4e43 -->
-                            <svg id="home-logotype-svg-fallback" viewBox="0 0 1000 380" class="w-full h-auto select-none mx-auto hidden" xmlns="http://www.w3.org/2000/svg" aria-label="امین‌رضا">
+                            <svg id="home-logotype-svg-fallback" viewBox="0 0 1000 380" class="w-full max-h-[24vh] sm:max-h-[30vh] select-none mx-auto hidden" xmlns="http://www.w3.org/2000/svg" aria-label="امین‌رضا">
                                 <g fill="#2e4e43" mask="url(#stamp-distress-mask)">
                                     <polygon points="862,72 932,72 932,320 902,320 902,118" />
                                     <path fill-rule="evenodd" d="M 740,210 A 72,72 0 0,1 884,210 L 884,320 L 696,320 L 696,262 L 678,262 L 678,290 A 106,96 0 0,1 466,290 L 466,184 L 538,242 L 678,150 L 678,225 L 696,225 L 696,150 L 722,130 L 722,190 L 740,190 Z M 812,188 A 14,14 0 1,0 812,216 A 14,14 0 1,0 812,188 Z" />
@@ -462,120 +460,85 @@
                                 </g>
                             </svg>
 
-                            <button onclick="openAdminSettingsModal()" class="admin-only mt-3 px-2.5 py-1 hairline-all text-[11px] text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                            <button onclick="openAdminSettingsModal()" class="admin-only mt-2 px-2.5 py-1 hairline-all text-[11px] text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
                                 [تغییر تصویر لوگوتایپ]
                             </button>
                         </div>
 
                         <!-- 2. Editorial Description (Right-Aligned & Flush with the Right Visual Edge of Logotype) -->
                         <div class="w-full pr-[6.8%] pl-[6.8%] text-right">
-                            <p id="home-bio-text" class="text-sm sm:text-[16.5px] leading-[2.35] opacity-90 font-light text-right mb-8">
+                            <p id="home-bio-text" class="text-xs sm:text-[16px] leading-[2.2] sm:leading-[2.35] opacity-90 font-light text-right mb-5 sm:mb-7">
                                 <!-- Populated from siteData.home.description -->
                             </p>
 
-                            <button onclick="openEditHomeModal()" class="admin-only mb-4 px-3 py-1 hairline-all text-xs text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                            <button onclick="openEditHomeModal()" class="admin-only mb-3 px-3 py-1 hairline-all text-xs text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
                                 ✎ ویرایش متن معرفی
                             </button>
 
                             <!-- Subtle Z-Scroll Cue -->
-                            <div class="pt-3 flex items-center justify-start gap-2.5 text-xs opacity-60 font-light select-none">
+                            <div class="pt-2 flex items-center justify-start gap-2.5 text-[11px] sm:text-xs opacity-60 font-light select-none">
                                 <span id="home-cta-label">مسیر من</span>
-                                <span class="opacity-70">(برای ورود به عمق اسکرول کنید)</span>
+                                <span class="opacity-70">(اسکرول در عمق)</span>
                                 <span class="scroll-depth-cue text-oxblood font-serif text-sm inline-block">↓</span>
                             </div>
                         </div>
 
                     </div>
-
-                    <!-- Subtle Bottom Breathing Space -->
-                    <div class="hidden sm:block"></div>
                 </section>
 
                 <!-- =================================================================
                      VIEW 2: MY PATH VIEW ("مسیر من" - ONE-LINE DESC + UNIFIED GRAPH)
                      Enters from Deep -Z Space on Scroll
                      ================================================================= -->
-                <section id="view-path" class="z-depth-layer flex flex-col justify-between pointer-events-none" style="opacity: 0; transform: translate3d(0, 0, -900px) scale(0.28);">
+                <section id="view-path" class="z-depth-layer flex flex-col justify-between pointer-events-none overflow-hidden" style="opacity: 0; transform: translate3d(0, 0, -900px) scale(0.22);">
                     
                     <!-- One-Line Description Header -->
-                    <div class="px-6 sm:px-14 pt-6 pb-5 hairline-b flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#d9d2c2]/60 backdrop-blur-[1px]">
-                        <p id="path-oneline-desc" class="text-xs sm:text-[15px] opacity-85 font-light leading-8 max-w-3xl">
+                    <div class="px-5 sm:px-12 py-3 sm:py-4 hairline-b shrink-0 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-[#d9d2c2]/60 backdrop-blur-[1px]">
+                        <p id="path-oneline-desc" class="text-[11px] sm:text-[14.5px] opacity-85 font-light leading-6 sm:leading-7 max-w-3xl">
                             <!-- Populated from siteData.path.oneLineDescription -->
                         </p>
 
                         <!-- Admin-Only Controls for Path Page -->
                         <div class="admin-only items-center gap-2 shrink-0">
-                            <button onclick="openEditPathIntroModal()" class="px-3 py-1.5 hairline-all text-xs text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
-                                ✎ ویرایش توضیح یک‌خطی
+                            <button onclick="openEditPathIntroModal()" class="px-2.5 py-1 hairline-all text-[11px] text-oxblood hover:bg-oxblood hover:text-alabaster transition-colors">
+                                ✎ ویرایش توضیح
                             </button>
-                            <button onclick="openNodeMetaModal(null)" class="px-3.5 py-1.5 bg-oxblood text-alabaster text-xs font-medium hover:bg-botanical transition-colors">
-                                + افزودن حوزه جدید
+                            <button onclick="openNodeMetaModal(null)" class="px-3 py-1 bg-oxblood text-alabaster text-[11px] font-medium hover:bg-botanical transition-colors">
+                                + افزودن حوزه
                             </button>
                         </div>
                     </div>
 
-                    <!-- Unified Interactive Constellation Graph (Refined Celestial Astrolabe) -->
-                    <div class="relative w-full flex-1 flex items-center justify-center overflow-hidden py-2 px-2 sm:px-6">
-                        <svg id="unified-path-graph" viewBox="0 0 1200 680" preserveAspectRatio="xMidYMid meet" class="w-full h-auto max-h-[74vh] select-none">
+                    <!-- Unified Interactive Constellation Graph (Fitted Strictly to Remaining Stage Height) -->
+                    <div class="relative w-full flex-1 min-h-0 flex items-center justify-center overflow-hidden p-1 sm:p-4">
+                        <svg id="unified-path-graph" viewBox="0 0 1200 680" preserveAspectRatio="xMidYMid meet" class="w-full h-full max-w-full max-h-full select-none">
                             <defs>
-                                <!-- Subtle Radial Gradient for the Astrolabe Heart -->
-                                <radialGradient id="astrolabe-core-glow" cx="50%" cy="50%" r="50%">
-                                    <stop offset="0%" stop-color="#732229" stop-opacity="0.07" />
-                                    <stop offset="55%" stop-color="#2e4e43" stop-opacity="0.03" />
+                                <!-- Subtle Galactic Core Nebula Glow -->
+                                <radialGradient id="astrolabe-core-glow" cx="50%" cy="50%" r="55%">
+                                    <stop offset="0%" stop-color="#2e4e43" stop-opacity="0.065" />
+                                    <stop offset="45%" stop-color="#732229" stop-opacity="0.03" />
                                     <stop offset="100%" stop-color="#d9d2c2" stop-opacity="0" />
                                 </radialGradient>
                                 <!-- Soft Paper Halo for Node Labels -->
                                 <filter id="label-halo" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#d9d2c2" flood-opacity="0.95" />
+                                    <feDropShadow dx="0" dy="0" stdDeviation="3.5" flood-color="#d9d2c2" flood-opacity="0.96" />
                                 </filter>
                             </defs>
 
-                            <!-- Ambient Astrolabe Center Field -->
-                            <circle cx="600" cy="340" r="320" fill="url(#astrolabe-core-glow)" />
-
-                            <!-- Delicate Astrolabe & Sacred Geometry Engraving Lines -->
-                            <g stroke="#2e4e43" fill="none">
-                                <!-- Outer Architectural Frame & Corner Crosshairs -->
-                                <rect x="44" y="24" width="1112" height="632" stroke-width="0.4" opacity="0.16" />
-                                <rect x="50" y="30" width="1100" height="620" stroke-width="0.3" opacity="0.1" stroke-dasharray="3 6" />
-
-                                <!-- Cardinal & Diagonal Meridian Hairlines -->
-                                <line x1="600" y1="24" x2="600" y2="656" stroke-width="0.45" opacity="0.13" stroke-dasharray="2 7" />
-                                <line x1="44" y1="340" x2="1156" y2="340" stroke-width="0.45" opacity="0.13" stroke-dasharray="2 7" />
-                                <line x1="220" y1="70" x2="980" y2="610" stroke-width="0.35" opacity="0.08" stroke-dasharray="1 9" />
-                                <line x1="220" y1="610" x2="980" y2="70" stroke-width="0.35" opacity="0.08" stroke-dasharray="1 9" />
-
-                                <!-- Concentric Astrolabe Rings -->
-                                <circle cx="600" cy="340" r="95" stroke-width="0.45" opacity="0.14" />
-                                <circle cx="600" cy="340" r="195" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 8" />
-                                <circle cx="600" cy="340" r="295" stroke-width="0.55" opacity="0.18" />
-
-                                <!-- Rotating Outer Degree Ring -->
-                                <g class="celestial-orbit-slow" opacity="0.22">
-                                    <circle cx="600" cy="340" r="304" stroke-width="2.5" stroke-dasharray="0.8 7.15" />
-                                    <circle cx="600" cy="340" r="312" stroke-width="0.4" />
-                                </g>
-
-                                <!-- Counter-Rotating Inner Equatorial Ring -->
-                                <g class="celestial-orbit-reverse" opacity="0.16" stroke="#732229">
-                                    <circle cx="600" cy="340" r="145" stroke-width="1.8" stroke-dasharray="1 9.5" />
-                                    <polygon points="600,190 604,198 596,198" fill="#732229" stroke="none" />
-                                    <polygon points="600,490 604,482 596,482" fill="#732229" stroke="none" />
-                                </g>
-
-                                <!-- Intersecting Keplerian Elliptical Orbits -->
-                                <ellipse cx="600" cy="340" rx="485" ry="230" transform="rotate(-11 600 340)" stroke-width="0.55" opacity="0.14" />
-                                <ellipse cx="600" cy="340" rx="485" ry="230" transform="rotate(11 600 340)" stroke-width="0.45" opacity="0.11" stroke-dasharray="5 10" />
-
-                                <!-- Center Astrolabe Pivot -->
-                                <circle cx="600" cy="340" r="4" stroke="#732229" stroke-width="0.8" opacity="0.35" />
-                                <circle cx="600" cy="340" r="1.2" fill="#732229" opacity="0.45" />
+                            <!-- Ambient Galactic Dust & Elliptical Spiral Field -->
+                            <g id="galaxy-background-layer" pointer-events="none">
+                                <ellipse cx="600" cy="340" rx="540" ry="270" transform="rotate(-14 600 340)" fill="url(#astrolabe-core-glow)" />
+                                <ellipse cx="600" cy="340" rx="460" ry="195" transform="rotate(-14 600 340)" fill="none" stroke="#2e4e43" stroke-width="0.45" opacity="0.11" stroke-dasharray="3 12" />
+                                <ellipse cx="600" cy="340" rx="310" ry="130" transform="rotate(18 600 340)" fill="none" stroke="#2e4e43" stroke-width="0.4" opacity="0.09" stroke-dasharray="2 9" />
                             </g>
 
-                            <!-- Curved Organic Network Edges -->
+                            <!-- Background Stardust Particles -->
+                            <g id="galaxy-stardust-layer" pointer-events="none"></g>
+
+                            <!-- Curved Organic Constellation Filaments -->
                             <g id="graph-edges-layer"></g>
 
-                            <!-- Interactive Nodes (Sized Purely by Level without Numbers or Category Text) -->
+                            <!-- Interactive Solid Monochrome Nodes (Sized Purely by Level) -->
                             <g id="graph-nodes-layer"></g>
                         </svg>
                     </div>
@@ -587,7 +550,7 @@
                  VIEW 3: NODE DETAIL VIEW (توضیح یک‌خطی + نمونه‌کارها با پوشه‌بندی + ثبت‌سفارش/گفتگو)
                  Designed as a Swiss Museum Monograph (بدون باکس‌های تکراری و کلیشه‌ای)
                  ================================================================= -->
-            <section id="view-node" class="view-section hidden flex-1 py-10 sm:py-16 px-6 sm:px-14 md:px-20">
+            <section id="view-node" class="view-section hidden w-full h-full flex-1 min-h-0 overflow-y-auto overflow-x-hidden py-8 sm:py-14 px-5 sm:px-14 md:px-20">
                 
                 <!-- Top Return Bar -->
                 <div class="flex flex-wrap items-center justify-between gap-4 pb-6 hairline-b mb-12">
@@ -719,7 +682,7 @@
         </main>
 
         <!-- MINIMALIST ARCHIVAL COLOPHON FOOTER -->
-        <footer class="px-6 sm:px-12 py-4 hairline-t flex flex-wrap items-center justify-between gap-4 text-[11px] opacity-50 font-light">
+        <footer class="px-5 sm:px-12 py-2.5 sm:py-3 hairline-t shrink-0 flex flex-wrap items-center justify-between gap-4 text-[10px] sm:text-[11px] opacity-50 font-light">
             <span>امین‌رضا</span>
             <div class="flex items-center gap-4">
                 <button onclick="navigateTo('home')" class="hover:text-oxblood transition-colors">صفحه اول</button>
@@ -1584,24 +1547,25 @@
         /* ============================================================================
            2. STATE MANAGEMENT & LOCAL/CLOUD STORAGE
            ============================================================================ */
+        // چیدمان پراکنده و ارگانیک به فرم بازوهای یک کهکشان (بدون دسته‌بندی چهارگوش و خشک)
         const HARMONIOUS_COORDS = {
-            "ai": { x: 455, y: 245 },
-            "reverse-eng": { x: 325, y: 145 },
-            "astronomy": { x: 205, y: 255 },
-            "graphic": { x: 745, y: 245 },
-            "photography": { x: 895, y: 140 },
-            "illustration": { x: 995, y: 235 },
-            "poetry": { x: 690, y: 110 },
-            "video-edit": { x: 965, y: 365 },
-            "audio-edit": { x: 830, y: 365 },
-            "philosophy": { x: 725, y: 485 },
-            "logic": { x: 615, y: 580 },
-            "psychology": { x: 895, y: 495 },
-            "theology": { x: 795, y: 590 },
-            "biology": { x: 455, y: 475 },
-            "chess": { x: 485, y: 585 },
-            "language": { x: 255, y: 445 },
-            "occult": { x: 335, y: 565 }
+            "ai": { x: 485, y: 315 },
+            "graphic": { x: 735, y: 275 },
+            "reverse-eng": { x: 355, y: 205 },
+            "poetry": { x: 615, y: 155 },
+            "photography": { x: 885, y: 165 },
+            "illustration": { x: 1025, y: 285 },
+            "video-edit": { x: 895, y: 415 },
+            "audio-edit": { x: 705, y: 445 },
+            "philosophy": { x: 575, y: 505 },
+            "logic": { x: 435, y: 565 },
+            "psychology": { x: 825, y: 555 },
+            "theology": { x: 675, y: 595 },
+            "biology": { x: 325, y: 415 },
+            "chess": { x: 255, y: 535 },
+            "language": { x: 185, y: 345 },
+            "astronomy": { x: 215, y: 155 },
+            "occult": { x: 455, y: 105 }
         };
 
         let siteData = loadSiteData();
@@ -1700,27 +1664,37 @@
         function getNodeRadius(level) {
             const lv = Number(level);
             if (lv === 3) return 22;
-            if (lv === 2) return 14;
-            return 8.5;
+            if (lv === 2) return 13.5;
+            return 7.5;
         }
 
         /* ============================================================================
            3. SPA VIEW NAVIGATION & Z-AXIS DEPTH CAMERA ENGINE
            ============================================================================ */
-        function updateHeaderForZState(viewName) {
+        function updateHeaderForZState(viewName, nodeTitle = '') {
             const breadcrumb = document.getElementById('header-breadcrumb');
-            document.getElementById('nav-btn-home').classList.toggle('text-oxblood', viewName === 'home');
-            document.getElementById('nav-btn-home').classList.toggle('font-bold', viewName === 'home');
-            document.getElementById('nav-btn-path').classList.toggle('text-oxblood', viewName === 'path' || viewName === 'node');
-            document.getElementById('nav-btn-path').classList.toggle('font-bold', viewName === 'path' || viewName === 'node');
+            if (!breadcrumb) return;
 
             if (viewName === 'home') {
-                breadcrumb.classList.add('hidden');
-                breadcrumb.classList.remove('flex');
+                breadcrumb.innerHTML = `
+                    <button onclick="navigateTo('home')" class="interactive-link text-oxblood font-bold">صفحه اول</button>
+                    <span class="opacity-40 select-none">/</span>
+                    <button onclick="navigateTo('path')" class="interactive-link opacity-65 hover:opacity-100 hover:text-oxblood transition-colors">مسیر من</button>
+                `;
             } else if (viewName === 'path') {
-                breadcrumb.classList.remove('hidden');
-                breadcrumb.classList.add('flex');
-                breadcrumb.innerHTML = `<span class="text-oxblood font-medium">مسیر من</span>`;
+                breadcrumb.innerHTML = `
+                    <button onclick="navigateTo('home')" class="interactive-link opacity-75 hover:opacity-100 hover:text-oxblood transition-colors">صفحه اول</button>
+                    <span class="opacity-40 select-none">/</span>
+                    <button onclick="navigateTo('path')" class="interactive-link text-oxblood font-bold">مسیر من</button>
+                `;
+            } else if (viewName === 'node') {
+                breadcrumb.innerHTML = `
+                    <button onclick="navigateTo('home')" class="interactive-link opacity-75 hover:opacity-100 hover:text-oxblood transition-colors">صفحه اول</button>
+                    <span class="opacity-40 select-none">/</span>
+                    <button onclick="navigateTo('path')" class="interactive-link opacity-75 hover:opacity-100 hover:text-oxblood transition-colors">مسیر من</button>
+                    <span class="opacity-40 select-none">/</span>
+                    <span class="text-oxblood font-bold truncate">${nodeTitle}</span>
+                `;
             }
         }
 
@@ -1729,36 +1703,41 @@
             const pathEl = document.getElementById('view-path');
             if (!homeEl || !pathEl) return;
 
-            // فاز ۱ (p از 0 تا 0.48): فقط صفحه اول دیده می‌شود؛ به دوربین نزدیک شده، محو و کاملاً خارج می‌شود
-            if (p <= 0.48) {
-                const t1 = p / 0.48; // نرمال‌سازی بین 0 و 1
-                const homeZ = Math.pow(t1, 1.15) * 720;
-                const homeScale = 1 + (Math.pow(t1, 1.15) * 1.45);
-                const fadeStart = Math.max(0, (t1 - 0.35) / 0.65);
-                const homeOpacity = Math.max(0, 1 - Math.pow(fadeStart, 1.3));
-                const homeBlur = Math.pow(fadeStart, 1.4) * 8;
+            // نیمه اول مسیر (0.0 تا 0.50): حرکت پیوسته به سمت لوگوتایپ و عبور از آن
+            if (p <= 0.5) {
+                const t1 = p / 0.5; // 0 -> 1 متناسب با اسکرول کاربر
+                // حرکت فیزیکی دوربین به جلو در محور Z
+                const homeZ = t1 * 680;
+                const homeScale = 1 + (Math.pow(t1, 1.3) * 1.65);
+
+                // تا 45٪ اول مسیر کاملاً واضح نزدیک می‌شود و سپس به تدریج هنگام عبور از لنز محو می‌گردد
+                const fadeProgress = Math.max(0, (t1 - 0.42) / 0.58);
+                const homeOpacity = Math.max(0, 1 - Math.pow(fadeProgress, 1.4));
+                const homeBlur = Math.pow(fadeProgress, 1.6) * 9;
 
                 homeEl.style.visibility = homeOpacity <= 0.005 ? 'hidden' : 'visible';
                 homeEl.style.opacity = homeOpacity.toFixed(4);
                 homeEl.style.transform = `translate3d(0, 0, ${homeZ.toFixed(1)}px) scale(${homeScale.toFixed(4)})`;
                 homeEl.style.filter = homeBlur > 0.15 ? `blur(${homeBlur.toFixed(2)}px)` : 'none';
-                homeEl.style.pointerEvents = t1 < 0.25 ? 'auto' : 'none';
+                homeEl.style.pointerEvents = t1 < 0.65 ? 'auto' : 'none';
 
-                // صفحه دوم در کل فاز ۱ کاملاً مخفی است تا هیچ تداخلی رخ ندهد
+                // صفحه گراف در این نیمه هنوز پشت افق است تا دو صفحه روی هم نیفتند
                 pathEl.style.visibility = 'hidden';
                 pathEl.style.opacity = '0';
                 pathEl.style.pointerEvents = 'none';
             } 
-            // فاز ۲ (p از 0.52 تا 1): صفحه اول کاملاً خارج شده و فقط صفحه گراف از عمق دور به جلو می‌آید
-            else if (p >= 0.52) {
-                const t2 = (p - 0.52) / 0.48; // نرمال‌سازی بین 0 و 1
+            // نیمه دوم مسیر (0.50 تا 1.0): پدیدار شدن پیوسته گراف از عمق دور به سمت کاربر
+            else {
+                const t2 = (p - 0.5) / 0.5; // 0 -> 1 متناسب با اسکرول کاربر
                 const inv = 1 - t2;
-                const pathZ = -780 * Math.pow(inv, 1.2);
-                const pathScale = 0.34 + (0.66 * Math.pow(t2, 0.9));
-                const pathOpacity = Math.min(1, Math.pow(t2, 1.15));
-                const pathBlur = Math.pow(inv, 1.5) * 7;
 
-                // صفحه اول در کل فاز ۲ کاملاً مخفی است
+                // آمدن از عمق -850px به نقطه صفر (0px)
+                const pathZ = -850 * inv;
+                const pathScale = 0.22 + (0.78 * Math.pow(t2, 0.88));
+                const pathOpacity = Math.min(1, Math.pow(t2, 1.1));
+                const pathBlur = Math.pow(inv, 1.7) * 8;
+
+                // صفحه اول کاملاً از پشت دوربین رد شده است
                 homeEl.style.visibility = 'hidden';
                 homeEl.style.opacity = '0';
                 homeEl.style.pointerEvents = 'none';
@@ -1767,19 +1746,10 @@
                 pathEl.style.opacity = pathOpacity.toFixed(4);
                 pathEl.style.transform = `translate3d(0, 0, ${pathZ.toFixed(1)}px) scale(${pathScale.toFixed(4)})`;
                 pathEl.style.filter = pathBlur > 0.15 ? `blur(${pathBlur.toFixed(2)}px)` : 'none';
-                pathEl.style.pointerEvents = t2 > 0.85 ? 'auto' : 'none';
-            } 
-            // مکث کوتاه میانی (0.48 تا 0.52): کاغذ خالص بدون هم‌پوشانی دو صفحه
-            else {
-                homeEl.style.visibility = 'hidden';
-                homeEl.style.opacity = '0';
-                homeEl.style.pointerEvents = 'none';
-                pathEl.style.visibility = 'hidden';
-                pathEl.style.opacity = '0';
-                pathEl.style.pointerEvents = 'none';
+                pathEl.style.pointerEvents = t2 > 0.6 ? 'auto' : 'none';
             }
 
-            // همگام‌سازی وضعیت هدر بالا
+            // همگام‌سازی نشانگر هدر بالا
             if (currentView !== 'node') {
                 const resolvedView = p >= 0.5 ? 'path' : 'home';
                 if (currentView !== resolvedView) {
@@ -1790,63 +1760,62 @@
         }
 
         function initZDepthScrollEngine() {
-            let wheelAccumulator = 0;
-            let wheelResetTimer = null;
+            let touchLastY = null;
+            let touchVelocity = 0;
+            let lastTouchTime = 0;
 
-            // Mouse Wheel & Trackpad Z-Scroll (حرکت کامل و یکپارچه بین دو صفحه بدون گیر کردن در میانه راه)
+            // ۱. اسکرول پیوسته و مستقیم با چرخ موس یا تاچ‌پد لپ‌تاپ (هرچقدر اسکرول کنی، همان‌قدر جلو یا عقب می‌رود)
             window.addEventListener('wheel', (e) => {
                 if (currentView === 'node') return;
                 const anyModalOpen = Array.from(document.querySelectorAll('[id$="-modal"]')).some(m => !m.classList.contains('hidden'));
                 if (anyModalOpen) return;
 
                 e.preventDefault();
-                wheelAccumulator += e.deltaY;
+                touchVelocity = 0;
 
-                if (wheelResetTimer) clearTimeout(wheelResetTimer);
-                wheelResetTimer = setTimeout(() => { wheelAccumulator = 0; }, 180);
-
-                if (wheelAccumulator > 35 && targetZProgress === 0) {
-                    targetZProgress = 1;
-                    wheelAccumulator = 0;
-                } else if (wheelAccumulator < -35 && targetZProgress === 1) {
-                    targetZProgress = 0;
-                    wheelAccumulator = 0;
-                }
+                // نرمال‌سازی هوشمند برای ماوس‌های خطی و تاچ‌پدها
+                const rawDelta = e.deltaMode === 1 ? e.deltaY * 28 : e.deltaY;
+                const zStep = rawDelta * 0.00105;
+                targetZProgress = Math.max(0, Math.min(1, targetZProgress + zStep));
             }, { passive: false });
 
-            // Touch Swipe Z-Scroll for Mobile / Tablet
-            let touchStartY = null;
+            // ۲. حرکت ۱ به ۱ و پیوسته با انگشت روی موبایل و تبلت + اینرسی طبیعی دست
             window.addEventListener('touchstart', (e) => {
                 if (currentView === 'node') return;
                 if (e.touches && e.touches.length === 1) {
-                    touchStartY = e.touches[0].clientY;
+                    touchLastY = e.touches[0].clientY;
+                    touchVelocity = 0;
+                    lastTouchTime = performance.now();
                 }
             }, { passive: true });
 
             window.addEventListener('touchmove', (e) => {
-                if (currentView === 'node' || touchStartY === null) return;
+                if (currentView === 'node' || touchLastY === null) return;
                 const anyModalOpen = Array.from(document.querySelectorAll('[id$="-modal"]')).some(m => !m.classList.contains('hidden'));
                 if (anyModalOpen) return;
 
                 const currentY = e.touches[0].clientY;
-                const dy = touchStartY - currentY;
-                if (Math.abs(dy) > 24) {
+                const dy = touchLastY - currentY;
+                const now = performance.now();
+                const dt = Math.max(8, now - lastTouchTime);
+
+                if (Math.abs(dy) > 0.5) {
                     e.preventDefault();
-                    if (dy > 0 && targetZProgress === 0) {
-                        targetZProgress = 1;
-                        touchStartY = null;
-                    } else if (dy < 0 && targetZProgress === 1) {
-                        targetZProgress = 0;
-                        touchStartY = null;
-                    }
+                    // کالیبراسیون حساسیت لمس متناسب با ارتفاع صفحه نمایشگر
+                    const sensitivity = 1.35 / Math.max(500, window.innerHeight);
+                    const deltaZ = dy * sensitivity;
+                    targetZProgress = Math.max(0, Math.min(1, targetZProgress + deltaZ));
+                    touchVelocity = deltaZ / (dt / 16.67);
+                    touchLastY = currentY;
+                    lastTouchTime = now;
                 }
             }, { passive: false });
 
             window.addEventListener('touchend', () => {
-                touchStartY = null;
+                touchLastY = null;
             }, { passive: true });
 
-            // Keyboard ArrowDown / ArrowUp / Space Z-Scroll
+            // ۳. پشتیبانی از کلیدهای جهت‌نما (ArrowDown / ArrowUp)
             window.addEventListener('keydown', (e) => {
                 if (currentView === 'node') return;
                 const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
@@ -1854,24 +1823,40 @@
                 const anyModalOpen = Array.from(document.querySelectorAll('[id$="-modal"]')).some(m => !m.classList.contains('hidden'));
                 if (anyModalOpen) return;
 
-                if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    targetZProgress = Math.min(1, targetZProgress + 0.14);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    targetZProgress = Math.max(0, targetZProgress - 0.14);
+                } else if (e.key === 'PageDown' || e.key === ' ') {
                     e.preventDefault();
                     targetZProgress = 1;
-                } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                } else if (e.key === 'PageUp') {
                     e.preventDefault();
                     targetZProgress = 0;
                 }
             });
 
-            // Smooth 60fps animation loop for Z-depth transition
+            // حلقه ۶۰ فریم بر ثانیه برای نرمی ابریشمی حرکت دوربین و اعمال اینرسی دست
             function zLoop() {
+                if (touchLastY === null && Math.abs(touchVelocity) > 0.0002) {
+                    targetZProgress = Math.max(0, Math.min(1, targetZProgress + touchVelocity));
+                    touchVelocity *= 0.91; // اصطکاک طبیعی پس از رها کردن انگشت
+                }
+
+                // تنها اگر کاربر دستش را دقیقاً در نقطه کورِ تعویض دو صفحه (0.45 تا 0.55) رها کند، به آرامی از نقطه کور عبور می‌دهد
+                if (touchLastY === null && Math.abs(touchVelocity) <= 0.0005 && Math.abs(targetZProgress - zProgress) < 0.01) {
+                    if (targetZProgress > 0.43 && targetZProgress < 0.50) {
+                        targetZProgress = Math.max(0, targetZProgress - 0.004);
+                    } else if (targetZProgress >= 0.50 && targetZProgress < 0.57) {
+                        targetZProgress = Math.min(1, targetZProgress + 0.004);
+                    }
+                }
+
                 const diff = targetZProgress - zProgress;
-                if (Math.abs(diff) > 0.0008) {
-                    // حرکت یکنواخت و نرم در محور Z بدون توقف در وضعیت نیمه‌باز
-                    const step = diff * 0.065;
-                    const minStep = Math.sign(diff) * 0.008;
-                    zProgress += Math.abs(step) > Math.abs(minStep) ? step : minStep;
-                    zProgress = Math.max(0, Math.min(1, zProgress));
+                if (Math.abs(diff) > 0.0003) {
+                    zProgress += diff * 0.18;
                     applyZDepthTransforms(zProgress);
                 } else if (zProgress !== targetZProgress) {
                     zProgress = targetZProgress;
@@ -1891,38 +1876,40 @@
             if (viewName === 'home') {
                 currentView = 'home';
                 nodeEl.classList.add('hidden');
+                nodeEl.style.display = 'none';
                 stageEl.classList.remove('hidden');
+                stageEl.style.display = 'flex';
                 renderHomeView();
                 renderPathView();
                 targetZProgress = 0;
+                zProgress = 0;
+                applyZDepthTransforms(0);
                 updateHeaderForZState('home');
             } else if (viewName === 'path') {
                 currentView = 'path';
                 nodeEl.classList.add('hidden');
+                nodeEl.style.display = 'none';
                 stageEl.classList.remove('hidden');
+                stageEl.style.display = 'flex';
                 renderHomeView();
                 renderPathView();
                 targetZProgress = 1;
+                zProgress = 1;
+                applyZDepthTransforms(1);
                 updateHeaderForZState('path');
             } else if (viewName === 'node' && nodeId) {
                 currentView = 'node';
                 currentNodeId = nodeId;
+                // مخفی‌سازی کامل صحنه گراف تا صفحه حوزه به صورت مستقل و تمام‌صفحه باز شود
                 stageEl.classList.add('hidden');
+                stageEl.style.display = 'none';
                 nodeEl.classList.remove('hidden');
-
-                document.getElementById('nav-btn-home').classList.remove('text-oxblood', 'font-bold');
-                document.getElementById('nav-btn-path').classList.add('text-oxblood', 'font-bold');
+                nodeEl.style.display = 'block';
 
                 const nodeObj = siteData.nodes.find(n => n.id === nodeId);
-                breadcrumb.classList.remove('hidden');
-                breadcrumb.classList.add('flex');
-                breadcrumb.innerHTML = `
-                    <button onclick="navigateTo('path')" class="hover:text-oxblood">مسیر من</button>
-                    <span>/</span>
-                    <span class="text-oxblood font-bold">${nodeObj ? nodeObj.title : ''}</span>
-                `;
+                updateHeaderForZState('node', nodeObj ? nodeObj.title : '');
                 renderNodeDetailView(nodeId);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                nodeEl.scrollTop = 0;
             }
 
             bindCursorEvents();
@@ -1956,100 +1943,104 @@
         }
 
         function renderUnifiedGraphSVG() {
+            const svgEl = document.getElementById('unified-path-graph');
+            const stardustLayer = document.getElementById('galaxy-stardust-layer');
             const edgesLayer = document.getElementById('graph-edges-layer');
             const nodesLayer = document.getElementById('graph-nodes-layer');
 
-            // Build unique edges list (both explicit cross-cluster connections and intra-cluster links)
+            // تطبیق هوشمند کادر کهکشان با نسبت تصویر موبایل یا دسکتاپ
+            const isPortrait = window.innerWidth < 680 && window.innerHeight > window.innerWidth;
+            const vbWidth = isPortrait ? 760 : 1200;
+            const vbHeight = isPortrait ? 980 : 680;
+            if (svgEl) {
+                svgEl.setAttribute('viewBox', `0 0 ${vbWidth} ${vbHeight}`);
+            }
+
+            // محاسبه مختصات کهکشانی متناسب با صفحه (در موبایل بازوهای کهکشان در محور عمودی هم کشیده می‌شوند تا کل صفحه را پر کنند)
+            const mappedNodes = siteData.nodes.map(n => {
+                if (!isPortrait) {
+                    return Object.assign({}, n);
+                }
+                const normX = (n.x - 160) / 890; // 0..1
+                const normY = (n.y - 90) / 530;  // 0..1
+                return Object.assign({}, n, {
+                    x: Math.round(85 + normX * 590),
+                    y: Math.round(95 + normY * 790)
+                });
+            });
+
+            // ۱. ایجاد ذرات ستاره‌ای پس‌زمینه (Stardust) برای حس طبیعی کهکشان
+            if (stardustLayer) {
+                const starCount = 58;
+                let starsHtml = '';
+                for (let i = 0; i < starCount; i++) {
+                    // تولید شبه‌تصادفی پایدار تا با هر رندر پرش نکند
+                    const seed1 = Math.sin(i * 12.9898 + 78.233) * 43758.5453;
+                    const seed2 = Math.cos(i * 45.164 + 19.13) * 29432.182;
+                    const rx = (seed1 - Math.floor(seed1));
+                    const ry = (seed2 - Math.floor(seed2));
+
+                    // تمرکز بیشتر ذرات در امتداد بازوی قطری کهکشان
+                    const sx = (0.06 + rx * 0.88) * vbWidth;
+                    const sy = (0.08 + ry * 0.84) * vbHeight;
+                    const sr = (i % 7 === 0) ? 2.1 : ((i % 3 === 0) ? 1.35 : 0.85);
+                    const sOpacity = (i % 5 === 0) ? 0.24 : 0.12;
+
+                    starsHtml += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${sr}" fill="#2e4e43" opacity="${sOpacity}" />`;
+                }
+                stardustLayer.innerHTML = starsHtml;
+            }
+
+            // ۲. ساخت خطوط ظریف صورت‌های فلکی (فقط اتصالات معنادار بدون شلوغیِ تار عنکبوتی)
             const edgePairs = [];
             const seenPairs = new Set();
 
-            function addEdgePair(aId, bId, isPrimary) {
+            function addEdgePair(aId, bId) {
                 const key = aId < bId ? `${aId}__${bId}` : `${bId}__${aId}`;
                 if (seenPairs.has(key)) return;
-                const nodeA = siteData.nodes.find(n => n.id === aId);
-                const nodeB = siteData.nodes.find(n => n.id === bId);
+                const nodeA = mappedNodes.find(n => n.id === aId);
+                const nodeB = mappedNodes.find(n => n.id === bId);
                 if (!nodeA || !nodeB) return;
                 seenPairs.add(key);
-                edgePairs.push({ nodeA, nodeB, isPrimary });
+                edgePairs.push({ nodeA, nodeB });
             }
 
-            // Explicit semantic connections
-            siteData.nodes.forEach(n => {
-                (n.connections || []).forEach(targetId => addEdgePair(n.id, targetId, true));
+            mappedNodes.forEach(n => {
+                (n.connections || []).forEach(targetId => addEdgePair(n.id, targetId));
             });
 
-            // Cohesive intra-cluster connections
-            siteData.categories.forEach(cat => {
-                const cNodes = siteData.nodes.filter(n => n.category === cat.id);
-                for (let i = 0; i < cNodes.length; i++) {
-                    for (let j = i + 1; j < cNodes.length; j++) {
-                        addEdgePair(cNodes[i].id, cNodes[j].id, false);
-                    }
-                }
-            });
+            const centerX = vbWidth / 2;
+            const centerY = vbHeight / 2;
 
-            // Render Double-Layered Organic Astrolabe Filaments (Soft Aura + Crisp Core)
             edgesLayer.innerHTML = edgePairs.map(edge => {
-                const { nodeA, nodeB, isPrimary } = edge;
-                const sameCat = nodeA.category === nodeB.category;
-
-                // Calculate a graceful quadratic curve control point pulled toward the astrolabe center (600, 340)
+                const { nodeA, nodeB } = edge;
                 const midX = (nodeA.x + nodeB.x) / 2;
                 const midY = (nodeA.y + nodeB.y) / 2;
-                const pullFactor = sameCat ? 0.12 : 0.22;
-                const ctrlX = midX + (600 - midX) * pullFactor;
-                const ctrlY = midY + (340 - midY) * pullFactor;
+                const ctrlX = midX + (centerX - midX) * 0.14;
+                const ctrlY = midY + (centerY - midY) * 0.14;
 
-                // Midpoint on the quadratic Bézier curve (t = 0.5) for a tiny ornamental星/knot on primary links
-                const qMidX = 0.25 * nodeA.x + 0.5 * ctrlX + 0.25 * nodeB.x;
-                const qMidY = 0.25 * nodeA.y + 0.5 * ctrlY + 0.25 * nodeB.y;
-
-                const baseStroke = sameCat ? '#2e4e43' : '#732229';
-                const baseWidth = isPrimary ? '1.1' : '0.7';
-                const baseOpacity = sameCat ? '0.26' : '0.18';
-                const dash = sameCat ? 'none' : '3 5';
                 const pathD = `M ${nodeA.x} ${nodeA.y} Q ${ctrlX.toFixed(1)} ${ctrlY.toFixed(1)} ${nodeB.x} ${nodeB.y}`;
 
                 return `
-                    <g class="graph-edge-group">
-                        <!-- Subtle Wide Halo Stroke -->
-                        <path data-a="${nodeA.id}" data-b="${nodeB.id}"
-                              data-stroke="${baseStroke}"
-                              data-width="3.5"
-                              data-opacity="0.04"
-                              d="${pathD}"
-                              fill="none"
-                              stroke="${baseStroke}"
-                              stroke-width="3.5"
-                              opacity="0.04"
-                              class="graph-edge-aura transition-opacity duration-300" />
-                        <!-- Crisp Engraved Filament -->
-                        <path id="edge-${nodeA.id}-${nodeB.id}"
-                              data-a="${nodeA.id}" data-b="${nodeB.id}"
-                              data-stroke="${baseStroke}"
-                              data-width="${baseWidth}"
-                              data-opacity="${baseOpacity}"
-                              d="${pathD}"
-                              fill="none"
-                              stroke="${baseStroke}"
-                              stroke-width="${baseWidth}"
-                              stroke-dasharray="${dash}"
-                              opacity="${baseOpacity}"
-                              class="graph-edge" />
-                        ${isPrimary && sameCat ? `
-                            <circle cx="${qMidX.toFixed(1)}" cy="${qMidY.toFixed(1)}" r="1.4" fill="${baseStroke}" opacity="0.3" />
-                        ` : ''}
-                    </g>
+                    <path id="edge-${nodeA.id}-${nodeB.id}"
+                          data-a="${nodeA.id}" data-b="${nodeB.id}"
+                          data-stroke="#2e4e43"
+                          data-width="0.85"
+                          data-opacity="0.18"
+                          d="${pathD}"
+                          fill="none"
+                          stroke="#2e4e43"
+                          stroke-width="0.85"
+                          opacity="0.18"
+                          class="graph-edge" />
                 `;
             }).join('');
 
-            // Render Bespoke Engraved Astronomical Medallions Sized Purely by Level (1, 2, 3)
-            nodesLayer.innerHTML = siteData.nodes.map(node => {
+            // ۳. ترسیم ستاره‌ها/حوزه‌ها: همگی یک‌رنگ (#2e4e43)، کاملاً توپُر و بدون هاله یا نقطه سفید در مرکز
+            nodesLayer.innerHTML = mappedNodes.map(node => {
                 const r = getNodeRadius(node.level);
                 const isSpecialist = Number(node.level) === 3;
                 const isMedium = Number(node.level) === 2;
-                const fillColor = isSpecialist ? '#732229' : (isMedium ? '#2e4e43' : '#d9d2c2');
-                const strokeColor = isSpecialist ? '#732229' : '#2e4e43';
 
                 return `
                     <g class="graph-node-group"
@@ -2058,59 +2049,22 @@
                        onmouseleave="resetGraphHighlight()"
                        onclick="navigateTo('node', '${node.id}')">
                         
-                        <!-- Invisible Larger Hit Target for Effortless Mobile/Desktop Tap -->
+                        <!-- ناحیه لمس بزرگ‌تر برای راحتی کلیک روی موبایل و دسکتاپ -->
                         <circle cx="${node.x}" cy="${node.y}" r="${Math.max(r + 16, 30)}" fill="transparent" />
 
-                        <!-- LEVEL 3: Specialist Astronomical Star-Compass Medallion -->
-                        ${isSpecialist ? `
-                            <circle cx="${node.x}" cy="${node.y}" r="${r + 13}" fill="none" stroke="#732229" stroke-width="0.65" stroke-dasharray="2 4" class="specialist-halo" />
-                            <circle cx="${node.x}" cy="${node.y}" r="${r + 6.5}" fill="none" stroke="#732229" stroke-width="0.85" opacity="0.45" />
-                            <!-- Cardinal Compass Hairlines -->
-                            <line x1="${node.x - r - 18}" y1="${node.y}" x2="${node.x - r - 5}" y2="${node.y}" stroke="#732229" stroke-width="0.85" opacity="0.6" />
-                            <line x1="${node.x + r + 5}" y1="${node.y}" x2="${node.x + r + 18}" y2="${node.y}" stroke="#732229" stroke-width="0.85" opacity="0.6" />
-                            <line x1="${node.x}" y1="${node.y - r - 16}" x2="${node.x}" y2="${node.y - r - 5}" stroke="#732229" stroke-width="0.85" opacity="0.45" />
-                            <line x1="${node.x}" y1="${node.y + r + 5}" x2="${node.x}" y2="${node.y + r + 16}" stroke="#732229" stroke-width="0.85" opacity="0.45" />
-                        ` : ''}
-
-                        <!-- LEVEL 2: Medium Planetary Double-Ring Medallion -->
-                        ${isMedium ? `
-                            <circle cx="${node.x}" cy="${node.y}" r="${r + 6.5}" fill="none" stroke="#2e4e43" stroke-width="0.7" opacity="0.38" />
-                            <circle cx="${node.x}" cy="${node.y}" r="${r + 10}" fill="none" stroke="#2e4e43" stroke-width="0.45" stroke-dasharray="1.5 4.5" opacity="0.25" />
-                            <line x1="${node.x - r - 11}" y1="${node.y}" x2="${node.x - r - 4}" y2="${node.y}" stroke="#2e4e43" stroke-width="0.65" opacity="0.4" />
-                            <line x1="${node.x + r + 4}" y1="${node.y}" x2="${node.x + r + 11}" y2="${node.y}" stroke="#2e4e43" stroke-width="0.65" opacity="0.4" />
-                        ` : ''}
-
-                        <!-- LEVEL 1: Delicate Engraved Ring -->
-                        ${!isSpecialist && !isMedium ? `
-                            <circle cx="${node.x}" cy="${node.y}" r="${r + 4}" fill="none" stroke="#2e4e43" stroke-width="0.5" opacity="0.28" />
-                        ` : ''}
-
-                        <!-- Main Node Body (Sized Strictly by Level 1, 2, 3) -->
+                        <!-- دایره اصلی: کاملاً یک‌رنگ، بدون هاله و بدون نقطه سفید وسط -->
                         <circle cx="${node.x}" cy="${node.y}" r="${r}"
-                                fill="${fillColor}"
-                                stroke="${strokeColor}"
-                                stroke-width="1.4"
+                                fill="#2e4e43"
                                 class="graph-node-circle" />
 
-                        <!-- Inner Geometric Ring & Diamond/Pinpoint Core -->
-                        ${isSpecialist ? `
-                            <circle cx="${node.x}" cy="${node.y}" r="${r * 0.55}" fill="none" stroke="#d9d2c2" stroke-width="0.75" opacity="0.65" />
-                            <polygon points="${node.x},${node.y - 4.2} ${node.x + 4.2},${node.y} ${node.x},${node.y + 4.2} ${node.x - 4.2},${node.y}" fill="#d9d2c2" />
-                        ` : (isMedium ? `
-                            <circle cx="${node.x}" cy="${node.y}" r="${r * 0.48}" fill="none" stroke="#d9d2c2" stroke-width="0.6" opacity="0.5" />
-                            <circle cx="${node.x}" cy="${node.y}" r="2.8" fill="#d9d2c2" />
-                        ` : `
-                            <polygon points="${node.x},${node.y - 3} ${node.x + 3},${node.y} ${node.x},${node.y + 3} ${node.x - 3},${node.y}" fill="#2e4e43" />
-                        `)}
-
-                        <!-- Crisp Editorial Node Label -->
-                        <g transform="translate(${node.x}, ${node.y - r - (isSpecialist ? 16 : 12)})" filter="url(#label-halo)">
+                        <!-- عنوان حوزه -->
+                        <g transform="translate(${node.x}, ${node.y - r - (isSpecialist ? 13 : 10)})" filter="url(#label-halo)">
                             <text x="0" y="0" text-anchor="middle"
-                                  stroke="#d9d2c2" stroke-width="5.5" stroke-linejoin="round" paint-order="stroke"
-                                  fill="${isSpecialist ? '#732229' : '#2e4e43'}"
+                                  stroke="#d9d2c2" stroke-width="5" stroke-linejoin="round" paint-order="stroke"
+                                  fill="#2e4e43"
                                   font-family="Vazirmatn"
-                                  font-size="${isSpecialist ? '16.5' : (isMedium ? '14' : '12.5')}"
-                                  font-weight="${isSpecialist ? '700' : (isMedium ? '600' : '500')}">
+                                  font-size="${isSpecialist ? '16' : (isMedium ? '13.5' : '12')}"
+                                  font-weight="${isSpecialist ? '700' : (isMedium ? '500' : '400')}">
                                 ${node.title}
                             </text>
                         </g>
@@ -2124,52 +2078,33 @@
             if (!node) return;
 
             const connectedSet = new Set([nodeId, ...(node.connections || [])]);
-            siteData.nodes.forEach(other => {
-                if (other.category === node.category) connectedSet.add(other.id);
-            });
 
             document.querySelectorAll('.graph-edge').forEach(edge => {
                 const a = edge.getAttribute('data-a');
                 const b = edge.getAttribute('data-b');
                 if (a === nodeId || b === nodeId) {
                     edge.setAttribute('stroke', '#732229');
-                    edge.setAttribute('stroke-width', '2.1');
-                    edge.setAttribute('opacity', '0.92');
+                    edge.setAttribute('stroke-width', '1.6');
+                    edge.setAttribute('opacity', '0.75');
                     connectedSet.add(a);
                     connectedSet.add(b);
                 } else {
-                    edge.setAttribute('opacity', '0.04');
-                }
-            });
-
-            document.querySelectorAll('.graph-edge-aura').forEach(aura => {
-                const a = aura.getAttribute('data-a');
-                const b = aura.getAttribute('data-b');
-                if (a === nodeId || b === nodeId) {
-                    aura.setAttribute('stroke', '#732229');
-                    aura.setAttribute('opacity', '0.16');
-                } else {
-                    aura.setAttribute('opacity', '0');
+                    edge.setAttribute('opacity', '0.05');
                 }
             });
 
             siteData.nodes.forEach(n => {
                 const g = document.getElementById(`gnode-${n.id}`);
                 if (!g) return;
-                g.style.opacity = connectedSet.has(n.id) ? '1' : '0.16';
+                g.style.opacity = connectedSet.has(n.id) ? '1' : '0.2';
             });
         }
 
         function resetGraphHighlight() {
-            // Smoothly restore attributes without destroying/rebuilding SVG DOM
             document.querySelectorAll('.graph-edge').forEach(edge => {
                 edge.setAttribute('stroke', edge.getAttribute('data-stroke') || '#2e4e43');
-                edge.setAttribute('stroke-width', edge.getAttribute('data-width') || '0.8');
-                edge.setAttribute('opacity', edge.getAttribute('data-opacity') || '0.2');
-            });
-            document.querySelectorAll('.graph-edge-aura').forEach(aura => {
-                aura.setAttribute('stroke', aura.getAttribute('data-stroke') || '#2e4e43');
-                aura.setAttribute('opacity', aura.getAttribute('data-opacity') || '0.04');
+                edge.setAttribute('stroke-width', edge.getAttribute('data-width') || '0.85');
+                edge.setAttribute('opacity', edge.getAttribute('data-opacity') || '0.18');
             });
             siteData.nodes.forEach(n => {
                 const g = document.getElementById(`gnode-${n.id}`);
@@ -3225,10 +3160,15 @@
         window.onload = function () {
             renderHomeView();
             renderPathView();
+            updateHeaderForZState('home');
             initZDepthScrollEngine();
             initCursorFollower();
             syncSiteDataFromCloud();
+            window.addEventListener('resize', () => {
+                if (currentView !== 'node') renderUnifiedGraphSVG();
+            });
         };
     </script>
 </body>
 </html>
+
